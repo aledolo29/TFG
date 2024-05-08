@@ -1,0 +1,35 @@
+@use "variables" as var;
+
+@mixin btn($bgcolor, $fgcolor) {
+  display: flex;
+  align-items: center;
+  background-color: $bgcolor;
+  border: 1px solid $fgcolor;
+  border-radius: 1.8rem;
+  padding: 0px 0px 2px 0px;
+  color: $fgcolor;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  width: auto;
+  @include tablet {
+    width: auto;
+  }
+}
+@mixin tablet {
+  @media screen and (min-width: var.$medium) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: var.$big) {
+    @content;
+  }
+}
+//Media-queries
+@mixin mobile {
+  @media screen and (min-width: var.$small) {
+    @content;
+  }
+}

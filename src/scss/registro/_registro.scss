@@ -1,0 +1,25 @@
+@use "../base/variables" as var;
+@use "../base/mixins" as m;
+
+.registro {
+  &__form {
+    width: 100%;
+
+    @include m.tablet {
+      width: 60%;
+    }
+  }
+  &__titulo {
+    text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  }
+  &__input {
+    box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  &__btn {
+    @include m.btn(var.$naranja, var.$blanco);
+  }
+  &__btn:hover {
+    background-color: rgb(227, 86, 29);
+  }
+}

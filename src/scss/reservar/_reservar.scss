@@ -1,0 +1,33 @@
+@use "../base/variables" as var;
+@use "../base/mixins" as m;
+
+.reservar {
+  &__title {
+    font-style: italic;
+    text-shadow: 1px 1px 1px #a7eeee, 2px 2px 1px #c38ce5;
+  }
+  &__razones {
+    &--1 {
+      @include m.desktop {
+        max-width: 410px;
+      }
+      width: 100%;
+    }
+    &--2 {
+      @include m.desktop {
+        max-width: 410px;
+      }
+      width: 100%;
+    }
+
+    &--3 {
+      @include m.desktop {
+        max-width: 410px;
+      }
+      width: 100%;
+    }
+  }
+}
+.verificado {
+  width: 20px;
+}

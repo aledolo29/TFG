@@ -1,0 +1,16 @@
+@use "../base/variables" as var;
+@use "../base/mixins" as m;
+
+.resenas {
+  margin: auto;
+  margin-top: 50px;
+  width: 70%;
+
+  &__container {
+    width: 60%;
+  }
+  &__titulo,
+  &__opiniones {
+    border: 1px solid black;
+  }
+}

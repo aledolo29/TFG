@@ -1,0 +1,294 @@
+function imprime_header($seccion = "")
+{
+    // $vectorUsuario = Seguridad();
+
+    $activo_horarios = "";
+    $activo_empleados = "";
+    $activo_gestion = "";
+    $activo_informes = "";
+    $activo_informesEmpresa = "";
+    $activo_usuarios = "";
+    $activo_provincias = "";
+    $activo_poblaciones = "";
+    $activo_insignias = "";
+    $activo_membresia = "";
+    $activo_ficherosMaestros = "";
+    $activo_datosPer = "";
+
+    if (strcmp($seccion, "activo_horarios") == 0)
+        $activo_horarios = "here";
+    if (strcmp($seccion, "activo_empleados") == 0)
+        $activo_empleados = "here";
+    if (strcmp($seccion, "activo_gestion") == 0)
+        $activo_gestion = "here";
+    if (strcmp($seccion, "activo_informes") == 0)
+        $activo_informes = "here";
+    if (strcmp($seccion, "activo_informesEmpresa") == 0)
+        $activo_informesEmpresa = "here";
+    if (strcmp($seccion, "activo_usuarios") == 0) {
+        $activo_usuarios = "here";
+        $activo_ficherosMaestros = "here";
+    }
+    if (strcmp($seccion, "activo_provincias") == 0) {
+        $activo_provincias = "here";
+        $activo_ficherosMaestros = "here";
+    }
+    if (strcmp($seccion, "activo_poblaciones") == 0) {
+        $activo_poblaciones = "here";
+        $activo_ficherosMaestros = "here";
+    }
+    if (strcmp($seccion, "activo_insignias") == 0) {
+        $activo_insignias = "here";
+        $activo_ficherosMaestros = "here";
+    }
+    if (strcmp($seccion, "activo_membresia") == 0) {
+        $activo_membresia = "here";
+        $activo_ficherosMaestros = "here";
+    }
+    if (strcmp($seccion, "activo_datosPer") == 0)
+        $activo_datosPer = "here";
+
+
+
+    print("<div id=\"kt_header\" style=\"\" class=\"header align-items-stretch\">
+        <!--begin::Container-->
+        <div class=\"container-fluid d-flex align-items-stretch justify-content-between\">
+            <!--begin::Aside mobile toggle-->
+            <!--end::Aside mobile toggle-->
+            <!--begin::Logo-->
+            <div class=\"d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15\">
+                <a href=\"../empleados/index.php\">
+                    <img alt=\"Logo\" src=\"../assets/media/logo2.svg\" class=\"h-35px\" />
+                </a>
+            </div>
+            <!--end::Logo-->
+            <!--begin::Wrapper-->
+            <div class=\"d-flex align-items-stretch justify-content-between flex-lg-grow-1\">
+
+                <!--begin::Navbar-->
+                <div class=\"d-flex align-items-stretch\" id=\"kt_header_nav\">
+                    <!--begin::Menu wrapper-->
+                    <div class=\"header-menu align-items-stretch\" data-kt-drawer=\"true\" data-kt-drawer-name=\"header-menu\" data-kt-drawer-activate=\"{default: true, lg: false}\" data-kt-drawer-overlay=\"true\" data-kt-drawer-width=\"{default:'200px', '300px': '250px'}\" data-kt-drawer-direction=\"end\"
+                        data-kt-drawer-toggle=\"#kt_header_menu_mobile_toggle\" data-kt-swapper=\"true\" data-kt-swapper-mode=\"prepend\" data-kt-swapper-parent=\"{default: '#kt_body', lg: '#kt_header_nav'}\">
+                        <!--begin::Menu-->
+                        <div class=\"menu menu-lg-rounded menu-column menu-lg-row menu-state-bg menu-title-white menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-400 fw-bold my-5 my-lg-0 align-items-stretch\" id=\"#kt_header_menu\" data-kt-menu=\"true\">
+
+                  
+                            <a href=\"../horarios/index.php\" class=\"menu-item " . $activo_horarios . "\">
+                                <span class=\"menu-link py-2\">
+                                        <span class=\"menu-title\">Horarios</span>
+                                </span>
+                            </a>
+                            <a href=\"../empleados/index.php\" class=\"menu-item " . $activo_empleados . "\">
+                            <span class=\"menu-link py-2\">
+                                    <span class=\"menu-title\">Empleados</span>
+                            </span>
+                            </a>
+                            <a href=\"../gestion/index.php\" class=\"menu-item " . $activo_gestion . "\">
+                            <span class=\"menu-link py-2\">
+                                    <span class=\"menu-title\">Gestión</span>
+                            </span>
+                            </a>    <a href=\"../informes/index.php\" class=\"menu-item " . $activo_informes . "\">
+                            <span class=\"menu-link py-2\">
+                                    <span class=\"menu-title\">Informes</span>
+                            </span>
+                            </a> 
+                            <a href=\"../informes_empresa/index.php\" class=\"menu-item " . $activo_informesEmpresa . "\">
+                            <span class=\"menu-link py-2\">
+                                    <span class=\"menu-title\">Informes Empresa</span>
+                            </span>
+                            </a>");
+
+
+    print("<div data-kt-menu-trigger=\"{default: 'click', lg: 'hover'}\" data-kt-menu-placement=\"bottom-start\" class=\"menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2  " . $activo_ficherosMaestros . "\">
+                                <!--begin:Menu link-->
+                                <span class=\"menu-link\">
+                                    <span class=\"menu-title\">Ficheros maestros</span>
+                                    <span class=\"menu-arrow d-lg-none\"></span>
+                                </span>
+                                <!--end:Menu link-->
+                                <!--begin:Menu sub-->
+                                <div class=\"menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-250px\" style=\"\">
+
+                                    <div class=\"menu-item " . $activo_usuarios . "\">
+                                        <!--begin:Menu link-->
+                                        <a class=\"menu-link\" href=\"../ficheros_maestros/usuarios.php\">
+                                            <span class=\"menu-icon\">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
+                                                <span class=\"svg-icon svg-icon-primary svg-icon\"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\General\Thunder.svg--><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\">
+                                                <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">
+                                                    <rect x=\"0\" y=\"0\" width=\"24\" height=\"24\"/>
+                                                    <path d=\"M12.3740377,19.9389434 L18.2226499,11.1660251 C18.4524142,10.8213786 18.3592838,10.3557266 18.0146373,10.1259623 C17.8914367,10.0438285 17.7466809,10 17.5986122,10 L13,10 L13,4.47708173 C13,4.06286817 12.6642136,3.72708173 12.25,3.72708173 C11.9992351,3.72708173 11.7650616,3.85240758 11.6259623,4.06105658 L5.7773501,12.8339749 C5.54758575,13.1786214 5.64071616,13.6442734 5.98536267,13.8740377 C6.10856331,13.9561715 6.25331908,14 6.40138782,14 L11,14 L11,19.5229183 C11,19.9371318 11.3357864,20.2729183 11.75,20.2729183 C12.0007649,20.2729183 12.2349384,20.1475924 12.3740377,19.9389434 Z\" fill=\"#000000\"/>
+                                                </g>
+                                                </svg><!--end::Svg Icon--></span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                            <span class=\"menu-title\">Usuarios</span>
+                                        </a>
+
+                                        <!--end:Menu link-->
+                                    </div>
+
+                                    <div class=\"menu-item " . $activo_provincias . "\">
+                                        <!--begin:Menu link-->
+                                        <a class=\"menu-link\" href=\"../ficheros_maestros/provincias.php\">
+                                            <span class=\"menu-icon\">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
+                                                <span class=\"svg-icon svg-icon-primary svg-icon\"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\General\Thunder.svg--><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\">
+                                                <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">
+                                                    <rect x=\"0\" y=\"0\" width=\"24\" height=\"24\"/>
+                                                    <path d=\"M12.3740377,19.9389434 L18.2226499,11.1660251 C18.4524142,10.8213786 18.3592838,10.3557266 18.0146373,10.1259623 C17.8914367,10.0438285 17.7466809,10 17.5986122,10 L13,10 L13,4.47708173 C13,4.06286817 12.6642136,3.72708173 12.25,3.72708173 C11.9992351,3.72708173 11.7650616,3.85240758 11.6259623,4.06105658 L5.7773501,12.8339749 C5.54758575,13.1786214 5.64071616,13.6442734 5.98536267,13.8740377 C6.10856331,13.9561715 6.25331908,14 6.40138782,14 L11,14 L11,19.5229183 C11,19.9371318 11.3357864,20.2729183 11.75,20.2729183 C12.0007649,20.2729183 12.2349384,20.1475924 12.3740377,19.9389434 Z\" fill=\"#000000\"/>
+                                                </g>
+                                                </svg><!--end::Svg Icon--></span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                            <span class=\"menu-title\">Provincias</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+
+                                    <div class=\"menu-item " . $activo_poblaciones . "\">
+                                        <!--begin:Menu link-->
+                                        <a class=\"menu-link\" href=\"../ficheros_maestros/poblaciones.php\">
+                                            <span class=\"menu-icon\">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
+                                                <span class=\"svg-icon svg-icon-primary svg-icon\"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\General\Thunder.svg--><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\">
+                                                <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">
+                                                    <rect x=\"0\" y=\"0\" width=\"24\" height=\"24\"/>
+                                                    <path d=\"M12.3740377,19.9389434 L18.2226499,11.1660251 C18.4524142,10.8213786 18.3592838,10.3557266 18.0146373,10.1259623 C17.8914367,10.0438285 17.7466809,10 17.5986122,10 L13,10 L13,4.47708173 C13,4.06286817 12.6642136,3.72708173 12.25,3.72708173 C11.9992351,3.72708173 11.7650616,3.85240758 11.6259623,4.06105658 L5.7773501,12.8339749 C5.54758575,13.1786214 5.64071616,13.6442734 5.98536267,13.8740377 C6.10856331,13.9561715 6.25331908,14 6.40138782,14 L11,14 L11,19.5229183 C11,19.9371318 11.3357864,20.2729183 11.75,20.2729183 C12.0007649,20.2729183 12.2349384,20.1475924 12.3740377,19.9389434 Z\" fill=\"#000000\"/>
+                                                </g>
+                                                </svg><!--end::Svg Icon--></span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                            <span class=\"menu-title\">Poblaciones</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>
+
+                                    <div class=\"menu-item " . $activo_insignias . "\">
+                                        <!--begin:Menu link-->
+                                        <a class=\"menu-link\" href=\"../ficheros_maestros/insignias.php\">
+                                            <span class=\"menu-icon\">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
+                                                <span class=\"svg-icon svg-icon-primary svg-icon\"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\General\Thunder.svg--><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\">
+                                                <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">
+                                                    <rect x=\"0\" y=\"0\" width=\"24\" height=\"24\"/>
+                                                    <path d=\"M12.3740377,19.9389434 L18.2226499,11.1660251 C18.4524142,10.8213786 18.3592838,10.3557266 18.0146373,10.1259623 C17.8914367,10.0438285 17.7466809,10 17.5986122,10 L13,10 L13,4.47708173 C13,4.06286817 12.6642136,3.72708173 12.25,3.72708173 C11.9992351,3.72708173 11.7650616,3.85240758 11.6259623,4.06105658 L5.7773501,12.8339749 C5.54758575,13.1786214 5.64071616,13.6442734 5.98536267,13.8740377 C6.10856331,13.9561715 6.25331908,14 6.40138782,14 L11,14 L11,19.5229183 C11,19.9371318 11.3357864,20.2729183 11.75,20.2729183 C12.0007649,20.2729183 12.2349384,20.1475924 12.3740377,19.9389434 Z\" fill=\"#000000\"/>
+                                                </g>
+                                                </svg><!--end::Svg Icon--></span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                            <span class=\"menu-title\">Insignias</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>        
+                                    <div class=\"menu-item " . $activo_membresia . "\">
+                                        <!--begin:Menu link-->
+                                        <a class=\"menu-link\" href=\"../ficheros_maestros/membresias.php\">
+                                            <span class=\"menu-icon\">
+                                                <!--begin::Svg Icon | path: icons/duotune/general/gen014.svg-->
+                                                <span class=\"svg-icon svg-icon-primary svg-icon\"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\General\Thunder.svg--><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\">
+                                                <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">
+                                                    <rect x=\"0\" y=\"0\" width=\"24\" height=\"24\"/>
+                                                    <path d=\"M12.3740377,19.9389434 L18.2226499,11.1660251 C18.4524142,10.8213786 18.3592838,10.3557266 18.0146373,10.1259623 C17.8914367,10.0438285 17.7466809,10 17.5986122,10 L13,10 L13,4.47708173 C13,4.06286817 12.6642136,3.72708173 12.25,3.72708173 C11.9992351,3.72708173 11.7650616,3.85240758 11.6259623,4.06105658 L5.7773501,12.8339749 C5.54758575,13.1786214 5.64071616,13.6442734 5.98536267,13.8740377 C6.10856331,13.9561715 6.25331908,14 6.40138782,14 L11,14 L11,19.5229183 C11,19.9371318 11.3357864,20.2729183 11.75,20.2729183 C12.0007649,20.2729183 12.2349384,20.1475924 12.3740377,19.9389434 Z\" fill=\"#000000\"/>
+                                                </g>
+                                                </svg><!--end::Svg Icon--></span>
+                                                <!--end::Svg Icon-->
+                                            </span>
+                                            <span class=\"menu-title\">Membresia</span>
+                                        </a>
+                                        <!--end:Menu link-->
+                                    </div>        
+                                </div>
+                                <!--end:Menu sub-->
+                            </div>");
+
+    print("</div>
+                        <!--end::Menu-->
+                    </div>
+                    <!--end::Menu wrapper-->
+                </div>
+                <!--end::Navbar-->
+                <!--begin::Toolbar wrapper-->
+                <div class=\"d-flex ms-1 ms-lg-3\">
+
+
+
+                    <!--begin::añadir menu-->
+                    <div class=\"d-flex align-items-stretch ms-1 ms-lg-3\" id=\"kt_header_anadir_menu_toggle\">
+                        <!--begin::Menu wrapper-->
+
+                        <div class=\"d-flex align-items-center\">");
+
+    print("</div>
+                        <!--end::añadir menu-->
+                        <!--end::Menu wrapper-->
+                    </div>
+
+                    <!--begin::User menu-->
+
+                    <div class=\"d-flex align-items-center ms-1 ms-lg-3\" id=\"kt_header_user_menu_toggle\">
+                        <!--begin::Menu wrapper-->
+                        <div class=\"cursor-pointer symbol symbol-30px symbol-md-25px\" data-kt-menu-trigger=\"click\" data-kt-menu-attach=\"parent\" data-kt-menu-placement=\"bottom-end\">
+                            <img src=\"../assets/media/avatars/blank.png\" alt=\"user\" />
+                        </div>
+                        <!--begin::User account menu-->
+                        <div class=\"menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px \" data-kt-menu=\"true\">");
+
+    print("<!--begin::Menu item-->
+                            <div class=\"menu-item px-5 " . $activo_datosPer . "\">
+                                <a href=\"../datos_personales/index.php\" class=\"menu-link px-5\">
+
+                                    <span class=\"svg-icon svg-icon-2x px-2\"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Design\Edit.svg--><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\">
+                                        <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">
+                                            <rect x=\"0\" y=\"0\" width=\"24\" height=\"24\"/>
+                                            <path d=\"M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z\" fill=\"#000000\" fill-rule=\"nonzero\" transform=\"translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) \"/>
+                                            <rect fill=\"#000000\" opacity=\"0.3\" x=\"5\" y=\"20\" width=\"15\" height=\"2\" rx=\"1\"/>
+                                        </g>
+                                    </svg><!--end::Svg Icon--></span>
+                                    <!--end::Svg Icon-->
+                                    </span> Datos personales</a>
+                            </div>");
+
+    print("<!--end::Menu item-->
+                            <div class=\"menu-item px-5\">
+                                <a href=\"../desconectar.php\" class=\"menu-link px-5\">
+
+                                    <span class=\"svg-icon svg-icon-primary svg-icon-2x px-2\"><!--begin::Svg Icon | path:C:\wamp64\www\keenthemes\themes\metronic\theme\html\demo1\dist/../src/media/svg/icons\Navigation\Sign-out.svg--><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"24px\" height=\"24px\" viewBox=\"0 0 24 24\" version=\"1.1\">
+                                            <g stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">
+                                                <rect x=\"0\" y=\"0\" width=\"24\" height=\"24\"/>
+                                                <path d=\"M14.0069431,7.00607258 C13.4546584,7.00607258 13.0069431,6.55855153 13.0069431,6.00650634 C13.0069431,5.45446114 13.4546584,5.00694009 14.0069431,5.00694009 L15.0069431,5.00694009 C17.2160821,5.00694009 19.0069431,6.7970243 19.0069431,9.00520507 L19.0069431,15.001735 C19.0069431,17.2099158 17.2160821,19 15.0069431,19 L3.00694311,19 C0.797804106,19 -0.993056895,17.2099158 -0.993056895,15.001735 L-0.993056895,8.99826498 C-0.993056895,6.7900842 0.797804106,5 3.00694311,5 L4.00694793,5 C4.55923268,5 5.00694793,5.44752105 5.00694793,5.99956624 C5.00694793,6.55161144 4.55923268,6.99913249 4.00694793,6.99913249 L3.00694311,6.99913249 C1.90237361,6.99913249 1.00694311,7.89417459 1.00694311,8.99826498 L1.00694311,15.001735 C1.00694311,16.1058254 1.90237361,17.0008675 3.00694311,17.0008675 L15.0069431,17.0008675 C16.1115126,17.0008675 17.0069431,16.1058254 17.0069431,15.001735 L17.0069431,9.00520507 C17.0069431,7.90111468 16.1115126,7.00607258 15.0069431,7.00607258 L14.0069431,7.00607258 Z\" fill=\"#000000\" fill-rule=\"nonzero\" opacity=\"0.3\" transform=\"translate(9.006943, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-9.006943, -12.000000) \"/>
+                                                <rect fill=\"#000000\" opacity=\"0.3\" transform=\"translate(14.000000, 12.000000) rotate(-270.000000) translate(-14.000000, -12.000000) \" x=\"13\" y=\"6\" width=\"2\" height=\"12\" rx=\"1\"/>
+                                                <path d=\"M21.7928932,9.79289322 C22.1834175,9.40236893 22.8165825,9.40236893 23.2071068,9.79289322 C23.5976311,10.1834175 23.5976311,10.8165825 23.2071068,11.2071068 L20.2071068,14.2071068 C19.8165825,14.5976311 19.1834175,14.5976311 18.7928932,14.2071068 L15.7928932,11.2071068 C15.4023689,10.8165825 15.4023689,10.1834175 15.7928932,9.79289322 C16.1834175,9.40236893 16.8165825,9.40236893 17.2071068,9.79289322 L19.5,12.0857864 L21.7928932,9.79289322 Z\" fill=\"#000000\" fill-rule=\"nonzero\" transform=\"translate(19.500000, 12.000000) rotate(-90.000000) translate(-19.500000, -12.000000) \"/>
+                                            </g>
+                                        </svg><!--end::Svg Icon--></span> Cerrar sesión</a>
+                            </div>
+                            <!--end::Menu item-->
+
+                        </div>
+                        <!--end::User account menu-->
+                        <!--end::Menu wrapper-->
+                    </div>
+                    <!--end::User menu-->
+                    <!--begin::Header menu toggle-->
+                    <div class=\"d-flex align-items-center d-lg-none ms-2 me-n3\" title=\"Show header menu\">
+                        <div class=\"btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px\" id=\"kt_header_menu_mobile_toggle\">
+                            <!--begin::Svg Icon | path: icons/duotune/text/txt001.svg-->
+                            <span class=\"svg-icon svg-icon-1\">
+                                    <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\">
+                                        <path d=\"M13 11H3C2.4 11 2 10.6 2 10V9C2 8.4 2.4 8 3 8H13C13.6 8 14 8.4 14 9V10C14 10.6 13.6 11 13 11ZM22 5V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4V5C2 5.6 2.4 6 3 6H21C21.6 6 22 5.6 22 5Z\" fill=\"currentColor\" />
+                                        <path opacity=\"0.3\" d=\"M21 16H3C2.4 16 2 15.6 2 15V14C2 13.4 2.4 13 3 13H21C21.6 13 22 13.4 22 14V15C22 15.6 21.6 16 21 16ZM14 20V19C14 18.4 13.6 18 13 18H3C2.4 18 2 18.4 2 19V20C2 20.6 2.4 21 3 21H13C13.6 21 14 20.6 14 20Z\" fill=\"currentColor\" />
+                                    </svg>
+                                </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                    </div>
+                    <!--end::Header menu toggle-->
+                </div>
+                <!--end::Toolbar wrapper-->
+            </div>
+            <!--end::Wrapper-->
+        </div>
+        <!--end::Container-->
+    </div>");
+}

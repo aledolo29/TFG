@@ -1,0 +1,42 @@
+@use "variables" as var;
+
+html {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-size: 62.5%;
+}
+body {
+  font-family: var.$main-font;
+  background-color: var.$beige;
+  font-size: 1.4rem;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 3.2rem;
+}
+
+h2 {
+  font-size: 2.8rem;
+}
+
+h3 {
+  font-size: 2.2rem;
+}
+p {
+  font-size: 1.6rem;
+}
+
+footer {
+  margin-top: auto;
+}
+img {
+  max-width: 100%;
+  display: block;
+}

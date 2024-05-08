@@ -1,0 +1,29 @@
+@use "sass:color";
+@use "../base/variables" as var;
+@use "../base/mixins" as m;
+
+.oferta {
+  background-image: linear-gradient(105deg, #ff4900 55%, #ffa07a 100%);
+  border-radius: 35px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+  width: 90%;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 80px;
+  @include m.desktop {
+    width: 50%;
+  }
+  h2 {
+    font-family: var.$oferta-font;
+  }
+  &__img {
+    border-radius: 35px;
+    &--bolonia,
+    &--comida {
+      box-shadow: 4px 4px 6px 2px rgba(0, 0, 0, 0.5);
+    }
+  }
+  &__textoDescuento {
+    text-shadow: 0px 10px 5px rgba(0, 0, 0, 0.25);
+  }
+}

@@ -1,0 +1,31 @@
+@use "../base/variables" as var;
+@use "../base/mixins" as m;
+
+.loginCrud {
+  background-color: var.$fondoCrud;
+
+  img {
+    transform: rotate(45deg);
+    max-width: 100%;
+    display: block;
+  }
+  .input {
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  }
+  &__titulo {
+    font-size: 2.4rem;
+    @include m.mobile {
+      font-size: 3.2rem;
+    }
+    font-family: var.$title-font;
+  }
+  &__container_form {
+    box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.25);
+  }
+  &__btn {
+    @include m.btn(var.$azul, var.$blanco);
+  }
+  &__btn:hover {
+    background-color: rgb(96, 125, 141);
+  }
+}

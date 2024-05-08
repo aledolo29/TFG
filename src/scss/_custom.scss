@@ -1,0 +1,26 @@
+@use "sass:color";
+@use "base/variables" as var;
+
+//Reescribimos variables de Bootstrap
+$blue: #325162;
+$gray: #929292;
+$purple: #c343ff;
+$orange: #ff8c5d;
+$black: #0a0a0a;
+//Asignamos nuestra paleta de colores a variables de Bootstrap
+$primary: $blue;
+$secondary: $gray;
+$warning: $orange;
+$dark: $black;
+$grid-breakpoints: (
+  xs: 0,
+  sm: var.$small,
+  md: 768px,
+  lg: var.$big,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+//Links
+@import "../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";

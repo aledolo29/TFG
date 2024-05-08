@@ -1,0 +1,60 @@
+@use "../base/variables" as var;
+@use "../base/mixins" as m;
+.footer {
+  width: 100%;
+  margin-top: 100px;
+  &__container {
+    @include m.desktop {
+      width: 90%;
+    }
+  }
+  &__enlaces {
+    @include m.desktop {
+      width: 90%;
+    }
+  }
+  &__avion_mundo {
+    width: 200px;
+    @include m.desktop {
+      width: 350px;
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+  }
+  &__empresa {
+    @include m.tablet {
+      width: 50%;
+    }
+  }
+  &__logo {
+    width: 125px;
+    img {
+      max-width: 100%;
+      display: block;
+      transform: rotate(45deg);
+    }
+  }
+  &__nombre {
+    font-size: 2.2rem;
+    @include m.desktop {
+      font-size: 3rem;
+    }
+    font-family: var.$title-font;
+  }
+  &__icono {
+    width: 40px;
+    img {
+      max-width: 100%;
+      display: block;
+    }
+  }
+  &__store {
+    width: 100px;
+    img {
+      max-width: 100%;
+      display: block;
+    }
+  }
+}
