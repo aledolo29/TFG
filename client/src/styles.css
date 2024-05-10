@@ -1,18 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @charset "UTF-8";
 /* @import "../../node_modules/bootstrap-icons/font/bootstrap-icons.css"; */
-@font-face {
-  font-family: "Inter";
-  src: url(assets/fonts/Inter-Regular.ttf);
-}
-@font-face {
-  font-family: "Bodoni Moda";
-  src: url(assets/fonts/BodoniModa_48pt-ExtraBold.ttf);
-}
-@font-face {
-  font-family: "Contrail One";
-  src: url(assets/fonts/ContrailOne-Regular.ttf);
-}
+
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors
@@ -12361,18 +12350,7 @@ fieldset:disabled .btn {
     display: none !important;
   }
 }
-@font-face {
-  font-family: "Inter";
-  src: url(assets/fonts/Inter-Regular.ttf);
-}
-@font-face {
-  font-family: "Bodoni Moda";
-  src: url(assets/fonts/BodoniModa_48pt-ExtraBold.ttf);
-}
-@font-face {
-  font-family: "Contrail One";
-  src: url(assets/fonts/ContrailOne-Regular.ttf);
-}
+
 html {
   box-sizing: border-box;
   padding: 0;
@@ -12382,7 +12360,6 @@ html {
 
 body {
   font-family: "Inter", sans-serif;
-  background-color: #efefef;
   font-size: 1.4rem;
 }
 
@@ -12507,19 +12484,6 @@ img {
   transform: rotate(45deg);
 }
 
-
-@font-face {
-  font-family: "Inter";
-  src: url(assets/fonts/Inter-Regular.ttf);
-}
-@font-face {
-  font-family: "Bodoni Moda";
-  src: url(assets/fonts/BodoniModa_48pt-ExtraBold.ttf);
-}
-@font-face {
-  font-family: "Contrail One";
-  src: url(assets/fonts/ContrailOne-Regular.ttf);
-}
 .footer {
   width: 100%;
   margin-top: 100px;

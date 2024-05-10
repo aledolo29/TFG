@@ -1,15 +1,7 @@
-@font-face {
-  font-family: "Inter";
-  src: url(../../assets/fonts/Inter-Regular.ttf);
+body {
+  background-color: #efefef;
 }
-@font-face {
-  font-family: "Bodoni Moda";
-  src: url(../../assets/fonts/BodoniModa_48pt-ExtraBold.ttf);
-}
-@font-face {
-  font-family: "Contrail One";
-  src: url(../../assets/fonts/ContrailOne-Regular.ttf);
-}
+
 .buscaVuelos {
   width: 80%;
   border: 3px solid #325162;
