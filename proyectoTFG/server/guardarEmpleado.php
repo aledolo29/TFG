@@ -29,7 +29,7 @@ if (isset($_SESSION['empl_Usuario']) && $_SESSION['empl_Usuario'] != null && iss
             }
         }
 
-        $empleado->insertar($empl_Nombre, $empl_Apellidos, $empl_DNI, $empl_Telefono, $empl_Email, $empl_Direccion, $empl_Ciudad, $empl_CodigoPostal, $empl_FechaNacimiento, $empl_FechaAlta, $empl_FechaBaja, $empl_Estado, $empl_Usuario, $empl_Password, $empl_Rol, $empl_Salario, $empl_Comentarios, $empl_Foto);
+        $empleado->insertar($empl_Usuario, $empl_Password, $empl_Nombre, $empl_Apellidos, $empl_DNI, $empl_Email, $empl_Estado);
         echo "Empleado insertado";
     } else {
         header('Location: ../crud.html');
