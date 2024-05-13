@@ -114,7 +114,7 @@
         </div>
       </nav>
     </header>
-
+    <div id="mensaje" class="w-75 py-5 text-center"></div>
     <!-- TABLA -->
     <section class="crud__tabla container-fluid bg-white mt-5 rounded-4 p-5">
       <div class="crud__tabla__btn bg-warning text-white p-3 rounded-3">
@@ -162,7 +162,7 @@
             <th style="width: 250px" class="text-start">Nombre</th>
             <th style="width: 250px" class="text-start">Apellidos</th>
             <th style="width: 250px" class="text-start">Correo</th>
-            <th style="width: 250px" class="text-start">Departamento</th>
+            <th style="width: 250px" class="text-start">Tipo Usuario</th>
             <th style="width: 250px" class="text-start">Estado</th>
           </tr>
         </thead>
@@ -196,7 +196,11 @@
             ></button>
           </div>
           <div class="modal-body p-5">
-            <form method="post" action="server/guardarEmpleado.php" id="formEmpleado">
+            <form
+              method="post"
+              action="server/guardarEmpleado.php"
+              id="formEmpleado"
+            >
               <input type="hidden" name="aux_insertar_empleado" />
               <!-- FILA 1 -->
               <div class="row d-flex justify-content-center align-items-center">
@@ -268,7 +272,7 @@
                   <select
                     class="crud__input form-select fs-4 w-100 text-light-emphasis bg-white border p-3 rounded-4"
                     id="tipoUsuario"
-                    name="empl_TipoUsuario"
+                    name="empl_Tipo_Usuario"
                   >
                     <option value="Admin" selected>Admin</option>
                     <option value="Colaborador">Colaborador</option>

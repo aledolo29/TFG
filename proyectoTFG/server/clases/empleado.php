@@ -13,9 +13,9 @@ class empleado
     }
 
 
-    function insertar($empl_Usuario, $empl_Password, $empl_Nombre, $empl_Apellidos, $empl_DNI, $empl_Tipo_Usuario, $empl_Estado)
+    function insertar($empl_Usuario, $empl_Password, $empl_Nombre, $empl_Apellidos, $empl_DNI, $empl_Correo, $empl_Tipo_Usuario, $empl_Estado)
     {
-        $consulta = "INSERT INTO empleados(empl_Usuario, empl_Password, empl_Nombre, empl_Apellidos, empl_DNI, empl_Tipo_Usuario, empl_Estado) VALUES('$empl_Usuario', '$empl_Password', '$empl_Nombre', '$empl_Apellidos', '$empl_DNI', '$empl_Tipo_Usuario', '$empl_Estado')";
+        $consulta = "INSERT INTO empleados(empl_Usuario, empl_Password, empl_Nombre, empl_Apellidos, empl_DNI, empl_Correo, empl_Tipo_Usuario, empl_Estado) VALUES('$empl_Usuario', '$empl_Password', '$empl_Nombre', '$empl_Apellidos', '$empl_DNI', '$empl_Correo' , '$empl_Tipo_Usuario', '$empl_Estado')";
         $res = $this->conexion->BD_Consulta($consulta);
         return $res;
     }
@@ -41,10 +41,11 @@ class empleado
         $empl_Nombre,
         $empl_Apellidos,
         $empl_DNI,
+        $empl_Correo,
         $empl_Tipo_Usuario,
         $empl_Estado
     ) {
-        $consulta = "UPDATE empleados SET empl_Usuario='$empl_Usuario', empl_Password='$empl_Password', empl_Nombre='$empl_Nombre', empl_Apellidos='$empl_Apellidos', empl_DNI='$empl_DNI', empl_Tipo_Usuario='$empl_Tipo_Usuario', empl_Estado='$empl_Estado' WHERE empl_Id = '$empl_Id'";
+        $consulta = "UPDATE empleados SET empl_Usuario='$empl_Usuario', empl_Password='$empl_Password', empl_Nombre='$empl_Nombre', empl_Apellidos='$empl_Apellidos', empl_DNI='$empl_DNI', empl_Correo='$empl_Correo', empl_Tipo_Usuario='$empl_Tipo_Usuario', empl_Estado='$empl_Estado' WHERE empl_Id = '$empl_Id'";
         $res = $this->conexion->BD_Consulta($consulta);
         return $res;
     }

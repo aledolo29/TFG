@@ -17,6 +17,7 @@ if (isset($_POST['empl_Usuario']) && $_POST['empl_Password']) {
     if ($res->num_rows > 0) {
         $_SESSION['empl_Usuario'] = $usuario;
         $_SESSION['empl_Password'] = $password;
+
         header('Location: ../crud.html');
     } else {
         header('Location: ../error.html');

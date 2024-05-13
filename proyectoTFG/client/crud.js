@@ -84,18 +84,20 @@ function cargarTabla() {
         },
       });
     });
+
+    //Comprueba si se puede insertar el empleado
     $(document).ready(function () {
       $("#formEmpleado").submit(function (e) {
         e.preventDefault();
 
         $.ajax({
-          url: "guardarEmpleado.php",
+          url: "../server/guardarEmpleado.php",
           type: "post",
           data: $(this).serialize(),
           success: function (response) {
             var data = JSON.parse(response);
             $("#mensaje").text(data.mensaje);
-            if (data.mensaje === "Empleado insertado correctamente") {
+            if (data.insertado === true) {
               $("#mensaje").css("background-color", "green");
             } else {
               $("#mensaje").css("background-color", "red");
