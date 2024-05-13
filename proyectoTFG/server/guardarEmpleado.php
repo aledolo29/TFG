@@ -24,7 +24,7 @@ if (isset($_SESSION['empl_Usuario']) && $_SESSION['empl_Usuario'] != null && iss
             $res = $empleado->obtenerConFiltro($consulta, "");
             $tupla = $conexion->BD_GetTupla($res);
             if ($tupla !== null) {
-                echo "El $campo ya existe";
+                echo json_encode(['mensaje' => "Empleado $empl_Nombre insertado correctamente"]);
                 exit();
             }
         }
@@ -34,6 +34,30 @@ if (isset($_SESSION['empl_Usuario']) && $_SESSION['empl_Usuario'] != null && iss
     } else {
         header('Location: ../crud.html');
     }
+    // $(document).ready(function () {
+    //     $("#formEmpleado").submit(function (e) {
+    //       e.preventDefault();
+
+    //       $.ajax({
+    //         url: "guardarEmpleado.php",
+    //         type: "post",
+    //         data: $(this).serialize(),
+    //         success: function (response) {
+    //           var data = JSON.parse(response);
+    //           if (data.nombre !== '') {
+    //             $("#mensaje").text(data.mensaje + ": " + data.nombre);
+    //           } else {
+    //             $("#mensaje").text(data.mensaje);
+    //           }
+    //           if (data.mensaje === "Empleado insertado correctamente") {
+    //             $("#mensaje").css("background-color", "green");
+    //           } else {
+    //             $("#mensaje").css("background-color", "red");
+    //           }
+    //         },
+    //       });
+    //     });
+    //   });
 } else {
     header('Location: clases/desconectar.php');
 }

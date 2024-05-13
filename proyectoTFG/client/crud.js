@@ -84,5 +84,25 @@ function cargarTabla() {
         },
       });
     });
+    $(document).ready(function () {
+      $("#formEmpleado").submit(function (e) {
+        e.preventDefault();
+
+        $.ajax({
+          url: "guardarEmpleado.php",
+          type: "post",
+          data: $(this).serialize(),
+          success: function (response) {
+            var data = JSON.parse(response);
+            $("#mensaje").text(data.mensaje);
+            if (data.mensaje === "Empleado insertado correctamente") {
+              $("#mensaje").css("background-color", "green");
+            } else {
+              $("#mensaje").css("background-color", "red");
+            }
+          },
+        });
+      });
+    });
   }
 }
