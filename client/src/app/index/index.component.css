@@ -81,6 +81,7 @@ body {
 .buscaVuelos__btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #ff8c5d;
   border: 1px solid #ffffff;
   border-radius: 1.8rem;

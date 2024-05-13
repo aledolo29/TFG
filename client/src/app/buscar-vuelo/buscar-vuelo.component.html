@@ -559,5 +559,57 @@
         </div>
       </div>
     </div>
+    <!-- MODAL RECUPERAR CONTRASEÑA -->
+    <div
+      class="modal fade"
+      id="modal_recup_pass"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content rounded-4 p-2">
+          <div class="modal-header border-0">
+            <h1
+              class="modal-title fs-2 fw-bolder text-center"
+              id="exampleModalLabel"
+            >
+              Recuperar contaseña
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <label for="email" class="form-label fs-4"
+                >Introduzca su correo electrónico y le mandaremos un email con
+                su contraseña</label
+              >
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control bg-light fs-5"
+                placeholder="email@email.com"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary fs-4 text-white"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button type="button" class="btn btn-primary fs-4">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

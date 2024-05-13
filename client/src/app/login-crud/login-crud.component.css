@@ -31,6 +31,7 @@ body {
 .loginCrud__btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #325162;
   border: 1px solid #ffffff;
   border-radius: 1.8rem;
