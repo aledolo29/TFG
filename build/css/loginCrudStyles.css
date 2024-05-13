@@ -11927,6 +11927,13 @@ img {
   font-family: "Contrail One";
   src: url(../assets/fonts/ContrailOne-Regular.ttf);
 }
+body {
+  background-color: #fffcf8;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
 .loginCrud {
   background-color: #fffcf8;
 }
@@ -11958,6 +11965,7 @@ img {
 .loginCrud__btn {
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #325162;
   border: 1px solid #ffffff;
   border-radius: 1.8rem;

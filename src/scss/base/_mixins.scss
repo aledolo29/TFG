@@ -3,6 +3,7 @@
 @mixin btn($bgcolor, $fgcolor) {
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: $bgcolor;
   border: 1px solid $fgcolor;
   border-radius: 1.8rem;
