@@ -12,7 +12,7 @@ if (isset($_POST['admin_Usuario']) && $_POST['admin_Password']) {
     $usuario = $_POST['admin_Usuario'];
     $password = $_POST['admin_Password'];
 
-    $consulta = "SELECT * FROM usuarios_maestros WHERE user_Login = '$usuario' AND user_Password = '$password'";
+    $consulta = "SELECT * FROM usuarios_maestros WHERE usuario_Login = '$usuario' AND usuario_Password = '$password'";
     $res = $conexion->BD_Consulta($consulta);
     if ($res->num_rows > 0) {
         $_SESSION['admin_Usuario'] = $usuario;

@@ -315,20 +315,35 @@ if (isset($_POST['aux_eliminar_nomina'])) {
                         <!-- FILA 1 -->
                         <div class="row d-flex">
                             <div class="mb-3 col-md-6 d-flex flex-column">
-                                <label for="archivo" class="form-label fs-4">Archivo:</label>
-                                <input type="file" class="form-control fs-4 p-3 text-light-emphasis rounded-4" id="archivo" name="nomina_Archivo" />
+                                <label for="fecha" class="form-label fs-4">Fecha:</label>
+                                <input type="date" class="form-control fs-4 p-3 text-light-emphasis rounded-4" id="fecha" name="nomina_Fecha" />
                             </div>
                         </div>
 
                         <!-- FILA 2 -->
                         <div class="row">
-                            <div class="mb-3 col-6">
-                                <div class="border-1">
-
-                                    Empleado
-                                </div>
-                            </div>
+                            <div class="mb-2 col-6 text-center py-3 rounded-start-2" style="border: 1px solid black">Empleado</div>
+                            <div class="mb-2 col-6 text-center py-3 rounded-end-2" style="border: 1px solid black">Archivo</div>
                         </div>
+
+                        <!-- FILAS POR EMPLEADO -->
+                        <?php
+                        $resEmpleados = $empleado->obtener();
+                        if ($resEmpleados !== null) {
+                            $tupla_Empleado = $conexion->BD_GetTupla($resEmpleados);
+                            while ($tupla_Empleado !== null) {
+                                echo "<div class='row'>";
+                                echo "<div style='border: 1px solid grey' class='mb-2 col-6 rounded-start-2'>";
+                                echo "<input type='text' class='form-control bg-white fs-4 p-3 border-0 text-light-emphasis' id='archivo' name='nomina_Empleados[]' value='" . $tupla_Empleado['empl_Nombre'] . "' disabled />";
+                                echo "</div>";
+                                echo "<div style='border: 1px solid grey' class='mb-2 col-6 rounded-end-2'>";
+                                echo "<input type='file' class='form-control fs-4 p-3 border-0 text-light-emphasis' id='archivo' name='nomina_Archivo[]' />";
+                                echo "</div>";
+                                echo "</div>";
+                                $tupla_Empleado = $conexion->BD_GetTupla($resEmpleados);
+                            }
+                        }
+                        ?>
                     </div>
                     <div class="modal-footer border-0 p-4">
                         <button type="button" class="btn btn-dark fs-4 px-4 py-2 rounded-3" data-bs-dismiss="modal">
