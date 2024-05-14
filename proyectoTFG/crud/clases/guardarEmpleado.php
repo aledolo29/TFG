@@ -19,24 +19,11 @@ if (isset($_SESSION['empl_Usuario']) && $_SESSION['empl_Usuario'] != null && iss
         $empl_Estado = $_POST['empl_Estado'];
 
 
-        $campos = ['empl_DNI' => $empl_DNI, 'empl_Usuario' => $empl_Usuario, 'empl_Email' => $empl_Email];
-        foreach ($campos as $campo => $valor) {
-            $consulta = "WHERE $campo = '$valor'";
-            $res = $empleado->obtenerConFiltro($consulta, "");
-            $tupla = $conexion->BD_GetTupla($res);
-            if ($tupla !== null) {
-                echo json_encode(['mensaje' => "Empleado $empl_Nombre insertado correctamente", 'insertado' => true]);
-                exit();
-            } else {
-                echo json_encode(['mensaje' => "ERROR al insertar el empleado. Ya existe un usuario con ese $campo", 'insertado' => false]);
-            }
-        }
-
         $empleado->insertar($empl_Usuario, $empl_Password, $empl_Nombre, $empl_Apellidos, $empl_DNI, $empl_Correo, $empl_Tipo_Usuario, $empl_Estado);
-        echo "Empleado insertado";
+        $mensaje = "Empleado insertado";
     } else {
-        header('Location: ../crud.html');
+        header('Location: ../crudEmpleados.php');
     }
 } else {
-    header('Location: clases/desconectar.php');
+    header('Location: ./desconectar.php');
 }
