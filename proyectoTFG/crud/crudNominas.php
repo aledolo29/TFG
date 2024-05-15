@@ -8,6 +8,7 @@ if (!isset($_SESSION['admin_Usuario']) && !isset($_SESSION['admin_Password'])) {
 include_once "clases/conexion.php";
 include_once "clases/nomina.php";
 include_once "clases/empleado.php";
+include_once "clases/funciones.php";
 
 $conexion = new conexion();
 $nomina = new nomina();
@@ -27,9 +28,15 @@ if (isset($_GET['mensajeCorrecto'])) {
 if (isset($_POST['aux_insertar_nomina'])) {
     $nomina_Empleado_IdFK = $_POST['nomina_Empleado_IdFK'];
     $nomina_Fecha = $_POST['nomina_Fecha'];
-    $nomina_Archivo = $_POST['nomina_Archivo'];
+    $nomina_Archivo = $_FILES['nomina_Archivo'];
 
-    $resInserccion = $nominas->insertar($nomina_Empleado_IdFK, $nomina_Fecha, $nomina_Archivo);
+    $posicionPunto = strpos($nomina_Archivo['name'], ".");
+    $nomina_Archivo_SinExtension = substr($nomina_Archivo['name'], 0, $posicionPunto);
+
+    $identif_Archivo = $nomina->subirArchivo($nomina_Archivo['tmp_name'], $nomina_Archivo_SinExtension, "nomina", pathinfo($nomina_Archivo['name'], PATHINFO_EXTENSION));
+
+    $nomina_Archivo = $nomina_Archivo_SinExtension . $identif_Archivo;
+    $resInserccion = $nomina->insertar($nomina_Empleado_IdFK, $nomina_Fecha, $nomina_Archivo);
     if ($resInserccion) {
         $mensajeCorrecto = "Nómina insertada correctamente";
         header('Location: crudNominas.php?mensajeCorrecto=' . $mensajeCorrecto);
@@ -44,14 +51,26 @@ if (isset($_POST['aux_modificar_nomina'])) {
     $nomina_Id = $_POST['aux_modificar_nomina'];
     $nomina_Empleado_IdFK = $_POST['nomina_Empleado_IdFK'];
     $nomina_Fecha = $_POST['nomina_Fecha'];
-    $nomina_Archivo = $_POST['nomina_Archivo'];
+    $nomina_Archivo_Actual = $_POST['nomina_Archivo_Actual'];
+    $nomina_Archivo = $_FILES['nomina_Archivo']['name'];
 
-    $resModificacion = $nomina->modificar($nomina_Id, $nomina_Empleado_IdFK, $nomina_Fecha, $nomina_Archivo);
+    if (empty($nomina_Archivo)) {
+        $resModificacion = $nomina->modificar($nomina_Id, $nomina_Empleado_IdFK, $nomina_Fecha, $nomina_Archivo_Actual);
+    } else {
+        $posicionPunto = strpos($nomina_Archivo, ".");
+        $nomina_Archivo_SinExtension = substr($nomina_Archivo, 0, $posicionPunto);
+
+        $identif_Archivo = $nomina->subirArchivo($_FILES['nomina_Archivo']['tmp_name'], $nomina_Archivo_SinExtension, "nomina", pathinfo($nomina_Archivo, PATHINFO_EXTENSION));
+
+        $nomina_Archivo = $nomina_Archivo_SinExtension . $identif_Archivo;
+        $resModificacion = $nomina->modificar($nomina_Id, $nomina_Empleado_IdFK, $nomina_Fecha, $nomina_Archivo);
+    }
+
     if ($resModificacion) {
-        $mensajeCorrecto = "Nómina modificado correctamente";
+        $mensajeCorrecto = "Nómina modificada correctamente";
         header('Location: crudNominas.php?mensajeCorrecto=' . $mensajeCorrecto);
     } else {
-        $mensajeError = "Error al modificar la nómina";
+        $mensajeError = "Error al modificar la nómina $nomina_Archivo_Actual";
         header('Location: crudNominas.php?mensajeError=' . $mensajeError);
     }
 }
@@ -61,16 +80,45 @@ if (isset($_POST['aux_modificar_nomina'])) {
 // ELIMINAR NOMINA
 if (isset($_POST['aux_eliminar_nomina'])) {
     $nomina_Id = $_POST['aux_eliminar_nomina'];
+    $nominaEliminada = $_POST['nombre_nomina_eliminada'];
     $condicionEliminar = "WHERE nomina_Id = $nomina_Id";
     $resEliminacion = $nomina->eliminar($condicionEliminar);
     if ($resEliminacion) {
-        $mensajeCorrecto = "Nómina eliminada correctamente";
+        unlink("../archivos/nominas/" . $nominaEliminada);
+        $mensajeCorrecto = "Nómina $nominaEliminada eliminada correctamente";
         header('Location: crudNominas.php?mensajeCorrecto=' . $mensajeCorrecto);
     } else {
-        $mensajeError = "Error al eliminar la nómina";
+        $mensajeError = "Error al eliminar la nómina $nominaEliminada";
         header('Location: crudNominas.php?mensajeError=' . $mensajeError);
     }
 }
+
+if (isset($_GET["send"])) {
+    $send = $_GET["send"];
+    $mensaje = $_GET["email"];
+
+    if ($send == true) {
+        $mensajeCorrecto = $mensaje;
+    } else {
+        $mensajeError = $mensaje;
+    }
+}
+if (isset($_GET["sendTodas"])) {
+    $send = $_GET["sendTodas"];
+    $mensaje = $_GET["email"];
+
+    if ($send == true) {
+        $mensajeCorrecto = $mensaje;
+    }
+}
+if (isset($_GET["noEmail"])) {
+    $mensajeError = "Este usuario no tiene ninguna nómina asignada";
+}
+
+if (isset($_GET["nominaExcel"])) {
+    $mensajeError = "No hay nóminas para crear el excel";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -83,6 +131,7 @@ if (isset($_POST['aux_eliminar_nomina'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="js/plugins/datatables/datatables.bundle.css" />
     <link rel="stylesheet" href="../../build/css/crudStyles.css" type="text/css" />
+    <link rel="stylesheet" href="vendor/bootstrap-select-1.14.0-beta2/dist/css/bootstrap-select.min.css">
 </head>
 
 <body class="crud">
@@ -165,12 +214,12 @@ if (isset($_POST['aux_eliminar_nomina'])) {
                     <span class="fs-4">Añadir nóminas masiva</span>
                 </div>
             </a>
-            <a class="text-decoration-none text-white  mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_cliente">
+            <a class="text-decoration-none text-white mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_mandar_nominas">
                 <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
-                    <i class="bi bi-send-fill mx-2"></i> <span class="fs-4">Mandar nóminas</span>
+                    <i class="bi bi-send-fill mx-2"></i> <span class="fs-4">Mandar nóminas</spa>
                 </div>
             </a>
-            <a class="text-decoration-none text-white mx-sm-3 " href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_cliente">
+            <a class="text-decoration-none text-white mx-sm-3 " href="clases/crearExcel.php?crearExcel=true">
                 <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
                     <i class="bi bi-file-earmark-excel-fill mx-2"></i>
                     <span class="fs-4">Crear excel</span>
@@ -207,8 +256,8 @@ if (isset($_POST['aux_eliminar_nomina'])) {
                     </svg>
                     <span class='text-start'>" . $tupla_Empleado['empl_Nombre'] . "</span>
                   </td>";
-                        echo "<td class='text-start'>" . $tupla_Nomina['nomina_Fecha'] . "</td>";
-                        echo "<td class='text-start'>" . $tupla_Nomina['nomina_Archivo'] . "</td>";
+                        echo "<td class='text-start'>" . formatearFecha($tupla_Nomina['nomina_Fecha']) . "</td>";
+                        echo "<td class='text-start'><a href='../archivos/nominas/" . $tupla_Nomina['nomina_Archivo']  . "' target='_blank'>" . $tupla_Nomina['nomina_Archivo'] . "</a></td>";
                         echo "<td class='text-end'>
                     <a href='#'class='text-decoration-none' data-bs-toggle='modal' data-bs-target='#modal_modificar_nomina_" . $tupla_Nomina['nomina_Id'] . "'>
                       <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='22px' height='22px' viewBox='0 0 24 24' version='1.1'>
@@ -244,8 +293,8 @@ if (isset($_POST['aux_eliminar_nomina'])) {
     <div class="modal fade" id="modal_anadir_nomina" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog d-flex justify-content-center align-items-center crud__modal">
             <div class="modal-content w-100">
-                <form method="post" action="crudClientes.php">
-                    <input type="hidden" name="aux_insertar_cliente" />
+                <form method="post" action="crudNominas.php" enctype="multipart/form-data">
+                    <input type="hidden" name="aux_insertar_nomina" />
                     <div class="modal-header p-5">
                         <h1 class="modal-title fs-2" id="exampleModalLabel">
                             Nueva nómina
@@ -286,10 +335,10 @@ if (isset($_POST['aux_eliminar_nomina'])) {
                         </div>
                     </div>
                     <div class="modal-footer border-0 p-4">
-                        <button type="button" class="btn btn-dark fs-4 px-4 py-2 rounded-3" data-bs-dismiss="modal">
+                        <button type="button" class="crud__btn__cancelar btn fs-4 px-4 py-3 rounded-3" data-bs-dismiss="modal">
                             Cancelar
                         </button>
-                        <button type="submit" class="btn btn-primary fs-4 px-4 py-2 text-white rounded-3">
+                        <button type="submit" class="btn btn-primary fs-4 px-4 py-3 text-white rounded-3">
                             Añadir
                         </button>
                     </div>
@@ -302,8 +351,8 @@ if (isset($_POST['aux_eliminar_nomina'])) {
     <div class="modal fade" id="modal_anadir_nomina_masiva" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog d-flex justify-content-center align-items-center crud__modal">
             <div class="modal-content w-100">
-                <form method="post" action="crudClientes.php">
-                    <input type="hidden" name="aux_insertar_cliente" />
+                <form method="post" action="crudNominas.php">
+                    <input type="hidden" name="aux_insertar_nomina" />
                     <div class="modal-header p-5">
                         <h1 class="modal-title fs-2" id="exampleModalLabel">
                             Nueva nómina masiva
@@ -346,10 +395,10 @@ if (isset($_POST['aux_eliminar_nomina'])) {
                         ?>
                     </div>
                     <div class="modal-footer border-0 p-4">
-                        <button type="button" class="btn btn-dark fs-4 px-4 py-2 rounded-3" data-bs-dismiss="modal">
+                        <button type="button" class="crud__btn__cancelar btn fs-4 px-4 py-3 rounded-3" data-bs-dismiss="modal">
                             Cancelar
                         </button>
-                        <button type="submit" class="btn btn-primary fs-4 px-4 py-2 text-white rounded-3">
+                        <button type="submit" class="btn btn-primary fs-4 px-4 py-3 text-white rounded-3">
                             Añadir
                         </button>
                     </div>
@@ -367,89 +416,72 @@ if (isset($_POST['aux_eliminar_nomina'])) {
 
             // MODAL MODIFICAR NÓMINA
             print("<div class='modal fade' id='modal_modificar_nomina_" . $tupla_Nomina['nomina_Id'] . "' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-  <div class='modal-dialog d-flex justify-content-center align-items-center crud__modal'>
-    <div class='modal-content w-100'>
-      <form method='post' action='crudClientes.php'>
-      <input type='hidden' name='aux_modificar_cliente' value='" . $tupla_Nomina['nomina_Id'] . "'/>
-        <div class='modal-header p-5'>
-          <h1 class='modal-title fs-2' id='exampleModalLabel'>
-            Modificar cliente
-          </h1>
-          <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-        </div>
-        <div class='modal-body p-5'>
- 
-        <!-- FILA 1 -->
-        <div class='row d-flex justify-content-center align-items-center'>
-          <div class='mb-3 col-md-4 d-flex flex-column'>
-            <label for='nombre' class='form-label fs-4'>Nombre:</label>
-            <input type='text' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='nombre' name='nomina_Nombre' value='" . $tupla_Nomina['nomina_Nombre'] . "' required />
-          </div>
-          <div class='mb-3 col-md-4 d-flex flex-column'>
-            <label for='apellidos' class='form-label fs-4'>Apellidos:</label>
-            <input type='text' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='apellidos' name='nomina_Apellidos'  value='" . $tupla_Nomina['nomina_Apellidos'] . "' required />
-          </div>
-          <div class='mb-3 col-md-4 d-flex flex-column'>
-            <label for='telefono' class='form-label fs-4'>Telfono:</label>
-            <input type='text' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='telefono' name='nomina_Telefono'  value='" . $tupla_Nomina['nomina_Telefono'] . "' required />
-          </div>
-        </div>
-
-        <!-- FILA 2 -->
-        <div class='row'>
-          <div class='mb-3 col-md-6 d-flex flex-column'>
-            <label for='usuario' class='form-label fs-4'>Usuario:</label>
-            <input type='text' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='dni' name='nomina_Usuario' value='" . $tupla_Nomina['nomina_Usuario'] . "' required />
-          </div>
-          <div class='mb-3 col-md-6 d-flex flex-column'>
-            <label for='password' class='form-label fs-4'>Contraseña:</label>
-            <div class='input-group'>
-            <input type='password' style='width: 89%;' class='password_texto crud__input fs-4 p-3 text-light-emphasis rounded-start-4' id='password' name='nomina_Password'  value='" . $tupla_Nomina['nomina_Password'] . "' required />
-            <div class='input-group-text border-0 rounded-end-4 password__ojo'>
-              <a href>
-                <i class='bi bi-eye mostrar_password'></i>
-              </a>
+            <div class='modal-dialog d-flex justify-content-center align-items-center crud__modal'>
+                <div class='modal-content w-100'>
+                    <form method='post' action='crudNominas.php' enctype='multipart/form-data'>
+                        <input type='hidden' name='aux_modificar_nomina' value='" . $tupla_Nomina['nomina_Id'] . "' />
+                        <input type='hidden' name='nomina_Archivo_Actual' value='" . $tupla_Nomina['nomina_Archivo'] . "' />
+                        <div class='modal-header p-5'>
+                            <h1 class='modal-title fs-2' id='exampleModalLabel'>
+                                Modificar nómina
+                            </h1>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body p-5'>
+    
+                            <!-- FILA 1 -->
+                            <div class='row d-flex justify-content-center align-items-center'>
+                                <div class='mb-3 col-md-6 d-flex flex-column'>
+                                    <label for='nombre' class='form-label fs-4'>Empleado:</label>
+                                    <select class='crud__input form-select fs-4 p-3 bg-white w-100 border text-light-emphasis rounded-4' id='activo' name='nomina_Empleado_IdFK'>");
+            $resEmpleados = $empleado->obtener();
+            if ($resEmpleados !== null) {
+                $tupla_Empleado = $conexion->BD_GetTupla($resEmpleados);
+                while ($tupla_Empleado !== null) {
+                    print("<option value='" . $tupla_Empleado['empl_Id'] . "' " . ($tupla_Empleado['empl_Id'] == $tupla_Nomina['nomina_Empleado_IdFK'] ? "selected" : "") . ">" . $tupla_Empleado['empl_Nombre'] . "</option>");
+                    $tupla_Empleado = $conexion->BD_GetTupla($resEmpleados);
+                }
+            }
+            print("</select>
+                                </div>
+                                <div class='mb-3 col-md-6 d-flex flex-column'>
+                                    <label for='fecha' class='form-label fs-4'>Fecha:</label>
+                                    <input type='date' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='apellidos' name='nomina_Fecha' value='" . $tupla_Nomina['nomina_Fecha'] . "' required />
+                                </div>
+                            </div>
+    
+                            <!-- FILA 2 -->
+                            <div class='row'>
+                                <div class='mb-3 col'>
+                                    <label for='archivo' class='form-label fs-4'>Archivo:</label>
+                                    <input type='file' class='form-control fs-4 p-3 text-light-emphasis rounded-4' id='archivo' name='nomina_Archivo' />
+                                </div>
+                            </div>
+                        </div>
+                        <div class='modal-footer border-0 p-4'>
+                            <button type='button' class='crud__btn__cancelar btn fs-4 px-4 py-3 rounded-3' data-bs-dismiss='modal'>
+                                Cancelar
+                            </button>
+                            <button type='submit' class='btn btn-primary fs-4 px-4 py-3 text-white rounded-3'>
+                                Añadir
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </div>
-          </div>
-        </div>
+        </div>");
 
-        <!-- FILA 3 -->
-        <div class='row'>
-          <div class='mb-3 col-md-6 d-flex flex-column'>
-            <label for='dni' class='form-label fs-4'>DNI:</label>
-            <input type='text' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='dni' name='nomina_DNI' value='" . $tupla_Nomina['nomina_DNI'] . "' required />
-          </div>
-          <div class='mb-3 col-md-6 d-flex flex-column'>
-            <label for='correo' class='form-label fs-4'>Correo:</label>
-            <input type='email' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='correo' name='nomina_Correo'  value='" . $tupla_Nomina['nomina_Correo'] . "' required />
-          </div>
-        </div>
-        </div>
-        <div class='modal-footer border-0 p-4'>
-          <button type='button' class='btn btn-dark fs-4 px-4 py-2 rounded-3' data-bs-dismiss='modal'>
-            Cancelar
-          </button>
-          <button type='submit' class='btn btn-primary fs-4 px-4 py-2 text-white rounded-3'>
-            Añadir
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>");
-
-            // MODAL ELIMINAR CLIENTE
+            // MODAL ELIMINAR NOMINA
             print("<div class='modal fade' id='modal_eliminar_nomina_" . $tupla_Nomina['nomina_Id'] . "' tabindex='-1' aria-labelledby='modal_eliminar_cliente' aria-hidden='true'>
     <div class='modal-dialog'>
       <div class='modal-content'>
         <div class='modal-body fs-3 p-4 fw-bold'>
-          ¿Desea eliminar el cliente " . $tupla_Nomina['nomina_Nombre'] . " " . $tupla_Nomina['nomina_Apellidos'] . "?
+          ¿Desea eliminar la nomina " . $tupla_Nomina['nomina_Archivo'] . "?
         </div>
         <div class='modal-footer'>
-        <form method='post' action='crudClientes.php'>
-        <input type='hidden' name='aux_eliminar_cliente' value='" . $tupla_Nomina['nomina_Id'] . "' />
-        <input type='hidden' name='nombre_nomina_eliminado' value='" . $tupla_Nomina['nomina_Nombre'] . "' />
+        <form method='post' action='crudNominas.php'>
+        <input type='hidden' name='aux_eliminar_nomina' value='" . $tupla_Nomina['nomina_Id'] . "' />
+        <input type='hidden' name='nombre_nomina_eliminada' value='" . $tupla_Nomina['nomina_Archivo'] . "' />
           <button type='button' class='btn btn-danger fs-4 py-2 px-3' data-bs-dismiss='modal'>No</button>
           <button type='submit' class='btn btn-success fs-4 py-2 px-3'>Sí</button>
         </form>
@@ -462,12 +494,72 @@ if (isset($_POST['aux_eliminar_nomina'])) {
     }
     ?>
 
+    <!-- MODAL MANDAR NOMINAS -->
+    <div class="modal fade" id="modal_mandar_nominas" aria-hidden="true">
+        <div class="modal-dialog d-flex justify-content-center align-items-center crud__modal">
+            <div class="modal-content w-100">
+                <input type="hidden" name="aux_mandar_nominas" />
+                <div class="modal-header p-5">
+                    <h1 class="modal-title fs-2" id="exampleModalLabel">
+                        Mandar nóminas
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="clases/email.php">
+                    <div class="modal-body p-5">
+                        <!-- FILA 1 -->
+                        <div class="row">
+                            <div class="mb-3 col">
+                                <label for="destinatario" class="form-label fs-4">Empleado:</label>
+                                <!--begin::Select-->
+                                <select id="destinatario" data-none-selected-text="Seleccione los empleados a los que mandar sus nóminas" multiple name="destinatario[]" class="selectpicker crud__input form-select p-3 bg-white w-100 border text-light-emphasis rounded-4" required>
+                                    <?php
+                                    $todosEmpleados = $empleado->obtener();
+                                    foreach ($todosEmpleados as $empleado) {
+                                    ?>
+                                        <option class="selectpicker_option fs-5 py-3" value="<?= $empleado['empl_Id'] ?>"><?= $empleado['empl_Nombre'] ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                                <!--end::Select-->
+                            </div>
+                        </div>
+                        <div class="text-end mt-4">
+                            <button type="button" class="crud__btn__cancelar btn fs-4 px-4 py-3 rounded-3" data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+                            <button type="submit" value="allNominas" class="btn btn-primary fs-4 px-4 py-3 text-white rounded-3">
+                                Mandar nóminas
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <form method="post" action="clases/email.php">
+                    <div class="text-end p-5 border-top">
+                        <button name="allNominas" type="submit" class="btn btn-primary fs-4 px-4 py-3 text-white rounded-3">
+                            Mandar nóminas a todos los empleados
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
 
-    <script src="../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+    <script src=" ../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="vendor/bootstrap-select-1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
     <script src="js/plugins/datatables/datatables.bundle.js"></script>
     <script src="js/datatableCrud.js"></script>
     <script src="js/funciones.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#destinatario').selectpicker();
+        });
+    </script>
 </body>
 
 </html>

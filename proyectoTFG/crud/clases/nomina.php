@@ -71,13 +71,13 @@ class nomina
 
 
 
-    function subirArchivo($directorio, $id, $ext)
+    function subirArchivo($directorio, $nombre, $id, $ext)
     {
-        $nombreDirectorio = "../../imagen/nominas/";
+        $nombreDirectorio = "../archivos/nominas/";
         $idUnico = rand(0, time());
         $nombreFichero = $idUnico . "-" . $id . "." . $ext;
         if ($nombreFichero != '') {
-            move_uploaded_file($directorio, $nombreDirectorio . $nombreFichero);
+            move_uploaded_file($directorio, $nombreDirectorio . $nombre . $nombreFichero);
         }
         return ($nombreFichero);
     }

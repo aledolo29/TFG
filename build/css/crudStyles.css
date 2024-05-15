@@ -11979,6 +11979,14 @@ img {
   outline: none;
 }
 
+.crud__btn__cancelar {
+  background-color: #f5f8fa;
+}
+
+.crud__btn__cancelar:hover {
+  background-color: #ccd8e0;
+}
+
 .password__ojo {
   font-size: 3.5rem;
   padding: 0px 10px;
@@ -11989,6 +11997,16 @@ img {
     font-size: 2.5rem;
     padding: 0px 8px;
   }
+}
+.selectpicker_option:hover {
+  background-color: #f1faff;
+  color: #69c6fa;
+}
+
+.btn.dropdown-toggle {
+  border: 0;
+  background-color: white;
+  font-size: 1.3rem; /* Cambia esto al tamaño de fuente que quieras */
 }
 
 /*# sourceMappingURL=crudStyles.css.map */
