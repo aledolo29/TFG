@@ -11992,6 +11992,16 @@ img {
   background-color: #ccd8e0;
 }
 
+.crud__datosPersonales {
+  width: 90%;
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (min-width: 768px) {
+  .crud__datosPersonales {
+    width: 50%;
+  }
+}
 .password__ojo {
   font-size: 3.5rem;
   padding: 0px 10px;
