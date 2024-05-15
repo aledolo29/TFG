@@ -11942,6 +11942,11 @@ img {
 .crud__header__link {
   font-family: "Bodoni Moda", sans-serif;
   font-size: 1.6rem;
+  color: #ffffff;
+}
+
+.crud__header__link:hover {
+  color: #ff8c5d;
 }
 
 .crud__header__avatar {
@@ -12007,6 +12012,14 @@ img {
   border: 0;
   background-color: white;
   font-size: 1.3rem; /* Cambia esto al tamaño de fuente que quieras */
+}
+
+.dropdown-menu {
+  transform: translate(-160px, 10px);
+}
+
+.dropdown-item:hover {
+  color: #ff8c5d;
 }
 
 /*# sourceMappingURL=crudStyles.css.map */

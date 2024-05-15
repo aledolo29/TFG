@@ -2,13 +2,15 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-if (!isset($_SESSION['admin_Usuario']) && !isset($_SESSION['admin_Password'])) {
-    header('Location: login-crud.php');
-}
+
 include_once "clases/conexion.php";
 include_once "clases/nomina.php";
 include_once "clases/empleado.php";
 include_once "clases/funciones.php";
+include_once "clases/seguridad.php";
+
+// Comprobar si el usuario ha iniciado sesión
+seguridad();
 
 $conexion = new conexion();
 $nomina = new nomina();
@@ -149,22 +151,30 @@ if (isset($_GET["nominaExcel"])) {
                     <div class="offcanvas-body">
                         <ul class="navbar-nav w-auto d-flex justify-content-between">
                             <li class="nav-item mx-3">
-                                <a class="crud__header__link nav-link text-white" aria-current="page" href="crudClientes.php">Clientes</a>
+                                <a class="crud__header__link nav-link" aria-current="page" href="crudClientes.php">Clientes</a>
                             </li>
                             <li class="nav-item mx-3">
-                                <a class="crud__header__link nav-link text-white" aria-current="page" href="crudEmpleados.php">Empleados</a>
+                                <a class="crud__header__link nav-link" aria-current="page" href="crudEmpleados.php">Empleados</a>
                             </li>
                             <li class="nav-item mx-3">
                                 <a class="crud__header__link nav-link text-warning" aria-current="page" href="crudNominas.php">Nóminas</a>
                             </li>
                             <li class="nav-item mx-3">
-                                <a class="crud__header__link nav-link text-white" aria-current="page" href="crudUsuariosMaestros.php">Usuarios maestros</a>
+                                <a class="crud__header__link nav-link" aria-current="page" href="crudUsuariosMaestros.php">Usuarios maestros</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="d-flex">
-                    <img src="../assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
+                    <div class="dropdown">
+                        <a href="" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="../assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
+                        </a>
+                        <ul class="dropdown-menu p-4 rounded-4">
+                            <li><a class="dropdown-item fs-4 mb-2" href="#"><i class="bi bi-pencil-square fs-2 me-3"></i>Datos personales</a></li>
+                            <li><a class="dropdown-item fs-4" href="clases/desconectar.php"><i class="bi bi-box-arrow-left fs-2 me-3"></i>Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
                     <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path d="M13 11H3C2.4 11 2 10.6 2 10V9C2 8.4 2.4 8 3 8H13C13.6 8 14 8.4 14 9V10C14 10.6 13.6 11 13 11ZM22 5V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4V5C2 5.6 2.4 6 3 6H21C21.6 6 22 5.6 22 5Z" fill="currentColor"></path>
@@ -475,8 +485,8 @@ if (isset($_GET["nominaExcel"])) {
             print("<div class='modal fade' id='modal_eliminar_nomina_" . $tupla_Nomina['nomina_Id'] . "' tabindex='-1' aria-labelledby='modal_eliminar_cliente' aria-hidden='true'>
     <div class='modal-dialog'>
       <div class='modal-content'>
-        <div class='modal-body fs-3 p-4 fw-bold'>
-          ¿Desea eliminar la nomina " . $tupla_Nomina['nomina_Archivo'] . "?
+        <div class='modal-body fs-3 p-4'>
+          ¿Desea eliminar la nomina <strong>'" . $tupla_Nomina['nomina_Archivo'] . "'</strong>?
         </div>
         <div class='modal-footer'>
         <form method='post' action='crudNominas.php'>

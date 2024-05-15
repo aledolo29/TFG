@@ -2,11 +2,13 @@
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }
-if (!isset($_SESSION['admin_Usuario']) && !isset($_SESSION['admin_Password'])) {
-  header('Location: login-crud.php');
-}
+
 include_once "clases/conexion.php";
 include_once "clases/cliente.php";
+include_once "clases/seguridad.php";
+
+// Comprobar si el usuario ha iniciado sesión
+seguridad();
 
 $conexion = new conexion();
 $cliente = new cliente();
@@ -137,20 +139,27 @@ if (isset($_POST['aux_eliminar_cliente'])) {
                 <a class="crud__header__link nav-link text-warning" aria-current="page" href="crudClientes.php">Clientes</a>
               </li>
               <li class="nav-item mx-3">
-                <a class="crud__header__link nav-link text-white" aria-current="page" href="crudEmpleados.php">Empleados</a>
+                <a class="crud__header__link nav-link" aria-current="page" href="crudEmpleados.php">Empleados</a>
               </li>
               <li class="nav-item mx-3">
-                <a class="crud__header__link nav-link text-white" aria-current="page" href="crudNominas.php">Nóminas</a>
+                <a class="crud__header__link nav-link" aria-current="page" href="crudNominas.php">Nóminas</a>
               </li>
               <li class="nav-item mx-3">
-                <a class="crud__header__link nav-link text-white" aria-current="page" href="crudUsuariosMaestros.php">Usuarios maestros</a>
+                <a class="crud__header__link nav-link" aria-current="page" href="crudUsuariosMaestros.php">Usuarios maestros</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="d-flex">
-          <img src="../assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
-          <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="dropdown">
+            <a href="" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
+            </a>
+            <ul class="dropdown-menu p-4 rounded-4">
+              <li><a class="dropdown-item fs-4 mb-2" href="#"><i class="bi bi-pencil-square fs-2 me-3"></i>Datos personales</a></li>
+              <li><a class="dropdown-item fs-4" href="clases/desconectar.php"><i class="bi bi-box-arrow-left fs-2 me-3"></i>Cerrar Sesión</a></li>
+            </ul>
+          </div> <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M13 11H3C2.4 11 2 10.6 2 10V9C2 8.4 2.4 8 3 8H13C13.6 8 14 8.4 14 9V10C14 10.6 13.6 11 13 11ZM22 5V4C22 3.4 21.6 3 21 3H3C2.4 3 2 3.4 2 4V5C2 5.6 2.4 6 3 6H21C21.6 6 22 5.6 22 5Z" fill="currentColor"></path>
               <path opacity="0.3" d="M21 16H3C2.4 16 2 15.6 2 15V14C2 13.4 2.4 13 3 13H21C21.6 13 22 13.4 22 14V15C22 15.6 21.6 16 21 16ZM14 20V19C14 18.4 13.6 18 13 18H3C2.4 18 2 18.4 2 19V20C2 20.6 2.4 21 3 21H13C13.6 21 14 20.6 14 20Z" fill="currentColor"></path>
@@ -180,7 +189,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
   ?>
   <!-- TABLA -->
   <section class="crud__tabla container-fluid bg-white mt-5 rounded-4 p-5">
-    <div class="mb-5" >
+    <div class="mb-5">
       <a class="text-decoration-none text-white" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_cliente">
         <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
@@ -414,8 +423,8 @@ if (isset($_POST['aux_eliminar_cliente'])) {
       print("<div class='modal fade' id='modal_eliminar_cliente_" . $tupla_Cliente['cliente_Id'] . "' tabindex='-1' aria-labelledby='modal_eliminar_cliente' aria-hidden='true'>
     <div class='modal-dialog'>
       <div class='modal-content'>
-        <div class='modal-body fs-3 p-4 fw-bold'>
-          ¿Desea eliminar el cliente " . $tupla_Cliente['cliente_Nombre'] . " " . $tupla_Cliente['cliente_Apellidos'] . "?
+        <div class='modal-body fs-3 p-4'>
+          ¿Desea eliminar el cliente <stong>" . $tupla_Cliente['cliente_Nombre'] . " " . $tupla_Cliente['cliente_Apellidos'] . "</strong>?
         </div>
         <div class='modal-footer'>
         <form method='post' action='crudClientes.php'>
@@ -433,7 +442,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
   }
   ?>
 
-
+  <script src="https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
   <script src="js/jquery-3.7.1.min.js"></script>
   <script src="js/plugins/datatables/datatables.bundle.js"></script>

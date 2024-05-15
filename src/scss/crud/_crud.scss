@@ -12,6 +12,11 @@
     &__link {
       font-family: var.$title-font;
       font-size: 1.6rem;
+      color: var.$blanco;
+    }
+
+    &__link:hover {
+      color: var.$naranja;
     }
 
     &__avatar {
@@ -71,4 +76,11 @@
   border: 0;
   background-color: white;
   font-size: 1.3rem; /* Cambia esto al tamaño de fuente que quieras */
+}
+.dropdown-menu {
+  transform: translate(-160px, 10px);
+}
+
+.dropdown-item:hover {
+  color: var.$naranja;
 }
