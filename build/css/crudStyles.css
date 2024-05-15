@@ -11980,6 +11980,12 @@ img {
   border: 0;
 }
 
+.crud__input__datosPersonales {
+  background-color: #f5f8fa;
+  border: 0;
+  box-shadow: 4px 4px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
 .crud__input:hover, .crud__input:focus {
   outline: none;
 }
@@ -11990,6 +11996,10 @@ img {
 
 .crud__btn__cancelar:hover {
   background-color: #ccd8e0;
+}
+
+.crud__btn__datosPersonales {
+  margin-top: 35px;
 }
 
 .crud__datosPersonales {

@@ -35,9 +35,11 @@
       align-items: center;
     }
   }
+
   td {
     width: 250px;
   }
+
   &__modal {
     @include m.tablet {
       min-width: 825px;
@@ -47,16 +49,26 @@
   &__input {
     background-color: var.$azul_claro;
     border: 0;
+    &__datosPersonales {
+      background-color: var.$azul_claro;
+      border: 0;
+      box-shadow: 4px 4px 3px 0px rgba(0, 0, 0, 0.25);
+    }
   }
+
   &__input:hover,
   &__input:focus {
     outline: none;
   }
+
   &__btn__cancelar {
     background-color: var.$azul_claro;
   }
   &__btn__cancelar:hover {
     background-color: #ccd8e0;
+  }
+  &__btn__datosPersonales {
+    margin-top: 35px;
   }
 
   &__datosPersonales {

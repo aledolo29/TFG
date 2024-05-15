@@ -134,25 +134,25 @@ if (isset($_POST['aux_modificar_cliente'])) {
     ?>
 
     <!-- CONTENIDO -->
-    <div class="container crud__datosPersonales mt-5 ms-5 float-start p-5">
+    <div class="container crud__datosPersonales mt-5 ms-5 float-start p-5 rounded-3">
         <h3>Modificar datos personales</h3>
         <div class="row">
             <div class="col-md-6 d-flex flex-column mt-3">
                 <label for="login" class="form-label">Login:</label>
-                <input type="text" name="usuario_Login" id="login" class="crud__input fs-4 p-2 rounded-4">
+                <input type="text" name="usuario_Login" id="login" class="crud__input__datosPersonales fs-4 p-2 rounded-4">
             </div>
             <div class="col-md-6 d-flex flex-column mt-3">
                 <label for="dni" class="form-label">DNI:</label>
-                <input type="text" name="usuario_DNI" id="dni" class="crud__input fs-4 p-2 rounded-4">
+                <input type="text" name="usuario_DNI" id="dni" class="crud__input__datosPersonales fs-4 p-2 rounded-4">
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 d-flex flex-column mt-3">
                 <label for="password" class="form-label">Contraseña:</label>
-                <input type="password" name="usuario_Password" id="password" class="crud__input fs-4 p-2 rounded-4">
+                <input type="password" name="usuario_Password" id="password" class="crud__input__datosPersonales fs-4 p-2 rounded-4">
             </div>
-            <div class="col-md-6 d-flex flex-column mt-3">
-                <button class="btn btn-primary fs-4 p-2">Guardar cambios</button>
+            <div class="crud__btn__datosPersonales col-md-6 d-flex flex-column">
+                <button class="btn btn-primary fs-4 p-2 fw-bold">Guardar cambios</button>
             </div>
         </div>
     </div>
