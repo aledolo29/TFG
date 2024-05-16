@@ -12093,13 +12093,17 @@ img {
   font-family: "Contrail One";
   src: url(../assets/fonts/ContrailOne-Regular.ttf);
 }
-.registro__form {
+.registro__form,
+.registro #mensaje_correcto,
+.registro #mensaje_error {
   width: 100%;
 }
 
-@media screen and (min-width: 768px) {
-  .registro__form {
-    width: 60%;
+@media screen and (min-width: 1024px) {
+  .registro__form,
+  .registro #mensaje_correcto,
+  .registro #mensaje_error {
+    width: 70%;
   }
 }
 .registro__titulo {
@@ -12107,7 +12111,12 @@ img {
 }
 
 .registro__input {
+  border: 0;
   box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.registro__input:focus, .registro__input:hover {
+  outline: none;
 }
 
 .registro__btn {

@@ -34,7 +34,7 @@ if (isset($_POST['aux_insertar_cliente'])) {
   $cliente_Telefono = $_POST['cliente_Telefono'];
 
   // Comprobar si ya existe un cliente con el mismo DNI o Correo
-  $campos = ['cliente_DNI' => $cliente_DNI, 'cliente_Correo' => $cliente_Correo, 'cliente_Usuario' => $cliente_Usuario];
+  $campos = ['cliente_Correo' => $cliente_Correo, 'cliente_Usuario' => $cliente_Usuario];
   foreach ($campos as $campo => $valor) {
     $consulta = "WHERE $campo = '$valor'";
     $res = $cliente->obtenerConFiltro($consulta, "");

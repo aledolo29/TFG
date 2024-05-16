@@ -63,4 +63,9 @@
   &__btn:hover {
     background-color: rgb(227, 86, 29);
   }
+
+  &__fechas__input {
+    border: 1px solid black;
+    border-radius: 10px;
+  }
 }
