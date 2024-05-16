@@ -170,7 +170,7 @@ if (isset($_GET["nominaExcel"])) {
                         <a href="" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="../assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
                         </a>
-                        <ul class="dropdown-menu p-4 rounded-4">
+                        <ul class="dropdown-menu dropdown_avatar p-4 rounded-4">
                             <li><a class="dropdown-item fs-4 mb-2" href="crudDatosPersonales.php"><i class="bi bi-pencil-square fs-2 me-3"></i>Datos personales</a></li>
                             <li><a class="dropdown-item fs-4" href="clases/desconectar.php"><i class="bi bi-box-arrow-left fs-2 me-3"></i>Cerrar Sesión</a></li>
                         </ul>
@@ -522,7 +522,7 @@ if (isset($_GET["nominaExcel"])) {
                             <div class="mb-3 col">
                                 <label for="destinatario" class="form-label fs-4">Empleado:</label>
                                 <!--begin::Select-->
-                                <select id="destinatario" data-none-selected-text="Seleccione los empleados a los que mandar sus nóminas" multiple name="destinatario[]" class="selectpicker crud__input form-select p-3 bg-white w-100 border text-light-emphasis rounded-4" required>
+                                <select id="destinatario" data-none-selected-text="Seleccione los empleados a los que mandar sus nóminas" multiple name="destinatario[]" class="selectpicker crud__input     p-3 bg-white w-100 border text-light-emphasis rounded-4" required>
                                     <?php
                                     $todosEmpleados = $empleado->obtener();
                                     foreach ($todosEmpleados as $empleado) {
