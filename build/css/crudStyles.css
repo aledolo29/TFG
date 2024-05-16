@@ -12007,22 +12007,26 @@ img {
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .crud__datosPersonales {
     width: 50%;
   }
 }
 .password__ojo {
-  font-size: 3.5rem;
+  font-size: 2rem;
   padding: 0px 10px;
 }
 
 @media screen and (min-width: 480px) {
   .password__ojo {
     font-size: 2.5rem;
-    padding: 0px 8px;
   }
 }
+.password__ojo__datosPersonales {
+  font-size: 2.5rem;
+  box-shadow: 4px 4px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
 .selectpicker_option:hover {
   background-color: #f1faff;
   color: #69c6fa;

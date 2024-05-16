@@ -16,39 +16,53 @@ $usuario = new usuario();
 $mensajeCorrecto = "";
 $mensajeError = "";
 
+if (isset($_GET['mensajeError'])) {
+    $mensajeError = $_GET['mensajeError'];
+}
+if (isset($_GET['mensajeCorrecto'])) {
+    $mensajeCorrecto = $_GET['mensajeCorrecto'];
+}
 
-// MODIFICAR CLIENTE
-if (isset($_POST['aux_modificar_cliente'])) {
-    $cliente_Id = $_POST['aux_modificar_cliente'];
-    $cliente_Nombre = $_POST['cliente_Nombre'];
-    $cliente_Apellidos = $_POST['cliente_Apellidos'];
-    $cliente_Usuario = $_POST['cliente_Usuario'];
-    $cliente_Password = $_POST['cliente_Password'];
-    $cliente_Telefono = $_POST['cliente_Telefono'];
-    $cliente_DNI = $_POST['cliente_DNI'];
-    $cliente_Correo = $_POST['cliente_Correo'];
+// MODIFICAR USUARIO
+if (isset($_POST['aux_modificar_usuario'])) {
+    $usuario_Id = $_POST['aux_modificar_usuario'];
+    $usuario_Login = $_POST['usuario_Login'];
+    $usuario_DNI = $_POST['usuario_DNI'];
+    $usuario_Password = $_POST['usuario_Password'];
 
-    // Comprobar si ya existe un cliente con el mismo DNI o Correo
-    $campos = ['cliente_DNI' => $cliente_DNI, 'cliente_Correo' => $cliente_Correo, 'cliente_Usuario' => $cliente_Usuario];
+    // Comprobar si ya existe un usuario con el mismo DNI o Login
+    $campos = ['usuario_DNI' => $usuario_DNI, 'usuario_Login' => $usuario_Login];
     foreach ($campos as $campo => $valor) {
-        $consultaModificacion = "WHERE $campo = '$valor' AND cliente_Id != $cliente_Id";
-        $resModificacion = $cliente->obtenerConFiltro($consultaModificacion, "");
+        $consultaModificacion = "WHERE $campo = '$valor' AND usuario_Id != $usuario_Id";
+        $resModificacion = $usuario->obtenerConFiltro($consultaModificacion, "");
         $tuplaComprobarModificacion = $conexion->BD_GetTupla($resModificacion);
         if ($tuplaComprobarModificacion !== null) {
-            $campo = strtolower(str_replace("cliente_", "", $campo));
-            $mensajeError = "Error al modificar al cliente $cliente_Nombre $cliente_Apellidos. Ya existe un cliente con ese $campo";
-            header('Location: crudClientes.php?mensajeError=' . $mensajeError);
+            $campo = strtolower(str_replace("usuario_", "", $campo));
+            $mensajeError = "Error al modificar el usuario. Ya existe un usuario con ese $campo";
+            header('Location: crudDatosPersonales.php?mensajeError=' . $mensajeError);
             exit();
         }
     }
-    $resModificacion = $cliente->modificar($cliente_Id, $cliente_Nombre, $cliente_Apellidos, $cliente_Usuario, $cliente_Password, $cliente_Telefono, $cliente_DNI, $cliente_Correo);
+    $resModificacion = $usuario->modificar($usuario_Id, $usuario_Login, $usuario_Password,  $usuario_DNI, "Si");
     if ($resModificacion) {
-        $mensajeCorrecto = "Cliente/a $cliente_Nombre $cliente_Apellidos modificado correctamente";
-        header('Location: crudClientes.php?mensajeCorrecto=' . $mensajeCorrecto);
+        $_SESSION['admin_Usuario'] = $usuario_Login;
+        $_SESSION['admin_Password'] = $usuario_Password;
+        $mensajeCorrecto = "Usuario $usuario_Logins modificado correctamente";
+        header('Location: crudDatosPersonales.php?mensajeCorrecto=' . $mensajeCorrecto);
     } else {
-        $mensajeError = "Error al modificar el cliente/a $cliente_Nombre $cliente_Apellidos";
-        header('Location: crudClientes.php?mensajeError=' . $mensajeError);
+        $mensajeError = "Error al modificar el usuario $usuario_Login";
+        header('Location: crudDatosPersonales.php?mensajeError=' . $mensajeError);
     }
+}
+
+// OBTENER DATOS DEL USUARIO
+$condincionUsuario = "WHERE usuario_Login = '" . $_SESSION['admin_Usuario'] . "' AND usuario_Password = '" . $_SESSION['admin_Password'] . "'";
+$resUsuario = $usuario->obtenerConFiltro($condincionUsuario, "");
+$tuplaUsuario = $conexion->BD_GetTupla($resUsuario);
+if ($tuplaUsuario === null) {
+    $mensajeError = "Error al obtener los datos del usuario";
+    header('Location: crudEmpleados.php?mensajeError=' . $mensajeError);
+    exit();
 }
 
 
@@ -134,25 +148,39 @@ if (isset($_POST['aux_modificar_cliente'])) {
     ?>
 
     <!-- CONTENIDO -->
-    <div class="container crud__datosPersonales mt-5 ms-5 float-start p-5 rounded-3">
-        <h3>Modificar datos personales</h3>
-        <div class="row">
-            <div class="col-md-6 d-flex flex-column mt-3">
-                <label for="login" class="form-label">Login:</label>
-                <input type="text" name="usuario_Login" id="login" class="crud__input__datosPersonales fs-4 p-2 rounded-4">
-            </div>
-            <div class="col-md-6 d-flex flex-column mt-3">
-                <label for="dni" class="form-label">DNI:</label>
-                <input type="text" name="usuario_DNI" id="dni" class="crud__input__datosPersonales fs-4 p-2 rounded-4">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 d-flex flex-column mt-3">
-                <label for="password" class="form-label">Contraseña:</label>
-                <input type="password" name="usuario_Password" id="password" class="crud__input__datosPersonales fs-4 p-2 rounded-4">
-            </div>
-            <div class="crud__btn__datosPersonales col-md-6 d-flex flex-column">
-                <button class="btn btn-primary fs-4 p-2 fw-bold">Guardar cambios</button>
+    <div class="d-flex d-md-block justify-content-center align-items-center">
+        <div class="container crud__datosPersonales m-auto mt-5 mx-5 p-5 rounded-3">
+            <div>
+                <h3>Modificar datos personales</h3>
+                <form action="crudDatosPersonales.php" method="post">
+                    <input type="hidden" name="aux_modificar_usuario" value="<?= $tuplaUsuario['usuario_Id'] ?>">
+                    <div class="row">
+                        <div class="col-md-6 d-flex flex-column mt-3">
+                            <label for="login" class="form-label">Login:</label>
+                            <input type="text" name="usuario_Login" id="login" class="crud__input__datosPersonales fs-4 p-3 rounded-4" value="<?= $tuplaUsuario['usuario_Login'] ?>" required>
+                        </div>
+                        <div class="col-md-6 d-flex flex-column mt-3">
+                            <label for="dni" class="form-label">DNI:</label>
+                            <input type="text" name="usuario_DNI" id="dni" class="crud__input__datosPersonales fs-4 p-3 rounded-4" value="<?= $tuplaUsuario['usuario_DNI'] ?>" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 d-flex flex-column mt-3">
+                            <label for="password" class="form-label">Contraseña:</label>
+                            <div class="input-group">
+                                <input style="width: 85%;" type="password" class="password_texto crud__input__datosPersonales fs-4 p-3 rounded-start-4" id="password" name="usuario_Password" value="<?= $tuplaUsuario['usuario_Password'] ?>" required />
+                                <div style="width: 15%;" class="input-group-text border-0 rounded-end-4 password__ojo__datosPersonales d-flex justify-content-center align-items-center">
+                                    <a href>
+                                        <i class="bi bi-eye mostrar_password text-center"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="crud__btn__datosPersonales col-md-6 d-flex flex-column">
+                            <button class="btn btn-primary fs-4 p-3 fw-bold">Guardar cambios</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

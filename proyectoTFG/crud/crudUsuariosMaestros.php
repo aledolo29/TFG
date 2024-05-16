@@ -275,7 +275,14 @@ if (isset($_POST['aux_eliminar_usuario'])) {
                             </div>
                             <div class="mb-3 col-md-6 d-flex flex-column">
                                 <label for="password" class="form-label fs-4">Contraseña:</label>
-                                <input type="password" class="crud__input fs-4 p-3 text-light-emphasis rounded-4" id="password" name="usuario_Password" required />
+                                <div class="input-group">
+                                    <input type="password" style="width: 85%;" class="password_texto crud__input fs-4 p-3 text-light-emphasis rounded-start-4" id="password" name="usuario_Password" required />
+                                    <div style="width: 15%;" class="d-flex justify-content-center align-items-center input-group-text border-0 rounded-end-4 password__ojo">
+                                        <a href>
+                                            <i class="bi bi-eye mostrar_password"></i>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -337,8 +344,14 @@ if (isset($_POST['aux_eliminar_usuario'])) {
             </div>
             <div class='mb-3 col-md-6 d-flex flex-column'>
                 <label for='password' class='form-label fs-4'>Contraseña:</label>
-                <input type='password' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='password' name='usuario_Password' value='" . $tupla_Usuario['usuario_Login'] . "' required />
-            </div>
+                <div class='input-group'>
+                <input type='password' style='width: 85%;' class='password_texto crud__input fs-4 p-3 text-light-emphasis rounded-start-4' id='password' name='usuario_Password' value='" . $tupla_Usuario['usuario_Password'] . "' required />
+                <div style='width: 15%;' class='d-flex justify-content-center align-items-center input-group-text border-0 rounded-end-4 password__ojo'>
+                    <a href>
+                        <i class='bi bi-eye mostrar_password'></i>
+                    </a>
+                </div>
+            </div>            </div>
         </div>
 
         <!-- FILA 2 -->
@@ -397,6 +410,7 @@ if (isset($_POST['aux_eliminar_usuario'])) {
     <script src="js/jquery-3.7.1.min.js"></script>
     <script src="js/plugins/datatables/datatables.bundle.js"></script>
     <script src="js/datatableCrud.js"></script>
+    <script src="js/funciones.js"></script>
 </body>
 
 </html>

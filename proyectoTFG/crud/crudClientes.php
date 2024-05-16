@@ -156,7 +156,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
               <img src="../assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
             </a>
             <ul class="dropdown-menu p-4 rounded-4">
-            <li><a class="dropdown-item fs-4 mb-2" href="crudDatosPersonales.php"><i class="bi bi-pencil-square fs-2 me-3"></i>Datos personales</a></li>
+              <li><a class="dropdown-item fs-4 mb-2" href="crudDatosPersonales.php"><i class="bi bi-pencil-square fs-2 me-3"></i>Datos personales</a></li>
               <li><a class="dropdown-item fs-4" href="clases/desconectar.php"><i class="bi bi-box-arrow-left fs-2 me-3"></i>Cerrar Sesión</a></li>
             </ul>
           </div> <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -303,8 +303,8 @@ if (isset($_POST['aux_eliminar_cliente'])) {
               <div class="mb-3 col-md-6 d-flex flex-column">
                 <label for="password" class="form-label fs-4">Contraseña:</label>
                 <div class="input-group">
-                  <input type="password" style="width: 89%;" class="password_texto crud__input fs-4 p-3 text-light-emphasis rounded-start-4" id="password" name="cliente_Password" required />
-                  <div class="input-group-text border-0 rounded-end-4 password__ojo">
+                  <input type="password" style="width: 85%;" class="password_texto crud__input fs-4 p-3 text-light-emphasis rounded-start-4" id="password" name="cliente_Password" required />
+                  <div style="width: 15%;" class="d-flex justify-content-center align-items-center input-group-text border-0 rounded-end-4 password__ojo">
                     <a href>
                       <i class="bi bi-eye mostrar_password"></i>
                     </a>
@@ -384,8 +384,8 @@ if (isset($_POST['aux_eliminar_cliente'])) {
           <div class='mb-3 col-md-6 d-flex flex-column'>
             <label for='password' class='form-label fs-4'>Contraseña:</label>
             <div class='input-group'>
-            <input type='password' style='width: 89%;' class='password_texto crud__input fs-4 p-3 text-light-emphasis rounded-start-4' id='password' name='cliente_Password'  value='" . $tupla_Cliente['cliente_Password'] . "' required />
-            <div class='input-group-text border-0 rounded-end-4 password__ojo'>
+            <input type='password' style='width: 85%;' class='password_texto crud__input fs-4 p-3 text-light-emphasis rounded-start-4' id='password' name='cliente_Password' value='" . $tupla_Cliente['cliente_Password'] . "' required />
+            <div style='width: 15%;' class='d-flex justify-content-center align-items-center input-group-text border-0 rounded-end-4 password__ojo'>
               <a href>
                 <i class='bi bi-eye mostrar_password'></i>
               </a>
