@@ -14,4 +14,8 @@ Route::post('/loginCliente', [ClienteController::class, 'comprobarLogin'])->name
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
+<<<<<<< HEAD
 // })->middleware('auth:sanctum');
+=======
+// })->middleware('auth:sanctum');
+>>>>>>> db327f805d329124414310ad257da63d5a139e1e

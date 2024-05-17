@@ -2,18 +2,25 @@
 @use "../base/mixins" as m;
 
 .registro {
-  &__form {
+  &__form,
+  #mensaje_correcto,
+  #mensaje_error {
     width: 100%;
 
-    @include m.tablet {
-      width: 60%;
+    @include m.desktop {
+      width: 70%;
     }
   }
   &__titulo {
     text-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
   }
   &__input {
+    border: 0;
     box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.25);
+    &:focus,
+    &:hover {
+      outline: none;
+    }
   }
 
   &__btn {

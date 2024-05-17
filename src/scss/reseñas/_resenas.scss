@@ -13,4 +13,10 @@
   &__opiniones {
     border: 1px solid black;
   }
+  &__enlaceMostrar {
+    color: var.$negro;
+    &:hover {
+      color: var.$gris;
+    }
+  }
 }

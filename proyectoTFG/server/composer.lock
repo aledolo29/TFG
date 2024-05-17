@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "5037d11a01d34741f3da45a9e511de18",
+=======
+    "content-hash": "c133b312fe180afc0f2b635022ad80ac",
+>>>>>>> db327f805d329124414310ad257da63d5a139e1e
     "packages": [
         {
             "name": "brick/math",
@@ -1051,6 +1055,7 @@
             "time": "2023-12-03T19:50:20+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "laravel/breeze",
             "version": "v2.0.3",
             "source": {
@@ -1111,6 +1116,8 @@
             "time": "2024-04-24T07:22:37+00:00"
         },
         {
+=======
+>>>>>>> db327f805d329124414310ad257da63d5a139e1e
             "name": "laravel/framework",
             "version": "v11.7.0",
             "source": {

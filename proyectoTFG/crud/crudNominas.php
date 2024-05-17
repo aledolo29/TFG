@@ -522,7 +522,7 @@ if (isset($_GET["nominaExcel"])) {
                             <div class="mb-3 col">
                                 <label for="destinatario" class="form-label fs-4">Empleado:</label>
                                 <!--begin::Select-->
-                                <select id="destinatario" data-none-selected-text="Seleccione los empleados a los que mandar sus nóminas" multiple name="destinatario[]" class="selectpicker crud__input form-select p-3 bg-white w-100 border text-light-emphasis rounded-4" required>
+                                <select id="destinatario" data-none-selected-text="Seleccione los empleados a los que mandar sus nóminas" multiple name="destinatario[]" class="selectpicker crud__input     p-3 bg-white w-100 border text-light-emphasis rounded-4" required>
                                     <?php
                                     $todosEmpleados = $empleado->obtener();
                                     foreach ($todosEmpleados as $empleado) {

@@ -12109,6 +12109,11 @@ img {
   background-color: rgb(227, 86, 29);
 }
 
+.buscaVuelos__fechas__input {
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
 @font-face {
   font-family: "Inter";
   src: url(../assets/fonts/Inter-Regular.ttf);
@@ -12309,6 +12314,14 @@ img {
 
 .resenas__titulo, .resenas__opiniones {
   border: 1px solid black;
+}
+
+.resenas__enlaceMostrar {
+  color: #0a0a0a;
+}
+
+.resenas__enlaceMostrar:hover {
+  color: #929292;
 }
 
 @font-face {
