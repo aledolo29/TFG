@@ -2,6 +2,8 @@
 @use "../base/mixins" as m;
 
 .reservar {
+  margin: auto;
+  margin-bottom: 70px;
   &__title {
     font-style: italic;
     text-shadow: 1px 1px 1px #a7eeee, 2px 2px 1px #c38ce5;

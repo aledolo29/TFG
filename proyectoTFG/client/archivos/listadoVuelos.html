@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listado Vuelos</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,12 +14,12 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <link rel="stylesheet" href="../../../build/css/registroStyles.css" />
-    <title>Registro</title>
+    <link rel="stylesheet" href="../../../build/css/listadoVuelosStyles.css" />
+    <script src="../js/jquery-3.7.1.min.js"></script>
   </head>
   <body>
+    <!-- HEADER -->
     <div id="content">
-      <!-- HEADER -->
       <header class="header">
         <!-- BARRA NAVEGACIÓN -->
         <nav class="navbar navbar-expand-xl bg-primary">
@@ -82,11 +83,13 @@
                     </li>
                     <li class="nav-item mx-4">
                       <a
+                        id="btn_login"
                         class="nav-link text-white header__btn__sesion px-3"
                         href="#"
                         data-bs-toggle="modal"
                         data-bs-target="#modal_login"
-                        >Iniciar Sesión
+                      >
+                        <span id="btn_login_text">Iniciar Sesión</span>
                         <i class="bi bi-person-circle fs-2 ps-2"></i
                       ></a>
                     </li>
@@ -98,126 +101,17 @@
         </nav>
       </header>
 
-      <!-- FORMULARIO REGISTRO -->
-      <section class="registro container m-auto mt-5">
-        <h1 class="registro__titulo text-center display-3 fw-bold">REGISTRO</h1>
-        <p class="registro__subtitulo text-center fs-4 fw-bold">
-          Regístrate para poder disfrutar de todas las ventajas de Interstellar
-          Airlines
-        </p>
-        <!-- Respuestas mensajes -->
-        <div id="mensaje_correcto" class="m-auto"></div>
-
-        <div id="mensaje_error" class="m-auto"></div>
-
-        <form action="" class="registro__form container mt-5">
-          <!-- FILA 1 -->
-          <div class="row">
-            <cite class="mb-3"
-              ><span class="text-danger alert al">*</span> Todos los campos son
-              obligatorios</cite
-            >
-            <div class="col-md-6">
-              <input
-                type="text"
-                name="cliente_Nombre"
-                id="cliente_Nombre"
-                class="registro__input fs-4 bg-dark-subtle mb-3 p-3 rounded-4 w-100 text-light-emphasis"
-                placeholder="Nombre"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <input
-                type="text"
-                name="cliente_Apellidos"
-                id="cliente_Apellidos"
-                class="registro__input fs-4 bg-dark-subtle mb-3 p-3 rounded-4 w-100 text-light-emphasis"
-                placeholder="Apellidos"
-                required
-              />
-            </div>
-          </div>
-          <!-- FILA 2 -->
-          <div class="row">
-            <div class="col-md-6">
-              <input
-                type="text"
-                name="cliente_Telefono"
-                id="cliente_Telefono"
-                class="registro__input fs-4 bg-dark-subtle mb-3 p-3 rounded-4 w-100 text-light-emphasis"
-                placeholder="Nº de teléfono"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <input
-                type="text"
-                name="cliente_DNI"
-                id="cliente_DNI"
-                class="registro__input fs-4 bg-dark-subtle mb-3 p-3 rounded-4 w-100 text-light-emphasis"
-                placeholder="DNI"
-                required
-              />
-            </div>
-          </div>
-          <!-- FILA 3 -->
-          <div class="row">
-            <div class="col-md-6">
-              <input
-                type="text"
-                name="cliente_Usuario"
-                id="cliente_Usuario"
-                class="registro__input fs-4 bg-dark-subtle mb-3 p-3 rounded-4 w-100 text-light-emphasis"
-                placeholder="Usuario"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <input
-                type="email"
-                name="cliente_Correo"
-                id="cliente_Correo"
-                class="registro__input fs-4 bg-dark-subtle mb-3 p-3 rounded-4 w-100 text-light-emphasis"
-                placeholder="Email"
-                required
-              />
-            </div>
-          </div>
-          <!-- FILA 4 -->
-          <div class="row">
-            <div class="col-md-6">
-              <input
-                type="password"
-                name="cliente_Password"
-                id="cliente_Password"
-                class="registro__input fs-4 bg-dark-subtle mb-3 p-3 rounded-4 w-100 text-light-emphasis"
-                placeholder="Contraseña"
-                required
-              />
-            </div>
-            <div class="col-md-6">
-              <input
-                type="password"
-                name="repetir_password"
-                id="repetir_password"
-                class="registro__input fs-4 bg-dark-subtle mb-3 p-3 rounded-4 w-100 text-light-emphasis"
-                placeholder="Repetir contraseña"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end">
-            <input
-              id="btnRegistro"
-              type="button"
-              value="Crear cuenta"
-              class="registro__btn py-3 px-4 fs-4 fw-bold mt-5"
-            />
-          </div>
-        </form>
-      </section>
+      <!-- LISTADO -->
+      <main class="listadoVuelos__titulo">
+        <h1 class="fw-light text-center mt-3 display-3">VUELO IDA/VUELTA</h1>
+        <section class="listadoVuelos__vuelos">
+          <div class="listadoVuelos__vuelo1"></div>
+          <div class="listadoVuelos__vuelo2"></div>
+          <div class="listadoVuelos__vuelo3"></div>
+          <div class="listadoVuelos__vuelo4"></div>
+          <div class="listadoVuelos__vuelo5"></div>
+        </section>
+      </main>
     </div>
     <!-- FOOTER -->
     <footer class="footer bg-primary pb-1">
@@ -293,7 +187,9 @@
                 alt="logo"
               />
             </div>
-            <h2 class="text-white footer__nombre">INTERSTELLAR AIRLINES</h2>
+            <h2 class="text-white footer__nombre text-start">
+              INTERSTELLAR AIRLINES
+            </h2>
           </div>
           <div
             class="d-flex flex-xl-row flex-column align-items-center justify-content-center mt-md-0 mt-5"
@@ -338,7 +234,7 @@
             <div
               class="d-flex justify-content-center align-items-center ms-xl-5 ms-0 mt-xl-0 mt-3"
             >
-              <div class="footer__store mx-0 me-2 me-lg-0 mx-lg-4">
+              <div class="footer__store mx-0 me-2 mx-lg-4">
                 <img
                   src="../../../build/assets/media/appstore.jpg"
                   alt="appStore"
@@ -355,7 +251,7 @@
             </div>
           </div>
         </div>
-        <p class="text-white fs-4 fw-light text-center me-5 mt-5">
+        <p class="text-white fw-light text-center fs-4 me-5 mt-5">
           Interstellar Airlines Copyright 2024 &copy;
         </p>
       </div>
@@ -386,19 +282,34 @@
               aria-label="Close"
             ></button>
           </div>
+
+          <!-- Mensajes correcto/error -->
+          <div class="d-flex justify-content-center align-items-center">
+            <div id="mensaje_correcto"></div>
+            <div>
+              <img
+                class="d-none mx-2"
+                src="../../assets/media/icons8-hilandero.gif"
+                alt="Cargando"
+                id="gif_cargando"
+                style="width: 40px"
+              />
+            </div>
+          </div>
+          <div id="mensaje_error"></div>
+
           <div class="modal-body">
             <div>
               <div>
                 <div>
-                  <label for="email" class="form-label fs-4"
-                    >Correo electrónico</label
+                  <label for="login" class="form-label fs-4"
+                    >Correo electrónico o usuario</label
                   >
                   <input
                     type="email"
-                    name="email"
-                    id="email"
+                    name="login"
+                    id="login_Cliente"
                     class="form-control bg-light fs-5"
-                    placeholder="email@email.com"
                   />
                 </div>
 
@@ -409,9 +320,8 @@
                   <input
                     type="password"
                     name="password"
-                    id="password"
+                    id="login_Password"
                     class="form-control bg-light fs-5"
-                    placeholder="Contraseña"
                   />
                 </div>
 
@@ -426,7 +336,7 @@
                   ¿No tienes cuenta?
                   <span
                     ><a class="text-info" href="registro.html"
-                      >Resgistrate</a
+                      >Registrate</a
                     ></span
                   >
                 </p>
@@ -441,7 +351,13 @@
             >
               Cerrar
             </button>
-            <button type="button" class="btn btn-primary fs-4">Acceder</button>
+            <button
+              type="button"
+              onclick="comprobarLogin()"
+              class="btn btn-primary fs-4"
+            >
+              Acceder
+            </button>
           </div>
         </div>
       </div>
@@ -475,14 +391,16 @@
             <div>
               <label for="email" class="form-label fs-4"
                 >Introduzca su correo electrónico y le mandaremos un email con
-                su contraseña</label
+                su contraseña.</label
+              >
+              <label for="email" class="form-label mt-2"
+                >Correo electrónico:</label
               >
               <input
                 type="email"
                 name="email"
                 id="email"
                 class="form-control bg-light fs-5"
-                placeholder="email@email.com"
               />
             </div>
           </div>
@@ -499,12 +417,5 @@
         </div>
       </div>
     </div>
-    <script src="../js/jquery-3.7.1.min.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script src="../js/funciones.js"></script>
   </body>
 </html>
