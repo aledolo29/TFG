@@ -42,7 +42,7 @@ class ClienteController extends Controller
         if ($comprobarCliente != null) {
             if ($comprobarCliente->cliente_Password == $request->password) {
                 return response()->json([
-                    'correcto' => 'Usuario ' . $request->usuario . ' logueado correctamente. Espere para ser redirigido.', 'nombre' => $comprobarCliente->cliente_Nombre
+                    'correcto' => 'Usuario ' . $request->usuario . ' logueado correctamente. Espere para ser redirigido.', 'nombre' =>  $comprobarCliente->cliente_Nombre
                 ]);
             } else {
                 return response()->json([

@@ -6,10 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-<<<<<<< HEAD
         "laravel/breeze": "^2.0",
-=======
->>>>>>> db327f805d329124414310ad257da63d5a139e1e
         "laravel/framework": "^11.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9"

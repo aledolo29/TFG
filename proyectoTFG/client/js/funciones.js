@@ -1,3 +1,12 @@
+// Para saber si ha iniciado sesión
+$(document).ready(function () {
+  if (localStorage.getItem("nombre") != null) {
+    $("#btn_login_text").text("Hola " + localStorage.getItem("nombre"));
+  } else {
+    $("#btn_login_text").text("Iniciar sesión");
+  }
+});
+
 // Ocultar reseñas
 $("#resenas_ocultas").hide();
 
@@ -101,13 +110,14 @@ function comprobarLogin() {
       var mensaje_correcto = $("#mensaje_correcto");
       var gif_cargando = $("#gif_cargando");
       var mensaje_error = $("#mensaje_error");
-      var btn_login_text = $("#btn_login_text");
       res.json().then((data) => {
         if (data.correcto) {
           mensaje_correcto.addClass("alert alert-success");
           mensaje_correcto.text(data.correcto.toString());
           gif_cargando.removeClass("d-none");
-          btn_login_text.text(`Hola ${data.nombre}!`);
+
+          localStorage.setItem("nombre", data.nombre);
+
           mensaje_error.text("");
           mensaje_error.removeClass("alert alert-danger");
           setTimeout(() => {
@@ -126,3 +136,29 @@ function comprobarLogin() {
     }
   });
 }
+
+// BUSQUEDA AEROPUERTOS
+// Aeropuerto ida
+$("#aeropuerto_ida").keyup(function () {
+  var valor = $(this).val().toLowerCase();
+  var lista = $("#lista_aeropuertos_ida");
+  fetch("https://api.npoint.io/0ae89dcddb751bee38ef").then((res) => {
+    res.json().then((data) => {
+      lista.empty();
+      lista.show();
+      data.forEach((aeropuerto) => {
+        if (aeropuerto.city.toLowerCase().startsWith(valor)) {
+          var opcion = $(
+            "<li class='dropdown-item dropdown__aeropuertos__item fw-bold fs-4'></li>"
+          );
+          opcion.html(
+            aeropuerto.city +
+              ` (${aeropuerto.iata})<br><span>${aeropuerto.country}</span>`
+          );
+          opcion.val(aeropuerto.id);
+          lista.append(opcion);
+        }
+      });
+    });
+  });
+});

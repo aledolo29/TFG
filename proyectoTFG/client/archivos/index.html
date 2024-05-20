@@ -176,12 +176,13 @@
               class="form-control fs-4 buscaVuelos__input"
               type="text"
               name="origen"
-              id="origen"
+              id="aeropuerto_ida"
               placeholder="Origen"
             />
             <span class="buscaVuelos__icono input-group-text bg-primary"
               ><i class="bi bi-geo-alt fs-3 text-white"></i
             ></span>
+            <ul id="lista_aeropuertos_ida" class="dropdown-menu dropdown__aeropuertos w-50"></ul>
           </div>
           <picture class="buscaVuelos__cambiaSitios"
             ><a href="" onclick="cambiarOrigenDestino(event)"
@@ -204,16 +205,16 @@
           </div>
         </div>
         <div
-          class="buscaVuelos__fechas d-flex align-items-center mx-4 mb-lg-0 mb-5"
+          class="buscaVuelos__fechas d-flex flex-column flex-md-row align-items-center mx-4 mb-lg-0 mb-5"
         >
           <input
-            class="form-control fs-5 buscaVuelos__input me-4 fs-4 p-2"
+            class="form-control buscaVuelos__input me-md-4 me-0 mb-5 mb-md-0 fs-4 p-2"
             type="date"
             name="fechaIda"
             id="fechaIda"
           />
           <input
-            class="form-control fs-5 buscaVuelos__input fs-4 p-2"
+            class="form-control buscaVuelos__input fs-4 p-2"
             type="date"
             name="fechaVuelta"
             id="fechaVuelta"
