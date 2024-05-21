@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\VuelosController;
+use App\Http\Controllers\VueloController;
 use Illuminate\Support\Facades\Route;
 
 // Ruta login
@@ -20,8 +20,11 @@ Route::middleware(['api'])->group(function () {
     // Comprobar Session Login
     Route::get('/comprobarSesion', [ClienteController::class, 'comprobarSesion'])->name('comprobarSesion');
 
-    // Aeropuerto ida
-    Route::get('/buscarAeropuerto', [VuelosController::class, 'buscarAeropuerto'])->name('buscarAeropuerto');
+    // Buscar vuelo ida
+    Route::post('/buscarVueloIda', [VueloController::class, 'buscarVueloIda'])->name('buscarVueloIda');
+
+    // Buscar vuelo ida/vuelta
+    Route::post('/buscarVueloIdaVuelta', [VueloController::class, 'buscarVueloIdaVuelta'])->name('buscarVueloIdaVuelta');
 });
 // Route::get('/user', function (Request $request) {
 //     return $request->user();

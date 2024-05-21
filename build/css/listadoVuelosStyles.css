@@ -11992,7 +11992,7 @@ img {
   text-align: center;
   text-decoration: none;
   transition: background-color 0.2s ease;
-  width: auto;
+  width: 100%;
 }
 
 @media screen and (min-width: 768px) {
@@ -12100,8 +12100,54 @@ img {
   font-family: "Contrail One";
   src: url(../assets/fonts/ContrailOne-Regular.ttf);
 }
+.listadoVuelos__vuelos {
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 80px;
+  width: 90%;
+}
+
+@media screen and (min-width: 768px) {
+  .listadoVuelos__vuelos {
+    width: 55%;
+  }
+}
 .listadoVuelos__titulo {
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.listadoVuelos__containerbtn {
+  width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  .listadoVuelos__containerbtn {
+    width: auto;
+  }
+}
+.listadoVuelos__item {
+  background-color: #d9d9d9;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.listadoVuelos__item__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff8c5d;
+  border-radius: 1.8rem;
+  padding: 0px 0px 2px 0px;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+@media screen and (min-width: 1024px) {
+  .listadoVuelos__item__btn {
+    width: auto;
+  }
 }
 
 /*# sourceMappingURL=listadoVuelosStyles.css.map */

@@ -149,7 +149,7 @@
                   aria-labelledby="home-tab"
                   tabindex="0"
                 >
-                  <form class="mx-auto w-100" method="POST" action="">
+                  <form class="mx-auto w-100" method="POST" action="listadoVuelos.html">
                     <div
                       class="d-flex flex-lg-row flex-column justify-content-around"
                     >
@@ -253,7 +253,7 @@
                               id="pasajeros_ida"
                               name="num_Pasajeros"
                               class="form-control form-control-lg form-control-color w-100 fs-4"
-                              min="0"
+                              min="1"
                               max="9"
                               required
                             />
@@ -283,7 +283,7 @@
                   aria-labelledby="ida_vuelta-tab"
                   tabindex="0"
                 >
-                  <form class="mx-auto w-100" method="POST" action="asa.html">
+                  <form class="mx-auto w-100" method="POST" action="listadoVuelos.html">
                     <div
                       class="d-flex flex-lg-row flex-column justify-content-around"
                     >
@@ -367,8 +367,9 @@
                             >
                             <!-- begin::Input -->
                             <input
+                              id="fecha_ida_idaVuelta"
                               type="date"
-                              name="fecha_ida"
+                              name="fecha_ida_"
                               class="form-control form-control-lg fs-4"
                               required
                             />
@@ -382,6 +383,7 @@
                             <!-- begin::Input -->
                             <input
                               type="date"
+                              id="fecha_vuelta_idaVuelta"
                               name="fecha_vuelta"
                               class="form-control form-control-lg fs-4"
                               required
@@ -397,6 +399,7 @@
                             <!-- begin::Input -->
                             <input
                               type="number"
+                              id="pasajeros_idaVuelta"
                               name="num_Pasajeros"
                               class="form-control form-control-lg form-control-color w-100 fs-4"
                               min="0"
