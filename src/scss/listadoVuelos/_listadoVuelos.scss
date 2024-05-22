@@ -6,7 +6,7 @@
     margin: auto;
     margin-top: 40px;
     margin-bottom: 80px;
-    width: 90%;
+    width: 95%;
     @include m.tablet {
       width: 55%;
     }
@@ -25,7 +25,6 @@
   &__item {
     background-color: var.$gris_claro;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-
     &__btn {
       display: flex;
       align-items: center;
@@ -40,6 +39,46 @@
       width: 100%;
       @include m.desktop {
         width: auto;
+      }
+      &:hover {
+        background-color: rgb(235, 119, 73);
+        color: var.$blanco;
+      }
+    }
+  }
+  &__guiones {
+    display: none;
+    @include m.mobile {
+      display: inline-block;
+    }
+  }
+
+  .vueloSeleccionado {
+    width: 95%;
+    @include m.tablet {
+      width: 50%;
+    }
+
+    &__item {
+      background-color: var.$gris_claro;
+      box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+      width: 100%;
+    }
+
+    &__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var.$naranja;
+      border-radius: 1.8rem;
+      color: var.$blanco;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+      width: 100%;
+      &:hover {
+        background-color: rgb(235, 119, 73);
+        color: var.$blanco;
       }
     }
   }

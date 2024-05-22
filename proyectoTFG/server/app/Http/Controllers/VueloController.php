@@ -63,12 +63,12 @@ class VueloController extends Controller
         $destino = $request->destino;
         $fechaIda = $request->fechaIda;
         $fechaVuelta = $request->fechaVuelta;
+        $intervalo = $request->intervalo;
 
         // Realizamos la consulta a la base de datos
         $vuelos = Vuelo::where('vuelo_AeropuertoSalida', $origen)
             ->where('vuelo_AeropuertoLlegada', $destino)
             ->whereDate('vuelo_Fecha_Hora_Salida', $fechaIda)
-            ->whereDate('vuelo_Fecha_Hora_Llegada', $fechaVuelta)
             ->get();
 
         if ($vuelos->count() < 5) {
@@ -77,18 +77,19 @@ class VueloController extends Controller
                 //Creamos vuelos aleatorios
                 //hora ida
                 $horaIda = $this->creaHoras();
-                $fechaFormatIda = DateTime::createFromFormat('Y-m-d H:i:s', $fechaIda . " " . $horaIda);
-                $fechaFormatIda = $fechaFormatIda->format('Y-m-d H:i:s');
+                $fechaHoraFormatSalida = DateTime::createFromFormat('Y-m-d H:i:s', $fechaIda . " " . $horaIda);
+                $fechaHoraFormatSalida = $fechaHoraFormatSalida->format('Y-m-d H:i:s');
 
-                //hora vuelta
-                $horaVuelta = $this->creaHoras();
-                $fechaFormatVuelta = DateTime::createFromFormat('Y-m-d H:i:s', $fechaVuelta . " " . $horaVuelta);
-                $fechaFormatVuelta = $fechaFormatVuelta->format('Y-m-d H:i:s');
+                //hora llegada
+                $f = new DateTime($fechaHoraFormatSalida);
+                $fechaHoraLlegada = new DateInterval('PT' . intval($intervalo[0]) . 'H' . intval($intervalo[1]) . 'M');
+                $fechaHoraLlegada = $f->add($fechaHoraLlegada);
+                $fechaHoraFormatLlegada = $fechaHoraLlegada->format('Y-m-d H:i:s');
 
                 $vuelo = new Vuelo();
-                $vuelo->vuelo_Num_Pasajeros = rand(85, 100);
-                $vuelo->vuelo_Fecha_Hora_Salida = $fechaFormatIda;
-                $vuelo->vuelo_Fecha_Hora_Llegada = $fechaFormatVuelta;
+                $vuelo->vuelo_Num_Pasajeros = 90;
+                $vuelo->vuelo_Fecha_Hora_Salida = $fechaHoraFormatSalida;
+                $vuelo->vuelo_Fecha_Hora_Llegada = $fechaHoraFormatLlegada;
                 $vuelo->vuelo_AeropuertoSalida = $origen;
                 $vuelo->vuelo_AeropuertoLlegada = $destino;
                 $vuelos->push($vuelo);

@@ -1,3 +1,7 @@
+// Variables globales para la carga de ciudades
+var ciudades = {};
+var datosCargados = false;
+
 // Para saber si ha iniciado sesión
 $(document).ready(function () {
   if (localStorage.getItem("nombre") != null) {
@@ -253,7 +257,17 @@ buscarVueloBtn_Ida.click(function (e) {
       ).then((res) => {
         if (res.status == 200) {
           res.json().then((data) => {
-            localStorage.setItem("vuelos", JSON.stringify(data));
+            data.forEach((vuelo) => {
+              var intervalo = calcularIntervaloFechas(
+                vuelo.vuelo_Fecha_Hora_Salida,
+                vuelo.vuelo_Fecha_Hora_Llegada
+              );
+              vuelo.precio = calcularPrecioVuelo(intervalo);
+            });
+            localStorage.setItem("vuelosIda", JSON.stringify(data));
+            if (localStorage.getItem("vuelosIdaVuelta") != null) {
+              localStorage.removeItem("vuelosIdaVuelta");
+            }
             window.location.href =
               "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
           });
@@ -313,30 +327,20 @@ buscarVueloBtn_IdaVuelta.click(function (e) {
         }
       ).then((res) => {
         if (res.status == 200) {
-          window.location.href =
-            "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
           res.json().then((data) => {
-            var listadoVuelos = $("#listadoVuelos__vuelos");
-            listadoVuelos.empty();
             data.forEach((vuelo) => {
-              var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
-              var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");
-              var HoraSalida = fechaHoraSalida[1].substring(0, 5);
-              var HoraLlegada = fechaHoraLlegada[1].substring(0, 5);
-              var vueloHTML = $(`
-              <div>
-                <div>
-                <p>${HoraSalida}-------</p>
-                <img src="../../assets/media/icons8-avion-32.png">
-                </div>
-                <p>}-------${HoraLlegada}</p>
-                <div>
-                <input type="button" class="btn btn-warning" value="Reservar">
-                </div>
-              </div>
-              `);
-              listadoVuelos.append(vueloHTML);
+              var intervalo = calcularIntervaloFechas(
+                vuelo.vuelo_Fecha_Hora_Salida,
+                vuelo.vuelo_Fecha_Hora_Llegada
+              );
+              vuelo.precio = calcularPrecioVuelo(intervalo);
             });
+            localStorage.setItem("vuelosIdaVuelta", JSON.stringify(data));
+            if (localStorage.getItem("vuelosIda") != null) {
+              localStorage.removeItem("vuelosIda");
+            }
+            window.location.href =
+              "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
           });
         } else {
           alert("Error en el servidor");
@@ -346,52 +350,213 @@ buscarVueloBtn_IdaVuelta.click(function (e) {
   });
 });
 
+// ---------------------------------------
 // Cargar listado de vuelos
 $(document).ready(function () {
   var listadoVuelos = $("#listadoVuelos__vuelos");
   listadoVuelos.empty();
-  // Recuperar los datos de los vuelos de localStorage
-  var data = JSON.parse(localStorage.getItem("vuelos"));
-  data.forEach((vuelo) => {
-    var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
-    var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");
-    var horaSalida = fechaHoraSalida[1].substring(0, 5);
-    var horaLlegada = fechaHoraLlegada[1].substring(0, 5);
-    var fechaSalida = formatearFecha(fechaHoraSalida[0]);
-    var fechaLlegada = formatearFecha(fechaHoraLlegada[0]);
-    var intervalo = calcularIntervaloFechas(
-      vuelo.vuelo_Fecha_Hora_Salida,
-      vuelo.vuelo_Fecha_Hora_Llegada
-    );
-    var precio = calcularPrecioVuelo(intervalo);
-    var vueloHTML = $(`
-      <div class="listadoVuelos__item d-flex flex-column flex-xl-row align-items-center justify-content-between m-auto p-4 mb-3">
-        <div class="d-flex justify-content-evenly align-items-center">
-          <div class="d-flex flex-column justify-content-center">
-            <p class="fs-3">${horaSalida} <span>-----------</span></p>
-            <p class="fs-5">${fechaSalida}</p>
-          </div>
-          <div class="d-flex flex-column align-items-center">
-            <img class="img-fluid mx-3 w-50 mb-4" src="../../assets/media/icons8-avion-32.png">
-            <p class="fs-5">${intervalo[0]}h ${intervalo[1]}min.</p>
-          </div>
-          <div class="d-flex flex-column align-items-end">
-            <p class="fs-3"><span>-----------</span> ${horaLlegada}</p>
-            <p class="fs-5">${fechaLlegada}</p>
-          </div>
-        </div>
-        <div class="d-flex flex-column justify-content-center align-items-center">
-          <p class="fs-4 fw-bold text-center">${precio}€<br>por persona</p>
-        </div>
-        <div class="listadoVuelos__containerbtn d-flex justify-content-center align-items-center">
-          <input type="button" class="btn listadoVuelos__item__btn text-center fs-5 px-5 py-3 mt-4 mt-xl-0 rounded-4 border-0" value="Reservar">
-        </div>
+  // Recuperar los datos de los vuelos IDA de localStorage
+  var dataIda = JSON.parse(localStorage.getItem("vuelosIda"));
+
+  // Recuperar los datos de los vuelos IDA y VUELTA de localStorage
+  var dataIdaVuelta = JSON.parse(localStorage.getItem("vuelosIdaVuelta"));
+
+  // Si no hay vuelos
+  if (
+    (dataIda == null || dataIda.length == 0) &&
+    (dataIdaVuelta == null || dataIdaVuelta.length == 0)
+  ) {
+    $("#listadoVuelos__titulo").hide();
+    var mensaje = $(`
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <img class="img-fluid w-50" src="../../assets/media/falloVuelos.png">
+        <p class="fs-4 fw-bold text-center">No se han encontrado vuelos</p>
       </div>
     `);
-    listadoVuelos.append(vueloHTML);
+    listadoVuelos.append(mensaje);
+    return;
+  }
+
+  // Mostrar los vuelos
+  cargarCiudades().then(() => {
+    // Mostrar los vuelos de IDA
+    if (dataIda !== null) {
+      dataIda.forEach((vuelo) => {
+        var vueloJson = JSON.stringify(vuelo);
+        var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
+        var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");
+        var horaSalida = fechaHoraSalida[1].substring(0, 5);
+        var horaLlegada = fechaHoraLlegada[1].substring(0, 5);
+        var fechaSalida = formatearFecha(fechaHoraSalida[0]);
+        var fechaLlegada = formatearFecha(fechaHoraLlegada[0]);
+        var intervalo = calcularIntervaloFechas(
+          vuelo.vuelo_Fecha_Hora_Salida,
+          vuelo.vuelo_Fecha_Hora_Llegada
+        );
+        var vueloHTML = $(`
+          <div class="listadoVuelos__item d-flex flex-column flex-xl-row align-items-center justify-content-between m-auto p-4 mb-3">
+            <div class="d-flex justify-content-evenly align-items-center">
+              <div class="d-flex flex-column justify-content-center">
+                <p class="fs-3">${horaSalida} <span class="listadoVuelos__guiones">-----------</span></p>
+                <p class="fs-6">${fechaSalida}</p>
+                <p class="fs-5">${ciudades[vuelo.vuelo_AeropuertoSalida]} (${
+          vuelo.vuelo_AeropuertoSalida
+        })</p>
+              </div>
+              <div class="d-flex flex-column mb-4 align-items-center justify-content-center mx-5 mx-sm-0">
+                <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../assets/media/icons8-avion-32.png">
+                <p class="listadoVuelos__intervalo fs-5 fw-bold mb-5">${
+                  intervalo[0]
+                }h ${intervalo[1]}min.</p>
+              </div>
+              <div class="d-flex flex-column align-items-end">
+                <p class="fs-3"><span class="listadoVuelos__guiones">-----------</span> ${horaLlegada}</p>
+                <p class="fs-6">${fechaLlegada}</p>
+                <p class="fs-5">${ciudades[vuelo.vuelo_AeropuertoLlegada]} (${
+          vuelo.vuelo_AeropuertoLlegada
+        })</p>
+              </div>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+              <p class="fs-4 fw-bold text-center">${
+                vuelo.precio
+              }€<br>por persona</p>
+            </div>
+            <div class="listadoVuelos__containerbtn d-flex justify-content-center align-items-center">
+            <a href="listadoVuelos.html?vuelo=${encodeURIComponent(
+              vueloJson
+            )}&intervarlo=${intervalo}" class="enlace_reservarVuelo btn listadoVuelos__item__btn text-center fs-5 px-5 py-3 mt-4 mt-xl-0 rounded-4 border-0">Reservar</a>
+            </div>
+          </div>
+        `);
+        listadoVuelos.append(vueloHTML);
+      });
+
+      // Mostrar los vuelos de IDA y VUELTA
+    } else if (dataIdaVuelta !== null) {
+      dataIdaVuelta.forEach((vuelo) => {
+        var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
+        var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");
+        var horaSalida = fechaHoraSalida[1].substring(0, 5);
+        var horaLlegada = fechaHoraLlegada[1].substring(0, 5);
+        var fechaSalida = formatearFecha(fechaHoraSalida[0]);
+        var fechaLlegada = formatearFecha(fechaHoraLlegada[0]);
+        var intervalo = calcularIntervaloFechas(
+          vuelo.vuelo_Fecha_Hora_Salida,
+          vuelo.vuelo_Fecha_Hora_Llegada
+        );
+        var vueloHTML = $(`
+          <div class="listadoVuelos__item d-flex flex-column flex-xl-row align-items-center justify-content-between m-auto p-4 mb-3">
+            <div class="d-flex justify-content-evenly align-items-center">
+              <div class="d-flex flex-column justify-content-center">
+                <p class="fs-3">${horaSalida} <span class="listadoVuelos__guiones">-----------</span></p>
+                <p class="fs-6">${fechaSalida}</p>
+                <p class="fs-5">${ciudades[vuelo.vuelo_AeropuertoSalida]} (${
+          vuelo.vuelo_AeropuertoSalida
+        })</p>
+              </div>
+              <div class="d-flex flex-column mb-4 align-items-center justify-content-center mx-5 mx-sm-0">
+                <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../assets/media/icons8-avion-32.png">
+                <p class="listadoVuelos__intervalo fs-5 fw-bold mb-5">${
+                  intervalo[0]
+                }h ${intervalo[1]}min.</p>
+              </div>
+              <div class="d-flex flex-column align-items-end">
+                <p class="fs-3"><span class="listadoVuelos__guiones">-----------</span> ${horaLlegada}</p>
+                <p class="fs-6">${fechaLlegada}</p>
+                <p class="fs-5">${ciudades[vuelo.vuelo_AeropuertoLlegada]} (${
+          vuelo.vuelo_AeropuertoLlegada
+        })</p>
+              </div>
+            </div>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+              <p class="fs-4 fw-bold text-center">${
+                vuelo.precio
+              }€<br>por persona</p>
+            </div>
+            <div class="listadoVuelos__containerbtn d-flex justify-content-center align-items-center">
+              <a href="" class="btn listadoVuelos__item__btn text-center fs-5 px-5 py-3 mt-4 mt-xl-0 rounded-4 border-0">Reservar</a>
+            </div>
+          </div>
+        `);
+        listadoVuelos.append(vueloHTML);
+      });
+    }
   });
 });
 
+// ---------------------------------------
+// Confirmación de reserva
+$(document).on("click", ".enlace_reservarVuelo", function (e) {
+  e.preventDefault();
+  var listado = $("#listadoVuelos__vuelos");
+  var vueloSeleccionado = $("#vueloSeleccionado");
+  listado.fadeOut("slow");
+
+  // Obtener los datos del vuelo seleccionado
+  var enlace = $(this);
+  var href = enlace.attr("href");
+  var vuelo = href.split("?")[1];
+  vuelo = decodeURIComponent(vuelo.split("&")[0].split("=")[1]);
+  vuelo = JSON.parse(vuelo);
+  var intervalo = href.split("?")[1];
+  intervalo = decodeURIComponent(intervalo.split("&")[1].split("=")[1]);
+
+  // Mostrar los datos del vuelo seleccionado
+
+  var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
+  var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");
+  var horaSalida = fechaHoraSalida[1].substring(0, 5);
+  var horaLlegada = fechaHoraLlegada[1].substring(0, 5);
+  var fechaSalida = formatearFecha(fechaHoraSalida[0]);
+  var fechaLlegada = formatearFecha(fechaHoraLlegada[0]);
+  var intervalo = calcularIntervaloFechas(
+    vuelo.vuelo_Fecha_Hora_Salida,
+    vuelo.vuelo_Fecha_Hora_Llegada
+  );
+  cargarCiudades().then(() => {
+    var contenido_vueloSeleccionado = $(`
+<div class="vueloSeleccionado__item d-flex flex-column align-items-center justify-content-between m-auto p-4 mb-3">
+  <div class="d-flex justify-content-around align-items-center w-100">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex flex-column justify-content-center">
+        <p class="fs-2 fw-bold">${horaSalida} <span class="listadoVuelos__guiones">-----------</span></p>
+        <p class="fs-5">${fechaSalida}</p>
+        <p class="fs-4 fw-semibold">${
+          ciudades[vuelo.vuelo_AeropuertoSalida]
+        } (${vuelo.vuelo_AeropuertoSalida})</p>
+      </div>
+      <div class="d-flex flex-column mb-4 align-items-center justify-content-center mx-5 mx-sm-0">
+        <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../assets/media/icons8-avion-32.png">
+        <p class="listadoVuelos__intervalo fs-5 fw-bold mb-5">${
+          intervalo[0]
+        }h ${intervalo[1]}min.</p>
+      </div>
+      <div class="d-flex flex-column align-items-end">
+        <p class="fs-2 fw-bold"><span class="listadoVuelos__guiones">-----------</span> ${horaLlegada}</p>
+        <p class="fs-5">${fechaLlegada}</p>
+        <p class="fs-4 fw-semibold">${
+          ciudades[vuelo.vuelo_AeropuertoLlegada]
+        } (${vuelo.vuelo_AeropuertoLlegada})</p>
+      </div>
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <p class="fs-2 fw-bold text-center">${vuelo.precio}€<br>por persona</p>
+    </div>
+  </div>
+<div class="d-flex justify-content-center align-items-center mt-5 w-100">
+  <a href="" class="btn vueloSeleccionado__btn text-center fs-4 fw-bold px-5 py-4 mt-4 mt-xl-0 rounded-4 border-0">Rellenar datos de pasajero</a>
+</div>
+ </div>
+`);
+    vueloSeleccionado.append(contenido_vueloSeleccionado);
+    vueloSeleccionado.fadeIn("slow");
+  });
+});
+
+// ---------------------------------------
+// Rellenar datos de pasajero
+$(document).ready(pintarAsientos);
 // FUNCIONES 💻
 // ---------------------------------------
 function mostrar_resenas(e) {
@@ -623,4 +788,75 @@ function calcularPrecioVuelo(intervalo) {
     precio = Math.round(Math.random() * 140 + 60) * precioBase;
   }
   return precio;
+}
+
+// ---------------------------------------
+// Función para cargar ciudades
+function cargarCiudades() {
+  return new Promise((resolve, reject) => {
+    if (!datosCargados) {
+      fetch("https://api.npoint.io/0ae89dcddb751bee38ef").then((res) => {
+        res.json().then((datos) => {
+          datos.forEach((ciudad) => {
+            ciudades[ciudad.iata] = ciudad.city;
+          });
+          datosCargados = true;
+          resolve();
+        });
+      });
+    } else {
+      resolve();
+    }
+  });
+}
+
+function pintarAsientos() {
+  const totalAsientos = 90;
+  const asientosPorFila = 6;
+  var contador = 0;
+  const letras = ["A", "B", "C", "D", "E", "F"];
+  var section = $(".asientos");
+  var tabla = `
+  <table class="table w-50">
+    <thead>
+      <tr>
+        <th class="text-center bg-transparent border-0 fs-3" scope="col">A</th>
+        <th class="text-center bg-transparent border-0 fs-3" scope="col">B</th>
+        <th class="text-center bg-transparent border-0 fs-3" scope="col">C</th>
+        <th class="bg-transparent border-0"></th>
+        <th class="text-center bg-transparent border-0 fs-3" scope="col">D</th>
+        <th class="text-center bg-transparent border-0 fs-3" scope="col">E</th>
+        <th class="text-center bg-transparent border-0 fs-3" scope="col">F</th>
+      </tr>
+    </thead>
+  <tbody>`;
+
+  for (let i = 1; i <= totalAsientos; i++) {
+    if (i % asientosPorFila == 1) {
+      tabla += `<tr>`;
+    }
+    if (i % 6 == 4) {
+      contador++;
+      tabla += `<td class="text-center bg-transparent border-0 fs-3">${contador}</td>`;
+    }
+    if (i <= 36) {
+      tabla += `<td class="text-center bg-transparent border-0" title="${
+        letras[(i - 1) % 6]
+      }${i}"><button class="btn btn-warning p-4 my-1"></button></td>`;
+    } else if (i > 36 && i <= 60) {
+      tabla += `<td class="text-center bg-transparent border-0" title="${
+        letras[(i - 1) % 6]
+      }${i}"><button style="background-color:#c343ff" class="btn p-4 my-1"></button></td>`;
+    } else {
+      tabla += `<td class="text-center bg-transparent border-0" title="${
+        letras[(i - 1) % 6]
+      }${i}"><button class="btn btn-primary p-4 my-1"></button></td>`;
+    }
+    if (i % asientosPorFila == 0) {
+      tabla += `</tr>`;
+    }
+  }
+  tabla += `</tbody>
+          </table>`;
+  section.append(tabla);
 }

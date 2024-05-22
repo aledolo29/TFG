@@ -11933,75 +11933,20 @@ img {
   font-family: "Contrail One";
   src: url(../assets/fonts/ContrailOne-Regular.ttf);
 }
-.header__logo__titulo {
-  width: 75%;
+td {
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-@media screen and (min-width: 1024px) {
-  .header__logo__titulo {
-    width: 50%;
-  }
-}
-.header__navegacion {
-  width: 35%;
+td.ocupado {
+  background-color: #929292;
+  cursor: not-allowed;
 }
 
-@media screen and (min-width: 1024px) {
-  .header__navegacion {
-    width: 50%;
-  }
-}
-.header__titulo {
-  width: 50%;
-}
-
-@media screen and (min-width: 768px) {
-  .header__titulo {
-    width: 100%;
-  }
-}
-.header__titulo h1, .header__titulo .h1 {
-  font-size: 2rem;
-  font-family: "Bodoni Moda", sans-serif;
-}
-
-@media screen and (min-width: 768px) {
-  .header__titulo h1, .header__titulo .h1 {
-    font-size: 3rem;
-  }
-}
-.header .logo {
-  transform: rotate(45deg);
-  width: 100px;
-}
-
-.header .logo img {
-  max-width: 100%;
-  display: block;
-}
-
-.header__btn__sesion {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #325162;
-  border: 1px solid #ffffff;
-  border-radius: 1.8rem;
-  padding: 0px 0px 2px 0px;
-  color: #ffffff;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-  width: 100%;
-}
-
-@media screen and (min-width: 768px) {
-  .header__btn__sesion {
-    width: auto;
-  }
-}
-.modal__logo img {
-  transform: rotate(45deg);
+.accordion-header button:focus {
+  outline: none;
+  box-shadow: none;
+  background-color: rgb(247, 247, 247);
 }
 
 @font-face {
@@ -12088,112 +12033,4 @@ img {
   display: block;
 }
 
-@font-face {
-  font-family: "Inter";
-  src: url(../assets/fonts/Inter-Regular.ttf);
-}
-@font-face {
-  font-family: "Bodoni Moda";
-  src: url(../assets/fonts/BodoniModa_48pt-ExtraBold.ttf);
-}
-@font-face {
-  font-family: "Contrail One";
-  src: url(../assets/fonts/ContrailOne-Regular.ttf);
-}
-.listadoVuelos__vuelos {
-  margin: auto;
-  margin-top: 40px;
-  margin-bottom: 80px;
-  width: 95%;
-}
-
-@media screen and (min-width: 768px) {
-  .listadoVuelos__vuelos {
-    width: 55%;
-  }
-}
-.listadoVuelos__titulo {
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
-}
-
-.listadoVuelos__containerbtn {
-  width: 100%;
-}
-
-@media screen and (min-width: 1024px) {
-  .listadoVuelos__containerbtn {
-    width: auto;
-  }
-}
-.listadoVuelos__item {
-  background-color: #d9d9d9;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.listadoVuelos__item__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ff8c5d;
-  border-radius: 1.8rem;
-  padding: 0px 0px 2px 0px;
-  color: #ffffff;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-  width: 100%;
-}
-
-@media screen and (min-width: 1024px) {
-  .listadoVuelos__item__btn {
-    width: auto;
-  }
-}
-.listadoVuelos__item__btn:hover {
-  background-color: rgb(235, 119, 73);
-  color: #ffffff;
-}
-
-.listadoVuelos__guiones {
-  display: none;
-}
-
-@media screen and (min-width: 480px) {
-  .listadoVuelos__guiones {
-    display: inline-block;
-  }
-}
-.listadoVuelos .vueloSeleccionado {
-  width: 95%;
-}
-
-@media screen and (min-width: 768px) {
-  .listadoVuelos .vueloSeleccionado {
-    width: 50%;
-  }
-}
-.listadoVuelos .vueloSeleccionado__item {
-  background-color: #d9d9d9;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-  width: 100%;
-}
-
-.listadoVuelos .vueloSeleccionado__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ff8c5d;
-  border-radius: 1.8rem;
-  color: #ffffff;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.2s ease;
-  width: 100%;
-}
-
-.listadoVuelos .vueloSeleccionado__btn:hover {
-  background-color: rgb(235, 119, 73);
-  color: #ffffff;
-}
-
-/*# sourceMappingURL=listadoVuelosStyles.css.map */
+/*# sourceMappingURL=elegirAsientoStyles.css.map */
