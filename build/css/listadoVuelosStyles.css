@@ -12167,9 +12167,10 @@ img {
   width: 95%;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .listadoVuelos .vueloSeleccionado {
     width: 50%;
+    min-width: 690px;
   }
 }
 .listadoVuelos .vueloSeleccionado__item {

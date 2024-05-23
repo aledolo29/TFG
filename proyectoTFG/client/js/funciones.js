@@ -25,538 +25,6 @@ $(document).scroll(function () {
   }
 });
 
-// Ocultar reseñas
-$("#resenas_ocultas").hide();
-
-// REGSITRO DE CLIENTE
-// boton formulario Registro
-$("#btnRegistro").click(function () {
-  var nombre = $("#cliente_Nombre").val();
-  var apellidos = $("#cliente_Apellidos").val();
-  var usuario = $("#cliente_Usuario").val();
-  var password = $("#cliente_Password").val();
-  var password2 = $("#cliente_Password2").val();
-  var dni = $("#cliente_DNI").val();
-  var correo = $("#cliente_Correo").val();
-  var telefono = $("#cliente_Telefono").val();
-
-  if (password == password2) {
-    fetch(
-      "http://localhost/TFG/proyectoTFG/server/public/api/registroCliente",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nombre: nombre,
-          apellidos: apellidos,
-          usuario: usuario,
-          password: password,
-          dni: dni,
-          correo: correo,
-          telefono: telefono,
-        }),
-      }
-    ).then((res) => {
-      if (res.status == 200) {
-        var mensaje_correcto = $("#mensaje_correcto");
-        var mensaje_error = $("#mensaje_error");
-
-        res.json().then((data) => {
-          if (data.correcto) {
-            mensaje_correcto.addClass("alert alert-success");
-            mensaje_correcto.text(data.correcto.toString());
-            mensaje_error.text("");
-            mensaje_error.removeClass("alert alert-danger");
-            setTimeout(() => {
-              window.location.href =
-                "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
-            }, 3000);
-          } else {
-            mensaje_error.addClass("alert alert-danger");
-            mensaje_error.text(data.error, toString());
-            mensaje_correcto.text("");
-            mensaje_correcto.removeClass("alert alert-success");
-          }
-        });
-      } else {
-        alert("Error en el servidor");
-      }
-    });
-  } else {
-    alert("Las contraseñas no coinciden");
-  }
-});
-
-// BUSQUEDA AEROPUERTOS
-// Aeropuerto origen
-var aeropuertos_origen = $(".aeropuerto_origen");
-aeropuertos_origen.change(function () {
-  var valor = $(this).val().toLowerCase();
-  if (valor.length == 0) {
-    aeropuertos_origen.val("");
-    return;
-  }
-});
-$(".aeropuerto_origen").keyup(function () {
-  var valor = $(this).val().toLowerCase();
-  var lista = $(".lista_aeropuertos_origen");
-  var contador = 0;
-  if (valor.length < 3) {
-    lista.hide();
-    return;
-  }
-  if (valor.length == 0) {
-    aeropuertos_origen.val("");
-    return;
-  }
-  fetch("https://api.npoint.io/0ae89dcddb751bee38ef").then((res) => {
-    res.json().then((data) => {
-      lista.empty();
-      lista.show();
-      data.forEach((aeropuerto) => {
-        if (aeropuerto.city.toLowerCase().includes(valor)) {
-          var opcion = $(
-            "<li class='dropdown-item dropdown__aeropuertos__item fw-bold fs-4'></li>"
-          );
-          opcion.html(
-            aeropuerto.city +
-              ` (${aeropuerto.iata})<br><span class='fs-5 fw-light'>${aeropuerto.country}</span>`
-          );
-          opcion.val(aeropuerto.id);
-          lista.append(opcion);
-          contador++;
-        }
-      });
-      if (contador == 0) {
-        var opcion = $(
-          "<li class='dropdown-item dropdown__aeropuertos__item fs-4'></li>"
-        );
-        opcion.html("No se han encontrado resultados de origen para " + valor);
-        lista.append(opcion);
-      }
-    });
-  });
-});
-
-// Aeropuerto destino
-var aeropuertos_destino = $(".aeropuerto_destino");
-aeropuertos_destino.change(function () {
-  var valor = $(this).val().toLowerCase();
-  if (valor.length == 0) {
-    aeropuertos_destino.val("");
-    return;
-  }
-});
-$(".aeropuerto_destino").keyup(function () {
-  var valor = $(this).val().toLowerCase();
-  var lista = $(".lista_aeropuertos_destino");
-  var contador = 0;
-  if (valor.length < 3) {
-    lista.hide();
-    return;
-  }
-  fetch("https://api.npoint.io/0ae89dcddb751bee38ef").then((res) => {
-    res.json().then((data) => {
-      lista.empty();
-      lista.show();
-      data.forEach((aeropuerto) => {
-        if (aeropuerto.city.toLowerCase().includes(valor)) {
-          var opcion = $(
-            `<li class='dropdown-item dropdown__aeropuertos__item fw-bold fs-4'></li>`
-          );
-          opcion.html(
-            aeropuerto.city +
-              ` (${aeropuerto.iata})<br><span class='fs-5'>${aeropuerto.country}</span>`
-          );
-          opcion.val(aeropuerto.id);
-          lista.append(opcion);
-          contador++;
-        }
-      });
-      if (contador == 0) {
-        var opcion = $(
-          "<li class='dropdown-item dropdown__aeropuertos__item fs-4'></li>"
-        );
-        opcion.html("No se han encontrado resultados de destino para " + valor);
-        lista.append(opcion);
-      }
-    });
-  });
-});
-
-// Seleccionar aeropuerto origen
-$(".lista_aeropuertos_origen").on("click", "li", function () {
-  var text = $(this).text();
-  posParentesis = text.indexOf(")");
-  text = text.substring(0, posParentesis + 1);
-  $(".aeropuerto_origen").val(text);
-  $(".lista_aeropuertos_origen").hide();
-  $(".id_aeropuerto_origen").val($(this).val()); // Guardar el id del aeropuerto origen (oculto)
-});
-
-// Seleccionar aeropuerto destino
-$(".lista_aeropuertos_destino").on("click", "li", function () {
-  var text = $(this).text();
-  posParentesis = text.indexOf(")");
-  text = text.substring(0, posParentesis + 1);
-  $(".aeropuerto_destino").val(text);
-  $(".lista_aeropuertos_destino").hide();
-  $(".id_aeropuerto_destino").val($(this).val()); // Guardar el id del aeropuerto destino (oculto)
-});
-
-// BUSQUEDA VUELOS
-
-// ---------------------------------------
-// Vuelo ida
-var buscarVueloBtn_Ida = $("#buscaVuelos_btn_ida");
-buscarVueloBtn_Ida.click(function (e) {
-  e.preventDefault();
-  var id_aeropuerto_origen = $("#id_aeropuerto_origen_ida").val();
-  var id_aeropuerto_destino = $("#id_aeropuerto_destino_ida").val();
-  var fecha = $("#fecha_ida").val();
-  var pasajeros = $("#pasajeros_ida").val();
-  var codAeropuerto_Origen = "";
-  var codAeropuerto_Destino = "";
-  var coordenadasAeropuerto_Origen = "";
-  var coordenadasAeropuerto_Destino = "";
-  var intervalo = [];
-
-  fetch("https://api.npoint.io/0ae89dcddb751bee38ef").then((res) => {
-    res.json().then((data) => {
-      data.forEach((aeropuerto) => {
-        if (aeropuerto.id == id_aeropuerto_origen) {
-          codAeropuerto_Origen = aeropuerto.iata;
-          coordenadasAeropuerto_Origen = aeropuerto.coordinates_wkt;
-        }
-        if (aeropuerto.id == id_aeropuerto_destino) {
-          coordenadasAeropuerto_Destino = aeropuerto.coordinates_wkt;
-          codAeropuerto_Destino = aeropuerto.iata;
-        }
-      });
-      intervalo = obtenerIntervalo(
-        coordenadasAeropuerto_Origen,
-        coordenadasAeropuerto_Destino
-      );
-      fetch(
-        "http://localhost/TFG/proyectoTFG/server/public/api/buscarVueloIda",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            origen: codAeropuerto_Origen,
-            destino: codAeropuerto_Destino,
-            fecha: fecha,
-            pasajeros: pasajeros,
-            intervalo: intervalo,
-          }),
-        }
-      ).then((res) => {
-        if (res.status == 200) {
-          res.json().then((data) => {
-            data.forEach((vuelo) => {
-              var intervalo = calcularIntervaloFechas(
-                vuelo.vuelo_Fecha_Hora_Salida,
-                vuelo.vuelo_Fecha_Hora_Llegada
-              );
-              vuelo.precio = calcularPrecioVuelo(intervalo);
-            });
-            localStorage.setItem("vuelosIda", JSON.stringify(data));
-            if (localStorage.getItem("vuelosIdaVuelta") != null) {
-              localStorage.removeItem("vuelosIdaVuelta");
-            }
-            window.location.href =
-              "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
-          });
-        } else {
-          alert("Error en el servidor");
-        }
-      });
-    });
-  });
-});
-
-//---------------------------------------
-// Vuelo ida y vuelta
-var buscarVueloBtn_IdaVuelta = $("#buscaVuelos_btn_idaVuelta");
-buscarVueloBtn_IdaVuelta.click(function (e) {
-  e.preventDefault();
-  var id_aeropuerto_origen = $("#id_aeropuerto_origen_idaVuelta").val();
-  var id_aeropuerto_destino = $("#id_aeropuerto_destino_idaVuelta").val();
-  var fecha_ida = $("#fecha_ida_idaVuelta").val();
-  var fecha_vuelta = $("#fecha_vuelta_idaVuelta").val();
-  var pasajeros = $("#pasajeros_idaVuelta").val();
-  var codAeropuerto_Origen = "";
-  var codAeropuerto_Destino = "";
-  var intervalo = [];
-
-  fetch("https://api.npoint.io/0ae89dcddb751bee38ef").then((res) => {
-    res.json().then((data) => {
-      data.forEach((aeropuerto) => {
-        if (aeropuerto.id == id_aeropuerto_origen) {
-          codAeropuerto_Origen = aeropuerto.iata;
-          coordenadasAeropuerto_Origen = aeropuerto.coordinates_wkt;
-        }
-        if (aeropuerto.id == id_aeropuerto_destino) {
-          coordenadasAeropuerto_Destino = aeropuerto.coordinates_wkt;
-          codAeropuerto_Destino = aeropuerto.iata;
-        }
-      });
-      intervalo = obtenerIntervalo(
-        coordenadasAeropuerto_Origen,
-        coordenadasAeropuerto_Destino
-      );
-      fetch(
-        "http://localhost/TFG/proyectoTFG/server/public/api/buscarVueloIdaVuelta",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            origen: codAeropuerto_Origen,
-            destino: codAeropuerto_Destino,
-            fechaIda: fecha_ida,
-            fechaVuelta: fecha_vuelta,
-            pasajeros: pasajeros,
-            intervalo: intervalo,
-          }),
-        }
-      ).then((res) => {
-        if (res.status == 200) {
-          res.json().then((data) => {
-            data.forEach((vuelo) => {
-              var intervalo = calcularIntervaloFechas(
-                vuelo.vuelo_Fecha_Hora_Salida,
-                vuelo.vuelo_Fecha_Hora_Llegada
-              );
-              vuelo.precio = calcularPrecioVuelo(intervalo);
-            });
-            localStorage.setItem("vuelosIdaVuelta", JSON.stringify(data));
-            if (localStorage.getItem("vuelosIda") != null) {
-              localStorage.removeItem("vuelosIda");
-            }
-            window.location.href =
-              "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
-          });
-        } else {
-          alert("Error en el servidor");
-        }
-      });
-    });
-  });
-});
-
-// ---------------------------------------
-// Cargar listado de vuelos
-$(document).ready(function () {
-  var listadoVuelos = $("#listadoVuelos__vuelos");
-  listadoVuelos.empty();
-  // Recuperar los datos de los vuelos IDA de localStorage
-  var dataIda = JSON.parse(localStorage.getItem("vuelosIda"));
-
-  // Recuperar los datos de los vuelos IDA y VUELTA de localStorage
-  var dataIdaVuelta = JSON.parse(localStorage.getItem("vuelosIdaVuelta"));
-
-  // Si no hay vuelos
-  if (
-    (dataIda == null || dataIda.length == 0) &&
-    (dataIdaVuelta == null || dataIdaVuelta.length == 0)
-  ) {
-    $("#listadoVuelos__titulo").hide();
-    var mensaje = $(`
-      <div class="d-flex flex-column align-items-center justify-content-center">
-        <img class="img-fluid w-50" src="../../assets/media/falloVuelos.png">
-        <p class="fs-4 fw-bold text-center">No se han encontrado vuelos</p>
-      </div>
-    `);
-    listadoVuelos.append(mensaje);
-    return;
-  }
-
-  // Mostrar los vuelos
-  cargarCiudades().then(() => {
-    // Mostrar los vuelos de IDA
-    if (dataIda !== null) {
-      dataIda.forEach((vuelo) => {
-        var vueloJson = JSON.stringify(vuelo);
-        var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
-        var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");
-        var horaSalida = fechaHoraSalida[1].substring(0, 5);
-        var horaLlegada = fechaHoraLlegada[1].substring(0, 5);
-        var fechaSalida = formatearFecha(fechaHoraSalida[0]);
-        var fechaLlegada = formatearFecha(fechaHoraLlegada[0]);
-        var intervalo = calcularIntervaloFechas(
-          vuelo.vuelo_Fecha_Hora_Salida,
-          vuelo.vuelo_Fecha_Hora_Llegada
-        );
-        var vueloHTML = $(`
-          <div class="listadoVuelos__item d-flex flex-column flex-xl-row align-items-center justify-content-between m-auto p-4 mb-3">
-            <div class="d-flex justify-content-evenly align-items-center">
-              <div class="d-flex flex-column justify-content-center">
-                <p class="fs-3">${horaSalida} <span class="listadoVuelos__guiones">-----------</span></p>
-                <p class="fs-6">${fechaSalida}</p>
-                <p class="fs-5">${ciudades[vuelo.vuelo_AeropuertoSalida]} (${
-          vuelo.vuelo_AeropuertoSalida
-        })</p>
-              </div>
-              <div class="d-flex flex-column mb-4 align-items-center justify-content-center mx-5 mx-sm-0">
-                <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../assets/media/icons8-avion-32.png">
-                <p class="listadoVuelos__intervalo fs-5 fw-bold mb-5">${
-                  intervalo[0]
-                }h ${intervalo[1]}min.</p>
-              </div>
-              <div class="d-flex flex-column align-items-end">
-                <p class="fs-3"><span class="listadoVuelos__guiones">-----------</span> ${horaLlegada}</p>
-                <p class="fs-6">${fechaLlegada}</p>
-                <p class="fs-5">${ciudades[vuelo.vuelo_AeropuertoLlegada]} (${
-          vuelo.vuelo_AeropuertoLlegada
-        })</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column justify-content-center align-items-center">
-              <p class="fs-4 fw-bold text-center">${
-                vuelo.precio
-              }€<br>por persona</p>
-            </div>
-            <div class="listadoVuelos__containerbtn d-flex justify-content-center align-items-center">
-            <a href="listadoVuelos.html?vuelo=${encodeURIComponent(
-              vueloJson
-            )}&intervarlo=${intervalo}" class="enlace_reservarVuelo btn listadoVuelos__item__btn text-center fs-5 px-5 py-3 mt-4 mt-xl-0 rounded-4 border-0">Reservar</a>
-            </div>
-          </div>
-        `);
-        listadoVuelos.append(vueloHTML);
-      });
-
-      // Mostrar los vuelos de IDA y VUELTA
-    } else if (dataIdaVuelta !== null) {
-      dataIdaVuelta.forEach((vuelo) => {
-        var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
-        var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");
-        var horaSalida = fechaHoraSalida[1].substring(0, 5);
-        var horaLlegada = fechaHoraLlegada[1].substring(0, 5);
-        var fechaSalida = formatearFecha(fechaHoraSalida[0]);
-        var fechaLlegada = formatearFecha(fechaHoraLlegada[0]);
-        var intervalo = calcularIntervaloFechas(
-          vuelo.vuelo_Fecha_Hora_Salida,
-          vuelo.vuelo_Fecha_Hora_Llegada
-        );
-        var vueloHTML = $(`
-          <div class="listadoVuelos__item d-flex flex-column flex-xl-row align-items-center justify-content-between m-auto p-4 mb-3">
-            <div class="d-flex justify-content-evenly align-items-center">
-              <div class="d-flex flex-column justify-content-center">
-                <p class="fs-3">${horaSalida} <span class="listadoVuelos__guiones">-----------</span></p>
-                <p class="fs-6">${fechaSalida}</p>
-                <p class="fs-5">${ciudades[vuelo.vuelo_AeropuertoSalida]} (${
-          vuelo.vuelo_AeropuertoSalida
-        })</p>
-              </div>
-              <div class="d-flex flex-column mb-4 align-items-center justify-content-center mx-5 mx-sm-0">
-                <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../assets/media/icons8-avion-32.png">
-                <p class="listadoVuelos__intervalo fs-5 fw-bold mb-5">${
-                  intervalo[0]
-                }h ${intervalo[1]}min.</p>
-              </div>
-              <div class="d-flex flex-column align-items-end">
-                <p class="fs-3"><span class="listadoVuelos__guiones">-----------</span> ${horaLlegada}</p>
-                <p class="fs-6">${fechaLlegada}</p>
-                <p class="fs-5">${ciudades[vuelo.vuelo_AeropuertoLlegada]} (${
-          vuelo.vuelo_AeropuertoLlegada
-        })</p>
-              </div>
-            </div>
-            <div class="d-flex flex-column justify-content-center align-items-center">
-              <p class="fs-4 fw-bold text-center">${
-                vuelo.precio
-              }€<br>por persona</p>
-            </div>
-            <div class="listadoVuelos__containerbtn d-flex justify-content-center align-items-center">
-              <a href="" class="btn listadoVuelos__item__btn text-center fs-5 px-5 py-3 mt-4 mt-xl-0 rounded-4 border-0">Reservar</a>
-            </div>
-          </div>
-        `);
-        listadoVuelos.append(vueloHTML);
-      });
-    }
-  });
-});
-
-// ---------------------------------------
-// Confirmación de reserva
-$(document).on("click", ".enlace_reservarVuelo", function (e) {
-  e.preventDefault();
-  var listado = $("#listadoVuelos__vuelos");
-  var vueloSeleccionado = $("#vueloSeleccionado");
-  listado.fadeOut("slow");
-
-  // Obtener los datos del vuelo seleccionado
-  var enlace = $(this);
-  var href = enlace.attr("href");
-  var vuelo = href.split("?")[1];
-  vuelo = decodeURIComponent(vuelo.split("&")[0].split("=")[1]);
-  vuelo = JSON.parse(vuelo);
-  var intervalo = href.split("?")[1];
-  intervalo = decodeURIComponent(intervalo.split("&")[1].split("=")[1]);
-
-  // Mostrar los datos del vuelo seleccionado
-
-  var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
-  var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");
-  var horaSalida = fechaHoraSalida[1].substring(0, 5);
-  var horaLlegada = fechaHoraLlegada[1].substring(0, 5);
-  var fechaSalida = formatearFecha(fechaHoraSalida[0]);
-  var fechaLlegada = formatearFecha(fechaHoraLlegada[0]);
-  var intervalo = calcularIntervaloFechas(
-    vuelo.vuelo_Fecha_Hora_Salida,
-    vuelo.vuelo_Fecha_Hora_Llegada
-  );
-  cargarCiudades().then(() => {
-    var contenido_vueloSeleccionado = $(`
-<div class="vueloSeleccionado__item d-flex flex-column align-items-center justify-content-between m-auto p-4 mb-3">
-  <div class="d-flex justify-content-around align-items-center w-100">
-    <div class="d-flex justify-content-between align-items-center">
-      <div class="d-flex flex-column justify-content-center">
-        <p class="fs-2 fw-bold">${horaSalida} <span class="listadoVuelos__guiones">-----------</span></p>
-        <p class="fs-5">${fechaSalida}</p>
-        <p class="fs-4 fw-semibold">${
-          ciudades[vuelo.vuelo_AeropuertoSalida]
-        } (${vuelo.vuelo_AeropuertoSalida})</p>
-      </div>
-      <div class="d-flex flex-column mb-4 align-items-center justify-content-center mx-5 mx-sm-0">
-        <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../assets/media/icons8-avion-32.png">
-        <p class="listadoVuelos__intervalo fs-5 fw-bold mb-5">${
-          intervalo[0]
-        }h ${intervalo[1]}min.</p>
-      </div>
-      <div class="d-flex flex-column align-items-end">
-        <p class="fs-2 fw-bold"><span class="listadoVuelos__guiones">-----------</span> ${horaLlegada}</p>
-        <p class="fs-5">${fechaLlegada}</p>
-        <p class="fs-4 fw-semibold">${
-          ciudades[vuelo.vuelo_AeropuertoLlegada]
-        } (${vuelo.vuelo_AeropuertoLlegada})</p>
-      </div>
-    </div>
-    <div class="d-flex flex-column justify-content-center align-items-center">
-      <p class="fs-2 fw-bold text-center">${vuelo.precio}€<br>por persona</p>
-    </div>
-  </div>
-<div class="d-flex justify-content-center align-items-center mt-5 w-100">
-  <a href="" class="btn vueloSeleccionado__btn text-center fs-4 fw-bold px-5 py-4 mt-4 mt-xl-0 rounded-4 border-0">Rellenar datos de pasajero</a>
-</div>
- </div>
-`);
-    vueloSeleccionado.append(contenido_vueloSeleccionado);
-    vueloSeleccionado.fadeIn("slow");
-  });
-});
-
-// ---------------------------------------
-// Rellenar datos de pasajero
-$(document).ready(pintarAsientos);
 // FUNCIONES 💻
 // ---------------------------------------
 function mostrar_resenas(e) {
@@ -609,6 +77,7 @@ function comprobarLogin() {
           gif_cargando.removeClass("d-none");
 
           localStorage.setItem("nombre", data.nombre);
+          localStorage.setItem("idCliente", data.idCliente);
 
           mensaje_error.text("");
           mensaje_error.removeClass("alert alert-danger");
@@ -810,10 +279,21 @@ function cargarCiudades() {
   });
 }
 
+// ---------------------------------------
+// Función para pintar asientos
 function pintarAsientos() {
+  var vuelo = localStorage.getItem("vueloSeleccionado");
+  vuelo = decodeURIComponent(JSON.parse(vuelo));
+  vuelo = JSON.parse(vuelo);
+  if (vuelo == null) {
+    window.location.href =
+      "http://localhost/TFG/proyectoTFG/client/archivos/error.html";
+    return;
+  }
   const totalAsientos = 90;
   const asientosPorFila = 6;
   var contador = 0;
+  var numTitle = 1;
   const letras = ["A", "B", "C", "D", "E", "F"];
   var section = $(".asientos");
   var tabla = `
@@ -839,24 +319,43 @@ function pintarAsientos() {
       contador++;
       tabla += `<td class="text-center bg-transparent border-0 fs-3">${contador}</td>`;
     }
+    // Pintar asientos
+    // Asientos desembarque rápido
     if (i <= 36) {
       tabla += `<td class="text-center bg-transparent border-0" title="${
         letras[(i - 1) % 6]
-      }${i}"><button class="btn btn-warning p-4 my-1"></button></td>`;
+      }${numTitle}\nPrecio: ${vuelo.precio * 1.5}€"><button id="${
+        letras[(i - 1) % 6]
+      }${numTitle}" class="btn_asiento btn btn btn-warning p-4 my-1"></button></td>`;
+
+      // Asientos businness
     } else if (i > 36 && i <= 60) {
       tabla += `<td class="text-center bg-transparent border-0" title="${
         letras[(i - 1) % 6]
-      }${i}"><button style="background-color:#c343ff" class="btn p-4 my-1"></button></td>`;
+      }${numTitle}\nPrecio: ${vuelo.precio * 3}€"><button id="${
+        letras[(i - 1) % 6]
+      }${numTitle}" style="background-color:#c343ff" class="btn_asiento btn p-4 my-1"></button></td>`;
+
+      // Asientos turista
     } else {
       tabla += `<td class="text-center bg-transparent border-0" title="${
         letras[(i - 1) % 6]
-      }${i}"><button class="btn btn-primary p-4 my-1"></button></td>`;
+      }${numTitle}\nPrecio: ${vuelo.precio}€"><button id="${
+        letras[(i - 1) % 6]
+      }${numTitle}" class="btn_asiento btn btn-primary p-4 my-1"></button></td>`;
     }
     if (i % asientosPorFila == 0) {
+      numTitle++;
       tabla += `</tr>`;
     }
   }
   tabla += `</tbody>
-          </table>`;
+          </table>
+          <div class="d-flex justify-content-center"><input type="button" class="elegir_asiento__btn border-0 fw-bold py-3 px-5" id="btn_reservar" value="Reservar"></div>
+          `;
   section.append(tabla);
 }
+
+// ---------------------------------------
+// Función tiempo de espera
+function tiempoEspera() {}

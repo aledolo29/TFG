@@ -42,7 +42,7 @@ class VueloController extends Controller
 
                 // Creamos el vuelo
                 $vuelo = new Vuelo();
-                $vuelo->vuelo_Num_Pasajeros = rand(85, 100);
+                $vuelo->vuelo_Num_Pasajeros = 90;
                 $vuelo->vuelo_Fecha_Hora_Salida = $fechaHoraFormatSalida;
                 $vuelo->vuelo_Fecha_Hora_Llegada = $fechaHoraFormatLlegada;
                 $vuelo->vuelo_AeropuertoSalida = $origen;

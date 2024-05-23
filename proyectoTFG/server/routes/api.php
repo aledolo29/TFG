@@ -25,6 +25,9 @@ Route::middleware(['api'])->group(function () {
 
     // Buscar vuelo ida/vuelta
     Route::post('/buscarVueloIdaVuelta', [VueloController::class, 'buscarVueloIdaVuelta'])->name('buscarVueloIdaVuelta');
+
+    // Obtener Cliente
+    Route::post('/obtenerCliente', [ClienteController::class, 'obtenerCliente'])->name('obtenerCliente');
 });
 // Route::get('/user', function (Request $request) {
 //     return $request->user();

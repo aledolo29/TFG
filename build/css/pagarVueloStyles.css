@@ -12016,16 +12016,50 @@ img {
   font-family: "Contrail One";
   src: url(../assets/fonts/ContrailOne-Regular.ttf);
 }
-.elegir_asiento {
+section {
+  margin: auto;
+  margin-bottom: 100px;
+  margin-top: 30px;
+}
+
+.pagarVuelo__titulo {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.pagarVuelo__contenedor {
   width: 90%;
 }
 
 @media screen and (min-width: 1024px) {
-  .elegir_asiento {
-    width: 50%;
+  .pagarVuelo__contenedor {
+    width: 75%;
   }
 }
-.elegir_asiento__btn {
+.pagarVuelo__input {
+  border: 0;
+  box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.pagarVuelo__input:focus, .pagarVuelo__input:hover {
+  outline: none;
+}
+
+.pagarVuelo__logo {
+  transform: rotate(45deg);
+  max-width: 100%;
+  display: block;
+}
+
+.pagarVuelo__card__titulo {
+  font-family: "Bodoni Moda", sans-serif;
+}
+
+.pagarVuelo__metodos img {
+  width: 100%;
+  display: block;
+}
+
+.pagarVuelo__btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12041,29 +12075,16 @@ img {
 }
 
 @media screen and (min-width: 768px) {
-  .elegir_asiento__btn {
+  .pagarVuelo__btn {
     width: auto;
   }
 }
-td {
-  cursor: pointer;
-  transition: background-color 0.3s;
+.pagarVuelo__btn:hover {
+  background-color: rgb(235, 119, 73);
 }
 
-td.ocupado {
-  background-color: #929292;
-  cursor: not-allowed;
-}
-
-.accordion {
-  width: 30%;
-  min-width: 250px;
-}
-
-.accordion-header button:focus {
-  outline: none;
-  box-shadow: none;
-  background-color: rgb(247, 247, 247);
+.card {
+  box-shadow: 0px 0px 6px 2px rgba(0, 0, 0, 0.5);
 }
 
 @font-face {
@@ -12150,4 +12171,4 @@ td.ocupado {
   display: block;
 }
 
-/*# sourceMappingURL=elegirAsientoStyles.css.map */
+/*# sourceMappingURL=pagarVueloStyles.css.map */

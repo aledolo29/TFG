@@ -1,6 +1,16 @@
 @use "../base/variables" as var;
 @use "../base/mixins" as m;
 
+.elegir_asiento {
+  width: 90%;
+  @include m.desktop {
+    width: 50%;
+  }
+  &__btn {
+    @include m.btn(var.$naranja, var.$blanco);
+  }
+}
+
 td {
   cursor: pointer;
   transition: background-color 0.3s;
@@ -11,7 +21,12 @@ td {
   }
 }
 
-.accordion-header button:focus{
+.accordion {
+  width: 30%;
+  min-width: 250px;
+}
+
+.accordion-header button:focus {
   outline: none;
   box-shadow: none;
   background-color: rgb(247, 247, 247);

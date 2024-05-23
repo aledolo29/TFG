@@ -42,7 +42,7 @@ class ClienteController extends Controller
         if ($comprobarCliente != null) {
             if ($comprobarCliente->cliente_Password == $request->password) {
                 return response()->json([
-                    'correcto' => 'Usuario ' . $request->usuario . ' logueado correctamente. Espere para ser redirigido.', 'nombre' =>  $comprobarCliente->cliente_Nombre
+                    'correcto' => 'Usuario ' . $request->usuario . ' logueado correctamente. Espere para ser redirigido.', 'nombre' =>  $comprobarCliente->cliente_Nombre, 'idCliente' => $comprobarCliente->cliente_Id
                 ]);
             } else {
                 return response()->json([
@@ -54,5 +54,13 @@ class ClienteController extends Controller
                 'error' => 'Usuario no registrado.'
             ]);
         }
+    }
+
+    public function obtenerCliente(Request $request)
+    {
+        $cliente = Cliente::where('cliente_Id', $request->idCliente)->first();
+        return response()->json([
+            'cliente' => $cliente
+        ]);
     }
 }

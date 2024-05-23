@@ -55,8 +55,9 @@
 
   .vueloSeleccionado {
     width: 95%;
-    @include m.tablet {
+    @include m.desktop {
       width: 50%;
+      min-width: 690px;
     }
 
     &__item {
