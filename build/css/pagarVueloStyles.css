@@ -12050,7 +12050,7 @@ section {
   display: block;
 }
 
-.pagarVuelo__card__titulo {
+.pagarVuelo__titulo__card {
   font-family: "Bodoni Moda", sans-serif;
 }
 
@@ -12064,8 +12064,7 @@ section {
   align-items: center;
   justify-content: center;
   background-color: #ff8c5d;
-  border: 1px solid #ffffff;
-  border-radius: 1.8rem;
+  border-radius: 1.3rem;
   padding: 0px 0px 2px 0px;
   color: #ffffff;
   text-align: center;
@@ -12074,13 +12073,14 @@ section {
   width: 100%;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .pagarVuelo__btn {
     width: auto;
   }
 }
 .pagarVuelo__btn:hover {
   background-color: rgb(235, 119, 73);
+  color: #ffffff;
 }
 
 .card {

@@ -17,6 +17,7 @@ class VueloController extends Controller
         $origen = $request->origen;
         $destino = $request->destino;
         $fecha = $request->fecha;
+        $pasajeros = $request->pasajeros;
         $intervalo = $request->intervalo;
 
         // Realizamos la consulta a la base de datos
@@ -42,7 +43,7 @@ class VueloController extends Controller
 
                 // Creamos el vuelo
                 $vuelo = new Vuelo();
-                $vuelo->vuelo_Num_Pasajeros = 90;
+                $vuelo->vuelo_Num_Pasajeros = $pasajeros;
                 $vuelo->vuelo_Fecha_Hora_Salida = $fechaHoraFormatSalida;
                 $vuelo->vuelo_Fecha_Hora_Llegada = $fechaHoraFormatLlegada;
                 $vuelo->vuelo_AeropuertoSalida = $origen;

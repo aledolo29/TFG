@@ -1,0 +1,10 @@
+{
+    "name": "usuario/prueba-stripe",
+    "description": "Proyecto de prueba para integración con Stripe",
+    "type": "project",
+    "license": "mit",
+    "minimum-stability": "stable",
+    "require": {
+        "stripe/stripe-php": "^14.8"
+    }
+}

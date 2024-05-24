@@ -76,7 +76,7 @@ $(document).on("click", ".vueloSeleccionado__btn", function () {
   var enlace = $(this);
   var href = enlace.attr("href");
   var vuelo = href.split("=")[1];
-  localStorage.setItem("vueloSeleccionado", JSON.stringify(vuelo));
+  sessionStorage.setItem("vueloSeleccionado", vuelo);
 });
 
 // ---------------------------------------

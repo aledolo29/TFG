@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +17,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Para mostrar el formulario de pago
+Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
+
+// Para dar por correcto el pago
+Route::get('/paymentSuccess', [PaymentController::class, 'handlePaymentCompleted'])->name('paymentSuccess');
 
 require __DIR__ . '/auth.php';
