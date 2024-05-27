@@ -23,7 +23,7 @@ if (isset($_GET['mensaje'])) {
 
 <body>
   <div class="loginCrud container m-auto d-flex justify-content-center align-items-center">
-    <div class="loginCrud__container d-flex flex-column justify-content-center align-items-center mt-5">
+    <div class="loginCrud__container d-flex flex-column justify-content-center align-items-center">
       <img src="../assets/media/logo_azul.png" alt="logo" class="img-fluid" />
       <h1 class="loginCrud__titulo text-primary text-center">
         INTERSTELLAR AIRLINES

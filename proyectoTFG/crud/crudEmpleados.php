@@ -152,11 +152,7 @@ if (isset($_POST['aux_eliminar_empleado'])) {
               <img src="../assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
             </a>
             <ul class="dropdown-menu dropdown_avatar p-4 rounded-4">
-<<<<<<< HEAD
-            <li><a class="dropdown-item fs-4 mb-2" href="crudDatosPersonales.php"><i class="bi bi-pencil-square fs-2 me-3"></i>Datos personales</a></li>
-=======
               <li><a class="dropdown-item fs-4 mb-2" href="crudDatosPersonales.php"><i class="bi bi-pencil-square fs-2 me-3"></i>Datos personales</a></li>
->>>>>>> db327f805d329124414310ad257da63d5a139e1e
               <li><a class="dropdown-item fs-4" href="clases/desconectar.php"><i class="bi bi-box-arrow-left fs-2 me-3"></i>Cerrar Sesión</a></li>
             </ul>
           </div>

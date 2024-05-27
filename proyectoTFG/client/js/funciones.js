@@ -2,13 +2,17 @@
 var ciudades = {};
 var datosCargados = false;
 
+// EVENTOS 🎉
 // Para saber si ha iniciado sesión
 $(document).ready(function () {
-  if (localStorage.getItem("nombre") != null) {
-    $("#btn_login_text").text("Hola " + localStorage.getItem("nombre"));
-  } else {
-    $("#btn_login_text").text("Iniciar sesión");
-  }
+  cargarComponente("header").then(() => {
+    if (localStorage.getItem("nombre") != null) {
+      $("#btn_login_text").text("Hola " + localStorage.getItem("nombre"));
+    } else {
+      $("#btn_login_text").text("Iniciar sesión");
+    }
+  });
+  cargarComponente("footer");
 });
 
 // Botón de ir hacia arriba
@@ -26,6 +30,23 @@ $(document).scroll(function () {
 });
 
 // FUNCIONES 💻
+// ---------------------------------------
+function cargarComponente(nombre) {
+  return new Promise((resolve, reject) => {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "components/" + nombre + ".html", true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        document.getElementsByTagName(nombre)[0].innerHTML = xhr.responseText;
+        resolve();
+      } else if (xhr.readyState == 4) {
+        reject();
+      }
+    };
+    xhr.send();
+  });
+}
+
 // ---------------------------------------
 function mostrar_resenas(e) {
   e.preventDefault();

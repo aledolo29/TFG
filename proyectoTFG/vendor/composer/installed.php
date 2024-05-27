@@ -3,7 +3,7 @@
         'name' => 'usuario/prueba-stripe',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '849e1fcd55f1a8356b526fe7c6e8abdd5dc922c7',
+        'reference' => '82e28b2c887739694781674fc28ff78777de4b44',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'usuario/prueba-stripe' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '849e1fcd55f1a8356b526fe7c6e8abdd5dc922c7',
+            'reference' => '82e28b2c887739694781674fc28ff78777de4b44',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -1,0 +1,22 @@
+body {
+    background-color: #fffcf8;
+}
+.logo {
+    transform: rotate(45deg);
+    width: 125px;
+    img {
+        max-width: 100%;
+        display: block;
+    }
+}
+
+.checked {
+    width: 40px;
+    img {
+        max-width: 100%;
+        display: block;
+    }
+}
+h1 {
+    color: #325162;
+}
