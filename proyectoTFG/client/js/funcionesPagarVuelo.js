@@ -27,6 +27,7 @@ $(document).ready(function () {
       }),
     }).then((response) => {
       response.json().then((data) => {
+        idCliente = data.cliente.cliente_Id;
         nombre = data.cliente.cliente_Nombre;
         apellido = data.cliente.cliente_Apellidos;
         email = data.cliente.cliente_Correo;
@@ -100,7 +101,9 @@ $(document).ready(function () {
 
         $(".pagarVuelo__btn").click(function () {
           var url =
-            "http://localhost/TFG/proyectoTFG/server/public/checkout?cliente=" +
+            "http://localhost/TFG/proyectoTFG/server/public/checkout?idCliente=" +
+            idCliente +
+            "&cliente=" +
             nombre +
             " " +
             apellido +

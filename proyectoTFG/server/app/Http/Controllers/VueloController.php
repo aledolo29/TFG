@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Billete;
+use App\Models\Cliente;
 use App\Models\Vuelo;
 use DateInterval;
 use DateTime;
@@ -132,5 +134,25 @@ class VueloController extends Controller
 
         $horaCreada = $horas[array_rand($horas)] . ":" . str_pad($minutos[array_rand($minutos)], 2, '0', STR_PAD_LEFT) . ":00";
         return $horaCreada;
+    }
+
+    public function guardarVueloBillete(Request $request)
+    {
+        $vuelo = new Vuelo();
+        $asientos = $request->asientos;
+        $vueloSeleccionado = $request->vueloSeleccionado;
+        $vuelo->vuelo_Fecha_Hora_Salida = DateTime::createFromFormat('Y-m-d H:i:s', $vueloSeleccionado['vuelo_Fecha_Hora_Salida']);
+        $vuelo->vuelo_Fecha_Hora_Llegada = DateTime::createFromFormat('Y-m-d H:i:s', $vueloSeleccionado['vuelo_Fecha_Hora_Llegada']);
+        $vuelo->vuelo_AeropuertoSalida = $vueloSeleccionado['vuelo_AeropuertoSalida'];
+        $vuelo->vuelo_AeropuertoLlegada = $vueloSeleccionado['vuelo_AeropuertoLlegada'];
+        if ($vuelo->save()) {
+            foreach ($asientos as $asiento) {
+                $billete = new Billete();
+                $billete->billete_Vuelo_IdFK = $vuelo->vuelo_Id;
+                $billete->billete_Cliente_IdFK = $request->idCliente;
+                $billete->billete_Asiento = $asiento;
+                $billete->save();
+            }
+        }
     }
 }

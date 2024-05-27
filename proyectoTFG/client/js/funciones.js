@@ -7,9 +7,31 @@ var datosCargados = false;
 $(document).ready(function () {
   cargarComponente("header").then(() => {
     if (localStorage.getItem("nombre") != null) {
-      $("#btn_login_text").text("Hola " + localStorage.getItem("nombre"));
+      $("#btn_login_component").html(
+        `<a id="btn_login" class="nav-link text-white header__btn__sesion px-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span id="btn_login_text">Hola ${localStorage.getItem(
+              "nombre"
+            )}</span>
+            <i class="bi bi-person-circle fs-2 ps-2"></i
+          ></a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown_logout rounded-4">
+          <li class="p-2"><a class="dropdown-item fs-4 fw-bold d-flex justify-content-between align-items-center" href="listadoBilletes.html"><img src="../../assets/media/airplane-ticket.png">Mis Billetes</a></li>
+            <li class="p-2"><a class="dropdown-item fs-4 fw-bold d-flex justify-content-between align-items-center" href="#" onclick="cerrarSesion()"><i class="bi bi-box-arrow-left me-4 fs-2"></i>Cerrar Sesión</a></li>
+          </ul>`
+      );
+
+      $("#enlace_registro").hide();
     } else {
-      $("#btn_login_text").text("Iniciar sesión");
+      $("#btn_login_component").html(
+        `<a
+        id="btn_login"
+        class="nav-link text-white header__btn__sesion px-3"
+        href="#" data-bs-toggle="modal"
+        data-bs-target="#modal_login">
+        <span id="btn_login_text">Iniciar Sesión</span>
+        <i class="bi bi-person-circle fs-2 ps-2"></i
+      ></a>`
+      );
     }
   });
   cargarComponente("footer");
@@ -303,3 +325,12 @@ function cargarCiudades() {
 // ---------------------------------------
 // Función tiempo de espera
 function tiempoEspera() {}
+
+// ---------------------------------------
+// Función para cerrar sesión
+function cerrarSesion() {
+  localStorage.clear();
+  sessionStorage.clear();
+  window.location.href =
+    "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
+}

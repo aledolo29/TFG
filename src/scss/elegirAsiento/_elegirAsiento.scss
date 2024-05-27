@@ -1,7 +1,7 @@
 @use "../base/variables" as var;
 @use "../base/mixins" as m;
 
-.elegir_asiento {
+.reservar_asiento {
   width: 90%;
   @include m.desktop {
     width: 50%;

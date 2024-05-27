@@ -22,8 +22,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
 
 // Para dar por correcto el pago
-Route::get('/success', function () {
-    return view('paymentSuccess');
-})->name('success');
+Route::get('/success', [PaymentController::class, 'sendEmail'])->name('success');
+
+
 
 require __DIR__ . '/auth.php';

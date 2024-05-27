@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirmación de Compra de Billetes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      .container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .header {
+        background-color: #325162;
+        color: #ffffff;
+        padding: 20px;
+        text-align: center;
+      }
+      .content {
+        padding: 20px;
+      }
+      .content h2 {
+        color: #333333;
+      }
+      .ticket {
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        padding: 10px;
+        margin-top: 20px;
+        background-color: #f9f9f9;
+      }
+      .footer {
+        background-color: #325162;
+        color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        font-size: 12px;
+      }
+      .footer a {
+        color: #ffffff;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Compra Confirmada</h1>
+      </div>
+      <div class="content">
+        <h2>¡Gracias por tu compra, [Nombre del Cliente]!</h2>
+        <p>
+          Adjunto encontrarás tus billetes electrónicos. Por favor, revisa los
+          detalles a continuación:
+        </p>
+        <div class="ticket">
+          <h3>Billete Electrónico</h3>
+          <p><strong>Nombre:</strong> [Nombre del Cliente]</p>
+          <p><strong>Fecha de Viaje:</strong> [Fecha del Viaje]</p>
+          <p><strong>Hora de Salida:</strong> [Hora de Salida]</p>
+          <p><strong>Destino:</strong> [Destino]</p>
+          <p><strong>Asiento:</strong> [Número de Asiento]</p>
+          <p><strong>Precio:</strong> [Precio]</p>
+          <p><strong>Código de Reserva:</strong> [Código de Reserva]</p>
+        </div>
+        <p>
+          Te recomendamos llegar al menos 30 minutos antes de la hora de salida.
+          Si tienes alguna pregunta, no dudes en contactarnos.
+        </p>
+      </div>
+      <div class="footer">
+        <p>
+          &copy; 2024 Compañía de Transportes. Todos los derechos reservados.
+        </p>
+        <p><a href="mailto:contacto@compania.com">contacto@compania.com</a></p>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

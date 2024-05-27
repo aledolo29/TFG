@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BilleteController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VueloController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,13 @@ Route::middleware(['api'])->group(function () {
 
     // Pagar vuelo
     Route::post('/pagarVuelo', [VueloController::class, 'pagarVuelo'])->name('pagarVuelo');
+
+    // Guardar vuelo
+    Route::post('/guardarVueloBillete', [VueloController::class, 'guardarVueloBillete'])->name('guardarVueloBillete');
+
+    // Obtener billetes
+    Route::post('/obtenerBilletes', [BilleteController::class, 'obtenerBilletes'])->name('obtenerBilletes');
+
 });
 // Route::get('/user', function (Request $request) {
 //     return $request->user();

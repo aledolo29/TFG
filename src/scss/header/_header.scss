@@ -27,7 +27,7 @@
     }
   }
   .logo {
-    transform: rotate(45deg);
+    rotate: 45deg;
     width: 100px;
     img {
       max-width: 100%;
@@ -37,10 +37,13 @@
   &__btn__sesion {
     @include m.btn(var.$azul, var.$blanco);
   }
+
+  .dropdown_logout {
+    transform: translate(-15px, 0px);
+  }
 }
 .modal__logo {
   img {
     transform: rotate(45deg);
   }
 }
-

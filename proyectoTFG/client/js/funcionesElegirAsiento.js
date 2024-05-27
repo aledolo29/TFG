@@ -70,11 +70,11 @@ function pintarAsientos() {
   }
   tabla += `</tbody>
           </table>
-          <div class="d-flex justify-content-center"><input type="button" class="elegir_asiento__btn border-0 fw-bold py-3 px-5" id="btn_reservar" value="Reservar"></div>
+          <div class="d-flex justify-content-center"><input type="button" class="reservar_asiento__btn border-0 fw-bold py-3 px-5" id="btn_reservar" value="Reservar"></div>
           `;
   section.append(tabla);
 
-  var btnAsientos = $(".elegir_asiento__btn");
+  var btnAsientos = $(".reservar_asiento__btn");
   btnAsientos.click(function (e) {
     e.preventDefault();
     var asientos = $(".btn_asiento");
