@@ -391,19 +391,34 @@
               aria-label="Close"
             ></button>
           </div>
+
+          <!-- Mensajes correcto/error -->
+          <div class="d-flex justify-content-center align-items-center">
+            <div id="mensaje_correcto"></div>
+            <div>
+              <img
+                class="d-none mx-2"
+                src="../../assets/media/icons8-hilandero.gif"
+                alt="Cargando"
+                id="gif_cargando"
+                style="width: 40px"
+              />
+            </div>
+          </div>
+          <div id="mensaje_error"></div>
+
           <div class="modal-body">
             <div>
               <div>
                 <div>
-                  <label for="email" class="form-label fs-4"
-                    >Correo electrónico</label
+                  <label for="login" class="form-label fs-4"
+                    >Correo electrónico o usuario</label
                   >
                   <input
                     type="email"
-                    name="email"
-                    id="email"
+                    name="login"
+                    id="login_Cliente"
                     class="form-control bg-light fs-5"
-                    placeholder="email@email.com"
                   />
                 </div>
 
@@ -414,9 +429,8 @@
                   <input
                     type="password"
                     name="password"
-                    id="password"
+                    id="login_Password"
                     class="form-control bg-light fs-5"
-                    placeholder="Contraseña"
                   />
                 </div>
 
@@ -431,7 +445,7 @@
                   ¿No tienes cuenta?
                   <span
                     ><a class="text-info" href="registro.html"
-                      >Resgistrate</a
+                      >Registrate</a
                     ></span
                   >
                 </p>
@@ -446,11 +460,18 @@
             >
               Cerrar
             </button>
-            <button type="button" class="btn btn-primary fs-4">Acceder</button>
+            <button
+              type="button"
+              onclick="comprobarLogin()"
+              class="btn btn-primary fs-4"
+            >
+              Acceder
+            </button>
           </div>
         </div>
       </div>
     </div>
+
     <!-- MODAL RECUPERAR CONTRASEÑA -->
     <div
       class="modal fade"
@@ -479,14 +500,16 @@
             <div>
               <label for="email" class="form-label fs-4"
                 >Introduzca su correo electrónico y le mandaremos un email con
-                su contraseña</label
+                su contraseña.</label
+              >
+              <label for="email" class="form-label mt-2"
+                >Correo electrónico:</label
               >
               <input
                 type="email"
                 name="email"
                 id="email"
                 class="form-control bg-light fs-5"
-                placeholder="email@email.com"
               />
             </div>
           </div>

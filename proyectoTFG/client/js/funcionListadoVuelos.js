@@ -58,11 +58,11 @@ $(document).on("click", ".enlace_reservarVuelo", function (e) {
         <p class="fs-2 fw-bold text-center">${vuelo.precio}€<br>por persona</p>
       </div>
     </div>
-  <div class="d-flex justify-content-center align-items-center mt-5 w-100">
-    <a href="elegirAsiento.html?vueloSeleccionado=${encodeURIComponent(
+    <div class="d-flex justify-content-center align-items-center mt-5 w-100">
+      <a href="elegirAsiento.html?vueloSeleccionado=${encodeURIComponent(
       vueloJson
-    )}" class="btn vueloSeleccionado__btn text-center fs-4 fw-bold px-5 py-4 mt-4 mt-xl-0 rounded-4 border-0">Rellenar datos de pasajero</a>
-  </div>
+      )}" class="btn vueloSeleccionado__btn text-center fs-4 fw-bold px-5 py-4 mt-4 mt-xl-0 rounded-4 border-0">Rellenar datos de pasajero</a>
+    </div>
    </div>
   `);
     vueloSeleccionado.append(contenido_vueloSeleccionado);

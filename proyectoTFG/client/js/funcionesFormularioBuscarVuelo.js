@@ -161,11 +161,13 @@ buscarVueloBtn_Ida.click(function (e) {
         if (res.status == 200) {
           res.json().then((data) => {
             data.forEach((vuelo) => {
-              var intervalo = calcularIntervaloFechas(
-                vuelo.vuelo_Fecha_Hora_Salida,
-                vuelo.vuelo_Fecha_Hora_Llegada
-              );
-              vuelo.precio = calcularPrecioVuelo(intervalo);
+              if (!("precio" in vuelo)) {
+                var intervalo = calcularIntervaloFechas(
+                  vuelo.vuelo_Fecha_Hora_Salida,
+                  vuelo.vuelo_Fecha_Hora_Llegada
+                );
+                vuelo.precio = calcularPrecioVuelo(intervalo);
+              }
             });
             localStorage.setItem("vuelosIda", JSON.stringify(data));
             if (localStorage.getItem("vuelosIdaVuelta") != null) {

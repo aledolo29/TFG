@@ -11,9 +11,7 @@
   }
 }
 
-td {
-  cursor: pointer;
-  transition: background-color 0.3s;
+button {
 
   &.ocupado {
     background-color: var.$gris;
@@ -22,7 +20,7 @@ td {
 }
 
 .accordion {
-  width: 30%;
+  width: 20%;
   min-width: 250px;
 }
 

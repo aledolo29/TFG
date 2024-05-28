@@ -23,13 +23,12 @@
         </div>
         <p class="text-center"> ¡Gracias por tu compra! En breve recibirás un correo con los detalles de
             tu pedido.</p>
-        <a id="guardarVueloBillete" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="">Volver al inicio</a>
+        <a id="guardarVueloBillete" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="http://localhost/TFG/proyectoTFG/client/archivos/index.html">Volver al inicio</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script>
-        document.getElementById("guardarVueloBillete").addEventListener("click", function(e) {
-            e.preventDefault();
+        addEventListener("DOMContentLoaded", function() {
             var vueloSeleccionado = decodeURIComponent(sessionStorage.getItem("vueloSeleccionado"));
             vueloSeleccionado = JSON.parse(vueloSeleccionado);
             var asientos = JSON.parse(sessionStorage.getItem("asientosSeleccionados"));
@@ -47,7 +46,6 @@
                 }),
             }).then(function(response) {
                 if (response.ok) {
-                    window.location.href = "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
                     localStorage.removeItem("vuelosIda");
                     localStorage.removeItem("vuelosVuelta");
                     sessionStorage.removeItem("vueloSeleccionado");

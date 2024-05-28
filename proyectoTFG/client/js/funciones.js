@@ -51,6 +51,36 @@ $(document).scroll(function () {
   }
 });
 
+// Comprobar recordatorio de contraseña
+$("#recuperar_contrasena").click(function (e) {
+  e.preventDefault();
+  var email = $("#email_recuperar_contrasena").val();
+  fetch(
+    "http://localhost/TFG/proyectoTFG/server/public/api/recuperarContrasena",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    }
+  ).then((res) => {
+    if (res.status == 200) {
+      res.json().then((data) => {
+        if (data.correcto) {
+          alert(data.correcto);
+        } else {
+          alert(data.error);
+        }
+      });
+    } else {
+      alert("Error en el servidor");
+    }
+  });
+});
+
 // FUNCIONES 💻
 // ---------------------------------------
 function cargarComponente(nombre) {
@@ -125,8 +155,7 @@ function comprobarLogin() {
           mensaje_error.text("");
           mensaje_error.removeClass("alert alert-danger");
           setTimeout(() => {
-            window.location.href =
-              "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
+            window.location.reload();
           }, 3000);
         } else {
           mensaje_error.addClass("alert alert-danger");
@@ -236,46 +265,19 @@ function formatearFecha(fecha) {
 // ---------------------------------------
 // Función para calcular intervalo de tiempo
 function calcularIntervaloFechas(fechaHoraSalida, fechaHoraLlegada) {
-  fechaHoraSalida = fechaHoraSalida.split(" ");
-  // Fecha y hora de salida
-  var fechaSalida = fechaHoraSalida[0].split("-");
-  var timeSalida = fechaHoraSalida[1].split(":");
-  var diaSalida = fechaSalida[2];
-  var mesSalida = fechaSalida[1];
-  var anyoSalida = fechaSalida[0];
-  var horaSalida = timeSalida[0];
-  var minutosSalida = timeSalida[1];
+  // Convertir las cadenas de fecha y hora a objetos Date
+  var fechaSalidaFormat = new Date(fechaHoraSalida);
+  var fechaLlegadaFormat = new Date(fechaHoraLlegada);
 
-  // Fecha y hora de llegada
-  fechaHoraLlegada = fechaHoraLlegada.split(" ");
-  var fechaLlegada = fechaHoraLlegada[0].split("-");
-  var timeLlegada = fechaHoraLlegada[1].split(":");
-  var diaLlegada = fechaLlegada[2];
-  var mesLlegada = fechaLlegada[1];
-  var anyoLlegada = fechaLlegada[0];
-  var horaLlegada = timeLlegada[0];
-  var minutosLlegada = timeLlegada[1];
-
-  var fechaSalidaFormat = new Date(
-    anyoSalida,
-    mesSalida,
-    diaSalida,
-    horaSalida,
-    minutosSalida
-  );
-  var fechaLlegadaFormat = new Date(
-    anyoLlegada,
-    mesLlegada,
-    diaLlegada,
-    horaLlegada,
-    minutosLlegada
-  );
+  // Calcular el intervalo en milisegundos
   var intervalo = fechaLlegadaFormat - fechaSalidaFormat;
+
+  // Convertir el intervalo a horas y minutos
   var horas = Math.floor(intervalo / 3600000);
-  var minutos = Math.floor((intervalo - horas * 3600000) / 60000);
+  var minutos = Math.floor((intervalo % 3600000) / 60000);
+
   return [horas, minutos];
 }
-
 // ---------------------------------------
 // Función para calcular el precio del vuelo
 function calcularPrecioVuelo(intervalo) {
@@ -331,6 +333,11 @@ function tiempoEspera() {}
 function cerrarSesion() {
   localStorage.clear();
   sessionStorage.clear();
-  window.location.href =
-    "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
+  window.location.reload();
+}
+
+// ---------------------------------------
+// Función primera letra mayúscula
+function primeraLetraMayuscula(cadena) {
+  return cadena.charAt(0).toUpperCase() + cadena.slice(1);
 }

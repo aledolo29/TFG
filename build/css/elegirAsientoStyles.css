@@ -12049,18 +12049,13 @@ img {
     width: auto;
   }
 }
-td {
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-td.ocupado {
+button.ocupado {
   background-color: #929292;
   cursor: not-allowed;
 }
 
 .accordion {
-  width: 30%;
+  width: 20%;
   min-width: 250px;
 }
 

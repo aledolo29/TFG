@@ -12134,7 +12134,7 @@ img {
   height: 100%;
 }
 
-input {
+.reservar_vuelo input {
   box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.25);
 }
 

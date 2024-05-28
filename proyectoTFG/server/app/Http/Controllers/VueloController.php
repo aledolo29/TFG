@@ -28,6 +28,12 @@ class VueloController extends Controller
             ->whereDate('vuelo_Fecha_Hora_Salida', $fecha)
             ->get();
 
+        foreach ($vuelos as $v) {
+            $billete = Billete::where('billete_Vuelo_IdFK', $v->vuelo_Id)->first();
+            $v->precio = $billete->billete_Precio;
+            $v->vuelo_Num_Pasajeros = $pasajeros;
+        }
+
         if ($vuelos->count() < 5) {
             $cantidadAnadir = 5 - $vuelos->count(); // Calculamos cuantos vuelos faltan
             for ($i = 0; $i < $cantidadAnadir; $i++) {
@@ -151,8 +157,21 @@ class VueloController extends Controller
                 $billete->billete_Vuelo_IdFK = $vuelo->vuelo_Id;
                 $billete->billete_Cliente_IdFK = $request->idCliente;
                 $billete->billete_Asiento = $asiento;
+                $precio = $vueloSeleccionado['precio'];
+                $asiento = substr($asiento, 1);
+                if ($asiento <= 6) {
+                    $precio = $precio * 1.5;
+                } else if ($asiento > 6 && $asiento <= 10) {
+                    $precio = $precio * 3;
+                }
+                $billete->billete_Precio = $precio;
                 $billete->save();
             }
         }
+    }
+    public function obtenerVuelo(Request $request)
+    {
+        $vuelo = Vuelo::where('vuelo_Id', $request->vuelo_Id)->first();
+        return response()->json($vuelo);
     }
 }

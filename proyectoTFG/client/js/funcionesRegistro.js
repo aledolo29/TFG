@@ -1,8 +1,8 @@
 // REGISTRO DE CLIENTE
 // boton formulario Registro
 $("#btnRegistro").click(function () {
-  var nombre = $("#cliente_Nombre").val();
-  var apellidos = $("#cliente_Apellidos").val();
+  var nombre = primeraLetraMayuscula($("#cliente_Nombre").val());
+  var apellidos = primeraLetraMayuscula($("#cliente_Apellidos").val());
   var usuario = $("#cliente_Usuario").val();
   var password = $("#cliente_Password").val();
   var password2 = $("#cliente_Password2").val();

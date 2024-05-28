@@ -12020,10 +12020,41 @@ img {
   font-family: "Contrail One";
   src: url(../assets/fonts/ContrailOne-Regular.ttf);
 }
-.billetes__titulo {
+.listadoBilletes__titulo {
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
+.listadoBilletes__lista {
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 80px;
+}
+
+.listadoBilletes__item {
+  width: 95%;
+  background-color: #d9d9d9;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  color: #0a0a0a;
+  padding: 2rem;
+  margin: auto;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .listadoBilletes__item {
+    width: 55%;
+  }
+}
+.listadoBilletes__guiones {
+  display: none;
+}
+
+@media screen and (min-width: 480px) {
+  .listadoBilletes__guiones {
+    display: inline-block;
+  }
+}
 @font-face {
   font-family: "Inter";
   src: url(../assets/fonts/Inter-Regular.ttf);

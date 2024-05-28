@@ -1,10 +1,35 @@
 @use "../base/variables" as var;
 @use "../base/mixins" as m;
 
-.billetes {
+.listadoBilletes {
   &__container {
   }
   &__titulo {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+  }
+
+  &__lista {
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 80px;
+  }
+  &__item {
+    width: 95%;
+    @include m.desktop {
+      width: 55%;
+    }
+    background-color: var.$gris_claro;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    color: var.$negro;
+    padding: 2rem;
+    margin: auto;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+  }
+  &__guiones {
+    display: none;
+    @include m.mobile {
+      display: inline-block;
+    }
   }
 }

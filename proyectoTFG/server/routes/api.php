@@ -39,6 +39,18 @@ Route::middleware(['api'])->group(function () {
     // Obtener billetes
     Route::post('/obtenerBilletes', [BilleteController::class, 'obtenerBilletes'])->name('obtenerBilletes');
 
+    // Obtener vuelo
+    Route::post('/obtenerVuelo', [VueloController::class, 'obtenerVuelo'])->name('obtenerVuelo');
+
+    // Cancelar billete
+    Route::post('/eliminarBillete', [BilleteController::class, 'eliminarBillete'])->name('eliminarBillete');
+
+    // Rceuperar contraseña
+    Route::post('/recuperarContrasena', [ClienteController::class, 'recuperarContrasena'])->name('recuperarContrasena');
+
+    // Comprobar asientos
+    Route::post('/comprobarAsientos', [BilleteController::class, 'comprobarAsientos'])->name('comprobarAsientos');
+
 });
 // Route::get('/user', function (Request $request) {
 //     return $request->user();

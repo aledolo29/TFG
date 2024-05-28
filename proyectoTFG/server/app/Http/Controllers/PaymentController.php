@@ -3,94 +3,94 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use PHPMailer\PHPMailer\PHPMailer;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use Illuminate\Http\Request;
-use PHPMailer\PHPMailer\PHPMailer;
 
 
 class PaymentController extends Controller
 {
-    public function checkout(Request $request)
-    {
+  public function checkout(Request $request)
+  {
 
-        // Recoge los datos de la sesión
-        $idCliente = $request->idCliente;
-        $origen = $request->origen;
-        $destino = $request->destino;
-        $asientos = $request->asientos;
-        $cliente = $request->cliente;
-        $fecha = $request->fecha;
-        $hora = $request->hora;
-        $precio = $request->precio;
+    // Recoge los datos de la sesión
+    $idCliente = $request->idCliente;
+    $origen = $request->origen;
+    $destino = $request->destino;
+    $asientos = $request->asientos;
+    $cliente = $request->cliente;
+    $fecha = $request->fecha;
+    $hora = $request->hora;
+    $precio = $request->precio;
 
-        // Guarda los datos de la sesión
-        $request->session()->put('idCliente', $idCliente);
-        $request->session()->put('origen', $origen);
-        $request->session()->put('destino', $destino);
-        $request->session()->put('asientos', $asientos);
-        $request->session()->put('cliente', $cliente);
-        $request->session()->put('fecha', $fecha);
-        $request->session()->put('hora', $hora);
-        $request->session()->put('precio', $precio);
+    // Guarda los datos de la sesión
+    $request->session()->put('idCliente', $idCliente);
+    $request->session()->put('origen', $origen);
+    $request->session()->put('destino', $destino);
+    $request->session()->put('asientos', $asientos);
+    $request->session()->put('cliente', $cliente);
+    $request->session()->put('fecha', $fecha);
+    $request->session()->put('hora', $hora);
+    $request->session()->put('precio', $precio);
 
-        Stripe::setApiKey('sk_test_51P8LM0LUaTwSkShR7VBl9KUmkUnhiT11Qk6CAv234teNUct5ItcLpc6IDtxPCMJ63L3T50LHVF8Vgk2Gpm7Np7KZ00G87Smul1');
-        $checkout_session = Session::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'eur',
-                    'product_data' => [
-                        'name' => 'Vuelo con Interstellar Airlines',
-                        'description' => 'Vuelo de ' . $origen . ' a ' . $destino . ' el ' . $fecha . ' a las ' . $hora . '. Asientos: ' . $asientos . '. Cliente: ' . $cliente . '.',
-                    ],
-                    'unit_amount' => round($precio * 100),
-                ],
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => 'http://localhost/TFG/proyectoTFG/server/public/success',
-            'cancel_url' => 'https://example.com/cancel',
-        ]);
+    Stripe::setApiKey('sk_test_51P8LM0LUaTwSkShR7VBl9KUmkUnhiT11Qk6CAv234teNUct5ItcLpc6IDtxPCMJ63L3T50LHVF8Vgk2Gpm7Np7KZ00G87Smul1');
+    $checkout_session = Session::create([
+      'payment_method_types' => ['card'],
+      'line_items' => [[
+        'price_data' => [
+          'currency' => 'eur',
+          'product_data' => [
+            'name' => 'Vuelo con Interstellar Airlines',
+            'description' => 'Vuelo de ' . $origen . ' a ' . $destino . ' el ' . $fecha . ' a las ' . $hora . '. Asientos: ' . $asientos . '. Cliente: ' . $cliente . '.',
+          ],
+          'unit_amount' => round($precio * 100),
+        ],
+        'quantity' => 1,
+      ]],
+      'mode' => 'payment',
+      'success_url' => 'http://localhost/TFG/proyectoTFG/server/public/success',
+      'cancel_url' => 'https://example.com/cancel',
+    ]);
 
-        return redirect($checkout_session->url);
-    }
+    return redirect($checkout_session->url);
+  }
 
-    public function sendEmail(Request $request)
-    {
-        $mail = new PHPMailer(true);
-
-
-        // Envía un email de confirmación al cliente
-        $idCliente = $request->session()->get('idCliente');
-        $origen = $request->session()->get('origen');
-        $destino = $request->session()->get('destino');
-        $asientos = $request->session()->get('asientos');
-        $nombre = $request->session()->get('cliente');
-        $fecha = $request->session()->get('fecha');
-        $hora = $request->session()->get('hora');
-        $precio = $request->session()->get('precio');
-
-        // Inicio
-        // Configuracion SMTP
-        // $mail->SMTPDebug = SMTP::DEBUG_SERVER;  // Mostrar salida (Desactivar en producción)
-        $mail->isSMTP();   // Activar envio SMTP
-        $mail->Host  = 'smtp.gmail.com';                     // Servidor SMTP
-        $mail->SMTPAuth  = true;  // Identificacion SMTP
-        $mail->Username  = 'proyectotfgdaw@gmail.com';                  // Usuario SMTP
-        $mail->Password  = 'lozcugypnpjurnrd';   // Contraseña SMTP
-        $mail->SMTPSecure = 'ssl';
-        $mail->Port  = 465;
-        $mail->setFrom('proyectotfgdaw@gmail.com', 'Interstellar Airlines');  // Remitente del correo
+  public function sendEmail(Request $request)
+  {
+    $mail = new PHPMailer(true);
 
 
-        // Destinatario
-        $cliente = Cliente::where('cliente_Id', $idCliente)->first();
+    // Envía un email de confirmación al cliente
+    $idCliente = $request->session()->get('idCliente');
+    $origen = $request->session()->get('origen');
+    $destino = $request->session()->get('destino');
+    $asientos = $request->session()->get('asientos');
+    $nombre = $request->session()->get('cliente');
+    $fecha = $request->session()->get('fecha');
+    $hora = $request->session()->get('hora');
+    $precio = $request->session()->get('precio');
 
-        $mail->addAddress('proyectotfgdaw@gmail.com', $cliente->cliente_Correo);  // Email y nombre del destinatario
-        $mail->isHTML(true);
-        $mail->Subject = 'Reserva de vuelo con Interstellar Airlines';
-        $mail->Body = '
+    // Inicio
+    // Configuracion SMTP
+    // $mail->SMTPDebug = SMTP::DEBUG_SERVER;  // Mostrar salida (Desactivar en producción)
+    $mail->isSMTP();   // Activar envio SMTP
+    $mail->Host  = 'smtp.gmail.com';                     // Servidor SMTP
+    $mail->SMTPAuth  = true;  // Identificacion SMTP
+    $mail->Username  = 'proyectotfgdaw@gmail.com';                  // Usuario SMTP
+    $mail->Password  = 'lozcugypnpjurnrd';   // Contraseña SMTP
+    $mail->SMTPSecure = 'ssl';
+    $mail->Port  = 465;
+    $mail->setFrom('proyectotfgdaw@gmail.com', 'Interstellar Airlines');  // Remitente del correo
+
+
+    // Destinatario
+    $cliente = Cliente::where('cliente_Id', $idCliente)->first();
+
+    $mail->addAddress('proyectotfgdaw@gmail.com', $cliente->cliente_Correo);  // Email y nombre del destinatario
+    $mail->isHTML(true);
+    $mail->Subject = 'Reserva de vuelo con Interstellar Airlines';
+    $mail->Body = '
         <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -158,13 +158,13 @@ class PaymentController extends Controller
         </p>
         <div class="ticket">
           <h3>Billete Electrónico</h3>
-          <p><strong>Nombre:</strong> ' . $nombre . '</p>
-          <p><strong>Fecha de Viaje:</strong> ' . $fecha . '</p>
-          <p><strong>Hora de Salida:</strong>' . $hora . '</p>
-          <p><strong>Origen:</strong>' . $origen . '</p>
-          <p><strong>Destino:</strong> ' . $destino . '</p>
-          <p><strong>Asiento:</strong> ' . $asientos . '</p>
-          <p><strong>Precio:</strong> ' . $precio . '</p>
+          <p><strong>Nombre: </strong> ' . $nombre . '</p>
+          <p><strong>Fecha de Viaje: </strong> ' . $fecha . '</p>
+          <p><strong>Hora de Salida: </strong>' . $hora . '</p>
+          <p><strong>Origen: </strong>' . $origen . '</p>
+          <p><strong>Destino: </strong> ' . $destino . '</p>
+          <p><strong>Asiento: </strong> ' . $asientos . '</p>
+          <p><strong>Precio: </strong> ' . $precio . '€</p>
         </div>
         <p>
           Te recomendamos llegar al menos 30 minutos antes de la hora de salida.
@@ -185,10 +185,10 @@ class PaymentController extends Controller
     ></script>
   </body>
 </html>';
-        $mail->clearAttachments();
-        $mail->addAttachment(storage_path('app/public/qr.webp'));
-        $mail->send();
+    $mail->clearAttachments();
+    $mail->addAttachment(storage_path('app/public/qr.webp'));
+    $mail->send();
 
-        return view('paymentSuccess');
-    }
+    return view('paymentSuccess');
+  }
 }
