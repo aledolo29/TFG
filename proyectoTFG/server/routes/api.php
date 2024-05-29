@@ -21,11 +21,8 @@ Route::middleware(['api'])->group(function () {
     // Comprobar Session Login
     Route::get('/comprobarSesion', [ClienteController::class, 'comprobarSesion'])->name('comprobarSesion');
 
-    // Buscar vuelo ida
-    Route::post('/buscarVueloIda', [VueloController::class, 'buscarVueloIda'])->name('buscarVueloIda');
-
-    // Buscar vuelo ida/vuelta
-    Route::post('/buscarVueloIdaVuelta', [VueloController::class, 'buscarVueloIdaVuelta'])->name('buscarVueloIdaVuelta');
+    // Buscar vuelo
+    Route::post('/buscarVuelo', [VueloController::class, 'buscarVuelo'])->name('buscarVuelo');
 
     // Obtener Cliente
     Route::post('/obtenerCliente', [ClienteController::class, 'obtenerCliente'])->name('obtenerCliente');
@@ -50,7 +47,6 @@ Route::middleware(['api'])->group(function () {
 
     // Comprobar asientos
     Route::post('/comprobarAsientos', [BilleteController::class, 'comprobarAsientos'])->name('comprobarAsientos');
-
 });
 // Route::get('/user', function (Request $request) {
 //     return $request->user();

@@ -42,21 +42,7 @@
                   aria-controls="home-tab-pane"
                   aria-selected="true"
                 >
-                  Solo Ida
-                </button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button
-                  class="nav-link rounded-top-3 p-3 fs-3 bg-white"
-                  id="ida_vuelta-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#ida_vuelta-tab-pane"
-                  type="button"
-                  role="tab"
-                  aria-controls="profile-tab-pane"
-                  aria-selected="false"
-                >
-                  Ida y Vuelta
+                  Buscar Vuelo
                 </button>
               </li>
             </ul>
@@ -66,7 +52,6 @@
               class="reservar_vuelo__card bg-white py-5 px-4 rounded-4 rounded-top-0"
             >
               <div class="tab-content" id="myTabContent">
-                <!-- Ida -->
                 <div
                   class="tab-pane fade show active"
                   id="ida-tab-pane"
@@ -90,7 +75,7 @@
                               <div class="input-group d-flex">
                                 <input
                                   type="text"
-                                  id="aeropuerto_origen_ida"
+                                  id="aeropuerto_origen"
                                   name="aeropuerto_origen"
                                   class="aeropuerto_origen form-control form-control-lg px-3 fs-4"
                                   placeholder="Aeropuerto de salida"
@@ -111,7 +96,7 @@
                               <input
                                 type="hidden"
                                 name="id_aeropuerto_origen"
-                                id="id_aeropuerto_origen_ida"
+                                id="id_aeropuerto_origen"
                                 class="id_aeropuerto_origen"
                                 required
                               />
@@ -124,7 +109,7 @@
                               <div class="input-group d-flex">
                                 <input
                                   type="text"
-                                  id="aeropuerto_destino_ida"
+                                  id="aeropuerto_destino"
                                   name="aeropuerto_destino"
                                   class="aeropuerto_destino form-control form-control-lg px-3 fs-4"
                                   placeholder="Aeropuerto de llegada"
@@ -138,14 +123,14 @@
                               </div>
                               <div class="w-50">
                                 <ul
-                                  id="lista_aeropuertos_destino_ida"
+                                  id="lista_aeropuertos_destino"
                                   class="lista_aeropuertos_destino dropdown-menu dropdown__aeropuertos"
                                 ></ul>
                               </div>
                               <input
                                 type="hidden"
-                                name="id_aeropuerto_destino_ida"
-                                id="id_aeropuerto_destino_ida"
+                                name="id_aeropuerto_destino"
+                                id="id_aeropuerto_destino"
                                 class="id_aeropuerto_destino"
                                 required
                               />
@@ -158,13 +143,13 @@
                           <div class="col-md-6 mt-3">
                             <!-- begin::Label -->
                             <label for="fecha_ida" class="form-label fs-4"
-                              >Fecha ida:</label
+                              >Fecha vuelo:</label
                             >
                             <!-- begin::Input -->
                             <input
                               type="date"
-                              id="fecha_ida"
-                              name="fecha_ida"
+                              id="fecha"
+                              name="fecha"
                               class="form-control form-control-lg fs-4"
                               required
                             />
@@ -179,7 +164,7 @@
                             <!-- begin::Input -->
                             <input
                               type="number"
-                              id="pasajeros_ida"
+                              id="pasajeros"
                               name="num_Pasajeros"
                               class="form-control form-control-lg form-control-color w-100 fs-4"
                               min="1"
@@ -194,163 +179,10 @@
                         class="d-flex justify-content-center align-items-center align-items-center"
                       >
                         <input
-                          id="buscaVuelos_btn_ida"
+                          id="buscaVuelos_btn"
                           type="submit"
                           value="Buscar"
                           class="reservar_vuelo__btn p-4 btn btn-warning fw-bold text-white mt-lg-0 mt-5 fs-3 w-100"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-
-                <!-- Ida/Vuelta -->
-                <div
-                  class="tab-pane fade"
-                  id="ida_vuelta-tab-pane"
-                  role="tabpanel"
-                  aria-labelledby="ida_vuelta-tab"
-                  tabindex="0"
-                >
-                  <form
-                    class="mx-auto w-100"
-                    method="POST"
-                    action="listadoVuelos.html"
-                  >
-                    <div
-                      class="d-flex flex-lg-row flex-column justify-content-around"
-                    >
-                      <div class="reservar_vuelo__formulario">
-                        <div class="row p-0">
-                          <div class="col-md-6 mb-4">
-                            <!-- begin::input -->
-                            <div>
-                              <div class="input-group d-flex">
-                                <input
-                                  type="text"
-                                  id="aeropuerto_origen_idaVuelta"
-                                  name="aeropuerto_origen"
-                                  class="aeropuerto_origen form-control form-control-lg fs-4"
-                                  placeholder="Aeropuerto de salida"
-                                  required
-                                />
-                                <span class="input-group-text"
-                                  ><i
-                                    class="bi bi-geo-alt-fill text-black fs-3"
-                                  ></i
-                                ></span>
-                              </div>
-                              <div class="w-50">
-                                <ul
-                                  id="lista_aeropuertos_origen_idaVuelta"
-                                  class="lista_aeropuertos_origen dropdown-menu dropdown__aeropuertos"
-                                ></ul>
-                              </div>
-                              <input
-                                type="hidden"
-                                name="id_aeropuerto_origen"
-                                id="id_aeropuerto_origen_idaVuelta"
-                                class="id_aeropuerto_origen"
-                                required
-                              />
-                            </div>
-                            <!-- end::input -->
-                          </div>
-                          <div class="col-md-6 mb-4">
-                            <!-- begin::input -->
-                            <div>
-                              <div class="input-group d-flex">
-                                <input
-                                  type="text"
-                                  id="aeropuerto_destino_idaVuelta"
-                                  name="aeropuerto_destino"
-                                  class="aeropuerto_destino form-control form-control-lg px-3 fs-4"
-                                  placeholder="Aeropuerto de llegada"
-                                  required
-                                />
-                                <span class="input-group-text"
-                                  ><i
-                                    class="bi bi-geo-alt-fill text-black fs-3"
-                                  ></i
-                                ></span>
-                              </div>
-                              <div class="w-50">
-                                <ul
-                                  id="lista_aeropuertos_destino_idaVuelta"
-                                  class="lista_aeropuertos_destino dropdown-menu dropdown__aeropuertos"
-                                ></ul>
-                              </div>
-                              <input
-                                type="hidden"
-                                name="id_aeropuerto_destino"
-                                id="id_aeropuerto_destino_idaVuelta"
-                                class="id_aeropuerto_destino"
-                                required
-                              />
-                            </div>
-                            <!-- end::input -->
-                          </div>
-                        </div>
-
-                        <div class="row p-0">
-                          <div class="col-xl-5 col-md-6 mt-lg-3 mt-4">
-                            <!-- begin::Label -->
-                            <label for="fecha_ida" class="form-label fs-4"
-                              >Fecha ida:</label
-                            >
-                            <!-- begin::Input -->
-                            <input
-                              id="fecha_ida_idaVuelta"
-                              type="date"
-                              name="fecha_ida"
-                              class="form-control form-control-lg fs-4"
-                              required
-                            />
-                            <!-- end::Input -->
-                          </div>
-                          <div class="col-xl-5 col-md-6 mt-lg-3 mt-4">
-                            <!-- begin::Label -->
-                            <label for="fecha_vuelta" class="form-label fs-4"
-                              >Fecha vuelta:</label
-                            >
-                            <!-- begin::Input -->
-                            <input
-                              type="date"
-                              id="fecha_vuelta_idaVuelta"
-                              name="fecha_vuelta"
-                              class="form-control form-control-lg fs-4"
-                              required
-                            />
-                            <!-- end::Input -->
-                          </div>
-
-                          <div class="col-xl-2 mt-lg-3 mt-5 mb-4">
-                            <!-- begin::Label -->
-                            <label for="num_Pasajeros" class="form-label fs-4"
-                              >Num. Pasajeros:</label
-                            >
-                            <!-- begin::Input -->
-                            <input
-                              type="number"
-                              id="pasajeros_idaVuelta"
-                              name="num_Pasajeros"
-                              class="form-control form-control-lg form-control-color w-100 fs-4"
-                              min="0"
-                              max="9"
-                              required
-                            />
-                            <!-- end::Input -->
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="d-flex justify-content-center align-items-center align-items-center"
-                      >
-                        <input
-                          id="buscaVuelos_btn_idaVuelta"
-                          type="submit"
-                          value="Buscar"
-                          class="reservar_vuelo__btn px-4 btn btn-warning fw-bold text-white fs-3 p-4"
                         />
                       </div>
                     </div>

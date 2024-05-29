@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Http;
 
 class PaymentController extends Controller
 {
@@ -58,6 +58,19 @@ class PaymentController extends Controller
 
   public function sendEmail(Request $request)
   {
+    $cuerpoEmail = '';
+    $key = 'AIzaSyDmZZChhpXkLXrkFRrgXxGo8g9siH5JSKo';
+    $posParentesis = strpos($request->session()->get('destino'), '(');
+    $ciudad = substr($request->session()->get('destino'), 0, $posParentesis);
+    $responseGeocode = Http::get("https://maps.googleapis.com/maps/api/geocode/json?address=" . $ciudad . "&key=" . $key . "");
+    $dataGeocode = $responseGeocode->json();
+    $location = $dataGeocode['results'][0]['geometry']['location'];
+    $lat = $location['lat'];
+    $lng = $location['lng'];
+
+    $responsePlaces = Http::get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=hotel&location=" . $lat . ", " . $lng . "&radius=5000.0&key=" . $key . "");
+    $dataPlaces = $responsePlaces->json();
+
     $mail = new PHPMailer(true);
 
 
@@ -90,7 +103,7 @@ class PaymentController extends Controller
     $mail->addAddress('proyectotfgdaw@gmail.com', $cliente->cliente_Correo);  // Email y nombre del destinatario
     $mail->isHTML(true);
     $mail->Subject = 'Reserva de vuelo con Interstellar Airlines';
-    $mail->Body = '
+    $cuerpoEmail .= '
         <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -143,6 +156,8 @@ class PaymentController extends Controller
         color: #ffffff;
         text-decoration: none;
       }
+      h3{
+        font-weight: bold;
     </style>
   </head>
   <body>
@@ -151,20 +166,20 @@ class PaymentController extends Controller
         <h1>Compra Confirmada</h1>
       </div>
       <div class="content">
-        <h2>¡Gracias por tu compra, ' . $nombre . '!</h2>
+        <h2>' . \utf8_decode("¡Gracias por tu compra, " . $nombre . "!") . '</h2>
         <p>
-          Adjunto encontrarás tus billetes electrónicos. Por favor, revisa los
-          detalles a continuación:
+          Adjunto ' . utf8_decode("encontrarás") . ' tus billetes ' . utf8_decode("electrónicos") . '. Por favor, revisa los
+          detalles a ' . utf8_decode("continuación") . ':
         </p>
         <div class="ticket">
-          <h3>Billete Electrónico</h3>
+          <h3>Billete ' . utf8_decode("Electrónico") . '</h3>
           <p><strong>Nombre: </strong> ' . $nombre . '</p>
           <p><strong>Fecha de Viaje: </strong> ' . $fecha . '</p>
           <p><strong>Hora de Salida: </strong>' . $hora . '</p>
           <p><strong>Origen: </strong>' . $origen . '</p>
           <p><strong>Destino: </strong> ' . $destino . '</p>
           <p><strong>Asiento: </strong> ' . $asientos . '</p>
-          <p><strong>Precio: </strong> ' . $precio . '€</p>
+          <p><strong>Precio: </strong> ' . $precio . '' . utf8_decode("€") . '</p>
         </div>
         <p>
           Te recomendamos llegar al menos 30 minutos antes de la hora de salida.
@@ -173,10 +188,18 @@ class PaymentController extends Controller
       </div>
       <div class="footer">
         <p>
-          &copy; 2024 Compañía de Transportes. Todos los derechos reservados.
+          &copy; 2024 ' . utf8_decode("Compañia") . ' de Transportes. Todos los derechos reservados.
         </p>
         <p><a href="mailto: @compania.com">interstellarairlines@compania.com</a></p>
       </div>
+    </div>
+    <div>
+      <h3>Te dejamos algunas recomendaciones de posibles lugares donde hospedarse en ' . $ciudad . '</h3  >
+      <ul>';
+    for ($i = 0; $i < 5; $i++) {
+      $cuerpoEmail .= '<li><strong>' . $dataPlaces['results'][$i]['name'] . '</strong><br>Echar un vistazo: . ' . $dataPlaces['results'][$i]['photos'][0]['html_attributions'][0] . '</li>';
+    }
+    $cuerpoEmail .= '</ul>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -185,6 +208,7 @@ class PaymentController extends Controller
     ></script>
   </body>
 </html>';
+    $mail->Body = $cuerpoEmail;
     $mail->clearAttachments();
     $mail->addAttachment(storage_path('app/public/qr.webp'));
     $mail->send();

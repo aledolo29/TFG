@@ -86,16 +86,10 @@ $(document).ready(function () {
   var listadoVuelos = $("#listadoVuelos__vuelos");
   listadoVuelos.empty();
   // Recuperar los datos de los vuelos IDA de localStorage
-  var dataIda = JSON.parse(localStorage.getItem("vuelosIda"));
-
-  // Recuperar los datos de los vuelos IDA y VUELTA de localStorage
-  var dataIdaVuelta = JSON.parse(localStorage.getItem("vuelosIdaVuelta"));
+  var dataVuelo = JSON.parse(localStorage.getItem("vuelos"));
 
   // Si no hay vuelos
-  if (
-    (dataIda == null || dataIda.length == 0) &&
-    (dataIdaVuelta == null || dataIdaVuelta.length == 0)
-  ) {
+  if (dataVuelo == null || dataVuelo.length == 0) {
     window.location.href =
       "http://localhost/TFG/proyectoTFG/client/archivos/error.html";
   }
@@ -103,8 +97,8 @@ $(document).ready(function () {
   // Mostrar los vuelos
   cargarCiudades().then(() => {
     // Mostrar los vuelos de IDA
-    if (dataIda !== null) {
-      dataIda.forEach((vuelo) => {
+    if (dataVuelo !== null) {
+      dataVuelo.forEach((vuelo) => {
         var vueloJson = JSON.stringify(vuelo);
         var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
         var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");
@@ -149,56 +143,6 @@ $(document).ready(function () {
               <a href="listadoVuelos.html?vuelo=${encodeURIComponent(
                 vueloJson
               )}&intervarlo=${intervalo}" class="enlace_reservarVuelo btn listadoVuelos__item__btn text-center fs-5 px-5 py-3 mt-4 mt-xl-0 rounded-4 border-0">Reservar</a>
-              </div>
-            </div>
-          `);
-        listadoVuelos.append(vueloHTML);
-      });
-
-      // Mostrar los vuelos de IDA y VUELTA
-    } else if (dataIdaVuelta !== null) {
-      dataIdaVuelta.forEach((vuelo) => {
-        var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
-        var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");
-        var horaSalida = fechaHoraSalida[1].substring(0, 5);
-        var horaLlegada = fechaHoraLlegada[1].substring(0, 5);
-        var fechaSalida = formatearFecha(fechaHoraSalida[0]);
-        var fechaLlegada = formatearFecha(fechaHoraLlegada[0]);
-        var intervalo = calcularIntervaloFechas(
-          vuelo.vuelo_Fecha_Hora_Salida,
-          vuelo.vuelo_Fecha_Hora_Llegada
-        );
-        var vueloHTML = $(`
-            <div class="listadoVuelos__item d-flex flex-column flex-xl-row align-items-center justify-content-between m-auto p-4 mb-3">
-              <div class="d-flex justify-content-evenly align-items-center">
-                <div class="d-flex flex-column justify-content-center">
-                  <p class="fs-3">${horaSalida} <span class="listadoVuelos__guiones">-----------</span></p>
-                  <p class="fs-6">${fechaSalida}</p>
-                  <p class="fs-5">${ciudades[vuelo.vuelo_AeropuertoSalida]} (${
-          vuelo.vuelo_AeropuertoSalida
-        })</p>
-                </div>
-                <div class="d-flex flex-column mb-4 align-items-center justify-content-center mx-5 mx-sm-0">
-                  <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../assets/media/icons8-avion-32.png">
-                  <p class="listadoVuelos__intervalo fs-5 fw-bold mb-5">${
-                    intervalo[0]
-                  }h ${intervalo[1]}min.</p>
-                </div>
-                <div class="d-flex flex-column align-items-end">
-                  <p class="fs-3"><span class="listadoVuelos__guiones">-----------</span> ${horaLlegada}</p>
-                  <p class="fs-6">${fechaLlegada}</p>
-                  <p class="fs-5">${ciudades[vuelo.vuelo_AeropuertoLlegada]} (${
-          vuelo.vuelo_AeropuertoLlegada
-        })</p>
-                </div>
-              </div>
-              <div class="d-flex flex-column justify-content-center align-items-center">
-                <p class="fs-4 fw-bold text-center">${
-                  vuelo.precio
-                }€<br>por persona</p>
-              </div>
-              <div class="listadoVuelos__containerbtn d-flex justify-content-center align-items-center">
-                <a href="" class="btn listadoVuelos__item__btn text-center fs-5 px-5 py-3 mt-4 mt-xl-0 rounded-4 border-0">Reservar</a>
               </div>
             </div>
           `);

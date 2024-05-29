@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Billete;
+use App\Models\Vuelo;
 use Illuminate\Http\Request;
 
 class BilleteController extends Controller
@@ -21,6 +22,13 @@ class BilleteController extends Controller
     {
         $billete = new Billete();
         $billete_Id = $request->billete_Id;
+
+        $b = Billete::where('billete_Id', $billete_Id)->first();
+        $billeteVueloFK = Billete::where('billete_vuelo_IdFK', $b->billete_vuelo_IdFK)->get();
+        if($billeteVueloFK->count() == 1){
+            $vuelo = Vuelo::where('vuelo_Id', $b->billete_vuelo_IdFK)->first();
+            $vuelo->delete();
+        }
 
         $billete->where('billete_Id', $billete_Id)->delete();
 

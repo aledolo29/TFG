@@ -80,7 +80,7 @@ $("#recuperar_contrasena").click(function (e) {
         } else {
           $("#mensaje_correcto_recuperar").text("");
           $("#mensaje_correcto_recuperar").removeClass("alert alert-success");
-          
+
           $("#mensaje_error_recuperar").addClass("alert alert-danger");
           $("#mensaje_error_recuperar").text(
             "No existe ningún usuario con ese email"
@@ -340,7 +340,7 @@ function cargarCiudades() {
           resolve();
         });
       });
-    } else {
+    }else{
       resolve();
     }
   });
