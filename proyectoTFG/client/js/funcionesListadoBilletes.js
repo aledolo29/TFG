@@ -7,6 +7,13 @@ $(document).ready(function () {
       "alert alert-success w-25 m-auto text-center fs-4"
     );
     $("#mensaje_eliminado").text("Billete cancelado correctamente");
+
+    setTimeout(function () {
+      $("#mensaje_eliminado").removeClass(
+        "alert alert-success w-25 m-auto text-center fs-4"
+      );
+      $("#mensaje_eliminado").text("");
+    }, 3000);
   }
 
   var idCliente = localStorage.getItem("idCliente");
