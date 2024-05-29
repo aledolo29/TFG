@@ -2,6 +2,7 @@
 // Confirmación de reserva
 $(document).on("click", ".enlace_reservarVuelo", function (e) {
   e.preventDefault();
+  seguridad();
   var listado = $("#listadoVuelos__vuelos");
   var vueloSeleccionado = $("#vueloSeleccionado");
   listado.fadeOut("slow");
@@ -60,7 +61,7 @@ $(document).on("click", ".enlace_reservarVuelo", function (e) {
     </div>
     <div class="d-flex justify-content-center align-items-center mt-5 w-100">
       <a href="elegirAsiento.html?vueloSeleccionado=${encodeURIComponent(
-      vueloJson
+        vueloJson
       )}" class="btn vueloSeleccionado__btn text-center fs-4 fw-bold px-5 py-4 mt-4 mt-xl-0 rounded-4 border-0">Rellenar datos de pasajero</a>
     </div>
    </div>

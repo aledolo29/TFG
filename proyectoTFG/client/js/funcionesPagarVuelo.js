@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  seguridad();
   var asientos = sessionStorage.getItem("asientosSeleccionados");
   var vuelo = sessionStorage.getItem("vueloSeleccionado");
   if (asientos == null || vuelo == null) {

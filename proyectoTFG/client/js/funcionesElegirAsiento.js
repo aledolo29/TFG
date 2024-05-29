@@ -9,13 +9,8 @@ function pintarAsientos() {
   const letras = ["A", "B", "C", "D", "E", "F"];
   var section = $(".asientos");
   var vuelo = sessionStorage.getItem("vueloSeleccionado");
-
   vuelo = JSON.parse(decodeURIComponent(vuelo));
-  if (vuelo == null) {
-    window.location.href =
-      "http://localhost/TFG/proyectoTFG/client/archivos/error.html";
-    return;
-  }
+
   fetch(
     "http://localhost/TFG/proyectoTFG/server/public/api/comprobarAsientos",
     {
@@ -133,8 +128,13 @@ function pintarAsientos() {
             "asientosSeleccionados",
             JSON.stringify(asientosSeleccionados)
           );
-          window.location.href =
-            "http://localhost/TFG/proyectoTFG/client/archivos/pagarVuelo.html";
+          if (localStorage.getItem("vuelosIdaVuelta") == null) {
+            window.location.href =
+              "http://localhost/TFG/proyectoTFG/client/archivos/pagarVuelo.html";
+          } else {
+            window.location.href =
+              "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
+          }
         });
       });
     }
@@ -146,6 +146,15 @@ function pintarAsientos() {
 $(document).ready(function () {
   var vuelo = sessionStorage.getItem("vueloSeleccionado");
   vuelo = JSON.parse(decodeURIComponent(vuelo));
+  if (vuelo == null) {
+    window.location.href =
+      "http://localhost/TFG/proyectoTFG/client/archivos/error.html";
+  }
+  if (localStorage.getItem("nombre") == null) {
+    window.location.href =
+      "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
+  }
+
   pintarAsientos();
 
   $(document).on("click", ".btn_asiento", function (e) {

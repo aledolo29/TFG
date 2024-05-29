@@ -324,7 +324,7 @@
                             <!-- end::Input -->
                           </div>
 
-                          <div class="col-xl-2 mt-lg-3 mt-5">
+                          <div class="col-xl-2 mt-lg-3 mt-5 mb-4">
                             <!-- begin::Label -->
                             <label for="num_Pasajeros" class="form-label fs-4"
                               >Num. Pasajeros:</label
@@ -361,6 +361,8 @@
             <!--end::Modal body-->
           </div>
         </div>
+        <!-- Mensaje error formulario -->
+        <div id="mensaje_error_formulario"></div>
       </div>
     </div>
     <!-- FOOTER -->
@@ -496,6 +498,9 @@
               aria-label="Close"
             ></button>
           </div>
+          <!-- Mensajes correcto/error -->
+          <div id="mensaje_correcto_recuperar"></div>
+          <div id="mensaje_error_recuperar"></div>
           <div class="modal-body">
             <div>
               <label for="email" class="form-label fs-4"

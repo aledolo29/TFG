@@ -116,72 +116,85 @@ $(".lista_aeropuertos_destino").on("click", "li", function () {
 var buscarVueloBtn_Ida = $("#buscaVuelos_btn_ida");
 buscarVueloBtn_Ida.click(function (e) {
   e.preventDefault();
+  $("#mensaje_error_formulario").removeClass("alert alert-danger");
+  $("#mensaje_error_formulario").text("");
   var id_aeropuerto_origen = $("#id_aeropuerto_origen_ida").val();
   var id_aeropuerto_destino = $("#id_aeropuerto_destino_ida").val();
   var fecha = $("#fecha_ida").val();
   var pasajeros = $("#pasajeros_ida").val();
-  var codAeropuerto_Origen = "";
-  var codAeropuerto_Destino = "";
-  var coordenadasAeropuerto_Origen = "";
-  var coordenadasAeropuerto_Destino = "";
-  var intervalo = [];
 
-  fetch("https://api.npoint.io/0ae89dcddb751bee38ef").then((res) => {
-    res.json().then((data) => {
-      data.forEach((aeropuerto) => {
-        if (aeropuerto.id == id_aeropuerto_origen) {
-          codAeropuerto_Origen = aeropuerto.iata;
-          coordenadasAeropuerto_Origen = aeropuerto.coordinates_wkt;
-        }
-        if (aeropuerto.id == id_aeropuerto_destino) {
-          coordenadasAeropuerto_Destino = aeropuerto.coordinates_wkt;
-          codAeropuerto_Destino = aeropuerto.iata;
-        }
-      });
-      intervalo = obtenerIntervalo(
-        coordenadasAeropuerto_Origen,
-        coordenadasAeropuerto_Destino
-      );
-      fetch(
-        "http://localhost/TFG/proyectoTFG/server/public/api/buscarVueloIda",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            origen: codAeropuerto_Origen,
-            destino: codAeropuerto_Destino,
-            fecha: fecha,
-            pasajeros: pasajeros,
-            intervalo: intervalo,
-          }),
-        }
-      ).then((res) => {
-        if (res.status == 200) {
-          res.json().then((data) => {
-            data.forEach((vuelo) => {
-              if (!("precio" in vuelo)) {
-                var intervalo = calcularIntervaloFechas(
-                  vuelo.vuelo_Fecha_Hora_Salida,
-                  vuelo.vuelo_Fecha_Hora_Llegada
-                );
-                vuelo.precio = calcularPrecioVuelo(intervalo);
+  if (
+    id_aeropuerto_origen == "" ||
+    id_aeropuerto_destino == "" ||
+    fecha == "" ||
+    pasajeros == ""
+  ) {
+    $("#mensaje_error_formulario").addClass("alert alert-danger");
+    $("#mensaje_error_formulario").text("Debes rellenar todos los campos");
+  } else {
+    var codAeropuerto_Origen = "";
+    var codAeropuerto_Destino = "";
+    var coordenadasAeropuerto_Origen = "";
+    var coordenadasAeropuerto_Destino = "";
+    var intervalo = [];
+
+    fetch("https://api.npoint.io/0ae89dcddb751bee38ef").then((res) => {
+      res.json().then((data) => {
+        data.forEach((aeropuerto) => {
+          if (aeropuerto.id == id_aeropuerto_origen) {
+            codAeropuerto_Origen = aeropuerto.iata;
+            coordenadasAeropuerto_Origen = aeropuerto.coordinates_wkt;
+          }
+          if (aeropuerto.id == id_aeropuerto_destino) {
+            coordenadasAeropuerto_Destino = aeropuerto.coordinates_wkt;
+            codAeropuerto_Destino = aeropuerto.iata;
+          }
+        });
+        intervalo = obtenerIntervalo(
+          coordenadasAeropuerto_Origen,
+          coordenadasAeropuerto_Destino
+        );
+        fetch(
+          "http://localhost/TFG/proyectoTFG/server/public/api/buscarVueloIda",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              origen: codAeropuerto_Origen,
+              destino: codAeropuerto_Destino,
+              fecha: fecha,
+              pasajeros: pasajeros,
+              intervalo: intervalo,
+            }),
+          }
+        ).then((res) => {
+          if (res.status == 200) {
+            res.json().then((data) => {
+              data.forEach((vuelo) => {
+                if (!("precio" in vuelo)) {
+                  var intervalo = calcularIntervaloFechas(
+                    vuelo.vuelo_Fecha_Hora_Salida,
+                    vuelo.vuelo_Fecha_Hora_Llegada
+                  );
+                  vuelo.precio = calcularPrecioVuelo(intervalo);
+                }
+              });
+              localStorage.setItem("vuelosIda", JSON.stringify(data));
+              if (localStorage.getItem("vuelosIdaVuelta") != null) {
+                localStorage.removeItem("vuelosIdaVuelta");
               }
+              window.location.href =
+                "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
             });
-            localStorage.setItem("vuelosIda", JSON.stringify(data));
-            if (localStorage.getItem("vuelosIdaVuelta") != null) {
-              localStorage.removeItem("vuelosIdaVuelta");
-            }
-            window.location.href =
-              "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
-          });
-        } else {
-          alert("Error en el servidor");
-        }
+          } else {
+            alert("Error en el servidor");
+          }
+        });
       });
     });
-  });
+  }
 });
 
 //---------------------------------------
@@ -189,79 +202,103 @@ buscarVueloBtn_Ida.click(function (e) {
 var buscarVueloBtn_IdaVuelta = $("#buscaVuelos_btn_idaVuelta");
 buscarVueloBtn_IdaVuelta.click(function (e) {
   e.preventDefault();
+  $("#mensaje_error_formulario").removeClass("alert alert-danger");
+  $("#mensaje_error_formulario").text("");
+
   var id_aeropuerto_origen = $("#id_aeropuerto_origen_idaVuelta").val();
   var id_aeropuerto_destino = $("#id_aeropuerto_destino_idaVuelta").val();
   var fecha_ida = $("#fecha_ida_idaVuelta").val();
   var fecha_vuelta = $("#fecha_vuelta_idaVuelta").val();
   var pasajeros = $("#pasajeros_idaVuelta").val();
-  var codAeropuerto_Origen = "";
-  var codAeropuerto_Destino = "";
-  var intervalo = [];
 
-  fetch("https://api.npoint.io/0ae89dcddb751bee38ef").then((res) => {
-    res.json().then((data) => {
-      data.forEach((aeropuerto) => {
-        if (aeropuerto.id == id_aeropuerto_origen) {
-          codAeropuerto_Origen = aeropuerto.iata;
-          coordenadasAeropuerto_Origen = aeropuerto.coordinates_wkt;
-        }
-        if (aeropuerto.id == id_aeropuerto_destino) {
-          coordenadasAeropuerto_Destino = aeropuerto.coordinates_wkt;
-          codAeropuerto_Destino = aeropuerto.iata;
-        }
-      });
-      intervalo = obtenerIntervalo(
-        coordenadasAeropuerto_Origen,
-        coordenadasAeropuerto_Destino
-      );
-      fetch(
-        "http://localhost/TFG/proyectoTFG/server/public/api/buscarVueloIdaVuelta",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            origen: codAeropuerto_Origen,
-            destino: codAeropuerto_Destino,
-            fechaIda: fecha_ida,
-            fechaVuelta: fecha_vuelta,
-            pasajeros: pasajeros,
-            intervalo: intervalo,
-          }),
-        }
-      ).then((res) => {
-        if (res.status == 200) {
-          res.json().then((data) => {
-            data.forEach((vuelo) => {
-              var intervalo = calcularIntervaloFechas(
-                vuelo.vuelo_Fecha_Hora_Salida,
-                vuelo.vuelo_Fecha_Hora_Llegada
-              );
-              vuelo.precio = calcularPrecioVuelo(intervalo);
+  if (
+    id_aeropuerto_origen == "" ||
+    id_aeropuerto_destino == "" ||
+    fecha_ida == "" ||
+    fecha_vuelta == "" ||
+    pasajeros == ""
+  ) {
+    $("#mensaje_error_formulario").addClass("alert alert-danger");
+    $("#mensaje_error_formulario").text("Debes rellenar todos los campos");
+  } else {
+    var codAeropuerto_Origen = "";
+    var codAeropuerto_Destino = "";
+    var intervalo = [];
+
+    fetch("https://api.npoint.io/0ae89dcddb751bee38ef").then((res) => {
+      res.json().then((data) => {
+        data.forEach((aeropuerto) => {
+          if (aeropuerto.id == id_aeropuerto_origen) {
+            codAeropuerto_Origen = aeropuerto.iata;
+            coordenadasAeropuerto_Origen = aeropuerto.coordinates_wkt;
+          }
+          if (aeropuerto.id == id_aeropuerto_destino) {
+            coordenadasAeropuerto_Destino = aeropuerto.coordinates_wkt;
+            codAeropuerto_Destino = aeropuerto.iata;
+          }
+        });
+        intervalo = obtenerIntervalo(
+          coordenadasAeropuerto_Origen,
+          coordenadasAeropuerto_Destino
+        );
+        fetch(
+          "http://localhost/TFG/proyectoTFG/server/public/api/buscarVueloIda",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              origen: codAeropuerto_Origen,
+              destino: codAeropuerto_Destino,
+              fecha: fecha_ida,
+              pasajeros: pasajeros,
+              intervalo: intervalo,
+            }),
+          }
+        ).then((res) => {
+          if (res.status == 200) {
+            res.json().then((data) => {
+              data.forEach((vuelo) => {
+                if (!("precio" in vuelo)) {
+                  var intervalo = calcularIntervaloFechas(
+                    vuelo.vuelo_Fecha_Hora_Salida,
+                    vuelo.vuelo_Fecha_Hora_Llegada
+                  );
+                  vuelo.precio = calcularPrecioVuelo(intervalo);
+                }
+              });
+              localStorage.setItem("vuelosIda", JSON.stringify(data));
+              if (localStorage.getItem("vuelosIda") != null) {
+                localStorage.removeItem("vuelosIda");
+              }
+              window.location.href =
+                "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelosVuelta.html";
             });
-            localStorage.setItem("vuelosIdaVuelta", JSON.stringify(data));
-            if (localStorage.getItem("vuelosIda") != null) {
-              localStorage.removeItem("vuelosIda");
-            }
-            window.location.href =
-              "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
-          });
-        } else {
-          alert("Error en el servidor");
-        }
+          } else {
+            alert("Error en el servidor");
+          }
+        });
       });
     });
-  });
+  }
 });
 
 $(document).ready(function () {
-  var inputDate = $("#fecha_ida");
+  var fechaIda = $("#fecha_ida");
+  var fechaIdaVuelta_ida = $("#fecha_ida_idaVuelta");
+  var fechaIdaVuelta_vuelta = $("#fecha_vuelta_idaVuelta");
+
   var date = new Date();
   var year = date.getFullYear();
   var month = (date.getMonth() + 1).toString().padStart(2, "0");
   var day = date.getDate().toString().padStart(2, "0");
 
   var fechaFormateada = year + "-" + month + "-" + day;
-  inputDate.attr("min", fechaFormateada);
+  fechaIda.attr("min", fechaFormateada);
+  fechaIdaVuelta_ida.attr("min", fechaFormateada);
+
+  fechaIdaVuelta_ida.change(function () {
+    fechaIdaVuelta_vuelta.attr("min", fechaIdaVuelta_ida.val());
+  });
 });

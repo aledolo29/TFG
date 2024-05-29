@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Billete;
-use App\Models\Cliente;
 use App\Models\Vuelo;
 use DateInterval;
 use DateTime;
@@ -70,8 +69,9 @@ class VueloController extends Controller
         // Recogemos los datos del formulario
         $origen = $request->origen;
         $destino = $request->destino;
-        $fechaIda = $request->fechaIda;
-        $fechaVuelta = $request->fechaVuelta;
+        $fechaIda = $request->fecha;
+        $pasajeros = $request->pasajeros;
+        // $fechaVuelta = $request->fechaVuelta;
         $intervalo = $request->intervalo;
 
         // Realizamos la consulta a la base de datos
@@ -79,6 +79,12 @@ class VueloController extends Controller
             ->where('vuelo_AeropuertoLlegada', $destino)
             ->whereDate('vuelo_Fecha_Hora_Salida', $fechaIda)
             ->get();
+
+        foreach ($vuelos as $v) {
+            $billete = Billete::where('billete_Vuelo_IdFK', $v->vuelo_Id)->first();
+            $v->precio = $billete->billete_Precio;
+            $v->vuelo_Num_Pasajeros = $pasajeros;
+        }
 
         if ($vuelos->count() < 5) {
             $cantidadAnadir = 5 - $vuelos->count(); // Calculamos cuantos vuelos faltan

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Listado Vuelos Vuelta</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../../../build/css/listadoVuelosStyles.css" />
+    <script src="../js/jquery-3.7.1.min.js"></script>
+  </head>
+  <body>
+    <div id="content">
+      <!-- HEADER -->
+      <div id="content">
+        <header class="header"></header>
+
+        <!-- LISTADO -->
+        <main class="listadoVuelos">
+          <h1
+            id="listadoVuelos__titulo"
+            class="listadoVuelos__titulo fw-light text-center mt-3 display-3"
+          >
+            VUELO VUELTA
+          </h1>
+          <section
+            id="listadoVuelos__vuelos__vuelta"
+            class="listadoVuelos__vuelos"
+          ></section>
+          <section
+            id="vueloSeleccionado"
+            class="vueloSeleccionado m-auto d-flex justify-content-center align-items-center mt-5"
+          ></section>
+        </main>
+      </div>
+    </div>
+    <!-- FOOTER -->
+    <footer class="footer bg-primary pb-1"></footer>
+
+    <!-- MODALS -->
+    <!-- MODAL LOG IN -->
+    <div
+      class="modal fade"
+      id="modal_login"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content rounded-4 p-2">
+          <div class="modal-header border-0">
+            <h1
+              class="modal-title fs-2 fw-bolder text-center"
+              id="exampleModalLabel"
+            >
+              Iniciar Sesión
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Mensajes correcto/error -->
+          <div class="d-flex justify-content-center align-items-center">
+            <div id="mensaje_correcto"></div>
+            <div>
+              <img
+                class="d-none mx-2"
+                src="../../assets/media/icons8-hilandero.gif"
+                alt="Cargando"
+                id="gif_cargando"
+                style="width: 40px"
+              />
+            </div>
+          </div>
+          <div id="mensaje_error"></div>
+
+          <div class="modal-body">
+            <div>
+              <div>
+                <div>
+                  <label for="login" class="form-label fs-4"
+                    >Correo electrónico o usuario</label
+                  >
+                  <input
+                    type="email"
+                    name="login"
+                    id="login_Cliente"
+                    class="form-control bg-light fs-5"
+                  />
+                </div>
+
+                <div class="mt-4 mb-4">
+                  <label for="password" class="form-label fs-4"
+                    >Contraseña</label
+                  >
+                  <input
+                    type="password"
+                    name="password"
+                    id="login_Password"
+                    class="form-control bg-light fs-5"
+                  />
+                </div>
+
+                <a
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modal_recup_pass"
+                  class="fs-5 text-info"
+                  >¿Has olvidado tu contraseña?</a
+                >
+                <p class="fs-5">
+                  ¿No tienes cuenta?
+                  <span
+                    ><a class="text-info" href="registro.html"
+                      >Registrate</a
+                    ></span
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary fs-4 text-white"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              onclick="comprobarLogin()"
+              class="btn btn-primary fs-4"
+            >
+              Acceder
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL RECUPERAR CONTRASEÑA -->
+    <div
+      class="modal fade"
+      id="modal_recup_pass"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content rounded-4 p-2">
+          <div class="modal-header border-0">
+            <h1
+              class="modal-title fs-2 fw-bolder text-center"
+              id="exampleModalLabel"
+            >
+              Recuperar contaseña
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <!-- Mensajes correcto/error -->
+          <div id="mensaje_correcto_recuperar"></div>
+          <div id="mensaje_error_recuperar"></div>
+          <div class="modal-body">
+            <div>
+              <label for="email" class="form-label fs-4"
+                >Introduzca su correo electrónico y le mandaremos un email con
+                su contraseña.</label
+              >
+              <label for="email" class="form-label mt-2"
+                >Correo electrónico:</label
+              >
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control bg-light fs-5"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary fs-4 text-white"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button type="button" class="btn btn-primary fs-4">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../js/funciones.js"></script>
+    <script src="../js/funcionListadoVuelosVuelta.js"></script>
+  </body>
+</html>

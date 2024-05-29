@@ -10,7 +10,6 @@ $(document).ready(function () {
   }
 
   var idCliente = localStorage.getItem("idCliente");
-  var modales = "";
   // Cargamos las ciudades
   cargarCiudades().then(() => {
     fetch(

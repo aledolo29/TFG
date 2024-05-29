@@ -70,9 +70,21 @@ $("#recuperar_contrasena").click(function (e) {
     if (res.status == 200) {
       res.json().then((data) => {
         if (data.correcto) {
-          alert(data.correcto);
+          $("#mensaje_error_recuperar").text("");
+          $("#mensaje_error_recuperar").removeClass("alert alert-danger");
+
+          $("#mensaje_correcto_recuperar").addClass("alert alert-success");
+          $("#mensaje_correcto_recuperar").text(
+            "En breves le llegará un correo con un recordatorio de su contraseña"
+          );
         } else {
-          alert(data.error);
+          $("#mensaje_correcto_recuperar").text("");
+          $("#mensaje_correcto_recuperar").removeClass("alert alert-success");
+          
+          $("#mensaje_error_recuperar").addClass("alert alert-danger");
+          $("#mensaje_error_recuperar").text(
+            "No existe ningún usuario con ese email"
+          );
         }
       });
     } else {
@@ -82,6 +94,16 @@ $("#recuperar_contrasena").click(function (e) {
 });
 
 // FUNCIONES 💻
+
+// ---------------------------------------
+// Función seguridad
+function seguridad() {
+  if (localStorage.getItem("nombre") == null) {
+    window.location.href =
+      "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
+  }
+}
+
 // ---------------------------------------
 function cargarComponente(nombre) {
   return new Promise((resolve, reject) => {
