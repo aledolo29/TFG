@@ -29,8 +29,19 @@
           Airlines
         </p>
         <!-- Respuestas mensajes -->
-        <div id="mensaje_correcto" class="m-auto"></div>
-
+        <div class="d-flex justify-content-center align-items-center m-auto">
+          <div id="mensaje_correcto">
+            <div>
+              <img
+                class="d-none mx-2"
+                src="../../../build/assets/media/icons8-hilandero.gif"
+                alt="Cargando"
+                id="gif_cargando"
+                style="width: 40px"
+              />
+            </div>
+          </div>
+        </div>
         <div id="mensaje_error" class="m-auto"></div>
 
         <form action="" class="registro__form container mt-5">
@@ -70,6 +81,7 @@
                 id="cliente_Telefono"
                 class="registro__input fs-4 bg-dark-subtle mb-3 p-3 rounded-4 w-100 text-light-emphasis"
                 placeholder="Nº de teléfono"
+                maxlength="9"
                 required
               />
             </div>
@@ -177,7 +189,7 @@
             <div>
               <img
                 class="d-none mx-2"
-                src="../../assets/media/icons8-hilandero.gif"
+                src="../../../build/assets/media/icons8-hilandero.gif"
                 alt="Cargando"
                 id="gif_cargando"
                 style="width: 40px"

@@ -3,7 +3,7 @@ $(document).ready(function () {
   var asientos = sessionStorage.getItem("asientosSeleccionados");
   var vuelo = sessionStorage.getItem("vueloSeleccionado");
   if (asientos == null || vuelo == null) {
-    window.location.href = "index.html";
+    window.location.href = "error.html";
   }
 
   var nombre = "",
@@ -54,7 +54,7 @@ $(document).ready(function () {
         var contenido = `
     <div class="card rounded-4 mt-5">
         <div class="card-header d-flex flex-column justify-content-center align-items-center p-4 bg-white rounded-top-4">
-            <img class="img-fluid pagarVuelo__logo" src="../../assets/media/logo_azul.png" alt="avion" style="width: 70px; height: 70px;">
+            <img class="img-fluid pagarVuelo__logo" src="../../../build/assets/media/logo_azul.png" alt="avion" style="width: 70px; height: 70px;">
             <h3 class="text-center text-primary pagarVuelo__titulo__card">INTERSTELLAR AIRLINES</h3>
         </div>
         <div class="card-body border-top border-primary">

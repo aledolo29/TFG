@@ -12020,6 +12020,10 @@ img {
   font-family: "Contrail One";
   src: url(../assets/fonts/ContrailOne-Regular.ttf);
 }
+.mensaje_error_formulario {
+  width: 80%;
+}
+
 .buscaVuelos {
   width: 80%;
   border: 3px solid #325162;
@@ -12028,12 +12032,12 @@ img {
 }
 
 .buscaVuelos__aeropuertos {
-  width: 80%;
+  width: 82%;
 }
 
 @media screen and (min-width: 1024px) {
   .buscaVuelos__aeropuertos {
-    width: 45%;
+    width: 50%;
   }
 }
 .buscaVuelos__fechas {
@@ -12042,7 +12046,7 @@ img {
 
 @media screen and (min-width: 1024px) {
   .buscaVuelos__fechas {
-    width: 35%;
+    width: 30%;
   }
 }
 .buscaVuelos__numPasajeros {
@@ -12051,7 +12055,7 @@ img {
 
 @media screen and (min-width: 1024px) {
   .buscaVuelos__numPasajeros {
-    width: 10%;
+    width: 15%;
   }
 }
 .buscaVuelos__buscar {

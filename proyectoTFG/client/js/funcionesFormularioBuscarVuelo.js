@@ -194,7 +194,10 @@ buscarVueloBtn.click(function (e) {
   }
 });
 
+// ---------------------------------------
+// Funciones auxiliares
 $(document).ready(function () {
+  // Validar si se ha seleccionado un aeropuerto recomendado
   if (
     sessionStorage.getItem("aeropuertoRecomendado") != null &&
     sessionStorage.getItem("id_aeropuertoRecomendado") != "null"
@@ -208,6 +211,8 @@ $(document).ready(function () {
     sessionStorage.removeItem("aeropuertoRecomendado");
     sessionStorage.removeItem("id_aeropuertoRecomendado");
   }
+
+  // Validar fecha minima
   var fecha = $("#fecha");
 
   var date = new Date();
@@ -217,4 +222,41 @@ $(document).ready(function () {
 
   var fechaFormateada = year + "-" + month + "-" + day;
   fecha.attr("min", fechaFormateada);
+});
+
+// Arreglar fecha mínima
+$("#fecha").change(function () {
+  var fecha = $("#fecha").val();
+  var date = new Date(fecha);
+  var dateActual = new Date();
+
+  var yearMore = dateActual.getFullYear() + 1;
+  var monthMore = (dateActual.getMonth() + 1).toString().padStart(2, "0");
+  var dayMore = dateActual.getDate().toString().padStart(2, "0");
+  var fechaMoreFormateada = yearMore + "-" + monthMore + "-" + dayMore;
+
+  if (fecha > fechaMoreFormateada) {
+    $("#fecha").val(fechaMoreFormateada);
+  }
+
+  if (date < dateActual) {
+    var year = dateActual.getFullYear();
+    var month = (dateActual.getMonth() + 1).toString().padStart(2, "0");
+    var day = dateActual.getDate().toString().padStart(2, "0");
+    var fechaFormateada = year + "-" + month + "-" + day;
+
+    $("#fecha").val(fechaFormateada);
+  }
+});
+
+// Validar numero de pasajeros
+// ---------------------------------------
+// Validar numero de pasajeros
+$("#pasajeros").change(function () {
+  if ($("#pasajeros").val() < 1) {
+    $("#pasajeros").val(1);
+  }
+  if ($("#pasajeros").val() > 9) {
+    $("#pasajeros").val(9);
+  }
 });

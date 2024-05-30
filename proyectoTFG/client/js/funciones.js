@@ -15,7 +15,7 @@ $(document).ready(function () {
             <i class="bi bi-person-circle fs-2 ps-2"></i
           ></a>
           <ul class="dropdown-menu dropdown-menu-end dropdown_logout rounded-4">
-          <li class="p-2"><a class="dropdown-item fs-4 fw-bold d-flex justify-content-between align-items-center" href="listadoBilletes.html"><img src="../../assets/media/airplane-ticket.png">Mis Billetes</a></li>
+          <li class="p-2"><a class="dropdown-item fs-4 fw-bold d-flex justify-content-between align-items-center" href="listadoBilletes.html"><img src="../../../build/assets/media/airplane-ticket.png">Mis Billetes</a></li>
             <li class="p-2"><a class="dropdown-item fs-4 fw-bold d-flex justify-content-between align-items-center" href="#" onclick="cerrarSesion()"><i class="bi bi-box-arrow-left me-4 fs-2"></i>Cerrar Sesión</a></li>
           </ul>`
       );
@@ -100,7 +100,7 @@ $("#recuperar_contrasena").click(function (e) {
 function seguridad() {
   if (localStorage.getItem("nombre") == null) {
     window.location.href =
-      "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
+      "http://localhost/TFG/proyectoTFG/client/archivos/index.html?avisoSesion=true";
   }
 }
 

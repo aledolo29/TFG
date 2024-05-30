@@ -1,27 +1,30 @@
 @use "../base/variables" as var;
 @use "../base/mixins" as m;
 
+.mensaje_error_formulario {
+  width: 80%;
+}
 .buscaVuelos {
   width: 80%;
   border: 3px solid var.$azul;
   border-radius: 10px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
   &__aeropuertos {
-    width: 80%;
+    width: 82%;
     @include m.desktop {
-      width: 45%;
+      width: 50%;
     }
   }
   &__fechas {
     width: 80%;
     @include m.desktop {
-      width: 35%;
+      width: 30%;
     }
   }
   &__numPasajeros {
     width: 80%;
     @include m.desktop {
-      width: 10%;
+      width: 15%;
     }
   }
   &__buscar {

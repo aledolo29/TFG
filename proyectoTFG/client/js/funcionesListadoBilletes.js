@@ -33,7 +33,11 @@ $(document).ready(function () {
         response.json().then((dataBilletes) => {
           if (dataBilletes.length == 0) {
             $(".listadoBilletes__lista").append(
-              "<div>No tienes billetes</div>"
+              `<div class='m-auto d-flex flex-column justify-content-center align-items-center w-50'>
+              <img class="img-fluid" src="../../../build/assets/media/no-flights-2.png">
+              <h2 class='text-center fs-2'>No tienes billetes comprados</h2>
+              <a href="formularioBuscarVuelo.html" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover fs-4 mt-3">¡Empieza a buscar ya!</a>
+              </div>`
             );
           } else {
             for (let i = 0; i < dataBilletes.length; i++) {
@@ -92,7 +96,7 @@ $(document).ready(function () {
                               } (${dataVuelo.vuelo_AeropuertoSalida})</p>
                             </div>
                           <div class="d-flex flex-column mb-4 align-items-center justify-content-center mx-5 mx-sm-0">
-                            <img class="listadoBilletes__imagen img-fluid mx-3 w-50 mb-2" src="../../assets/media/icons8-avion-32.png">
+                            <img class="listadoBilletes__imagen img-fluid mx-3 w-50 mb-2" src="../../../build/assets/media/icons8-avion-32.png">
                             <p class="listadoBilletes__intervalo fs-5 fw-bold mb-5">${
                               intervalo[0]
                             }h ${intervalo[1]}min.</p>
@@ -112,7 +116,7 @@ $(document).ready(function () {
                       <div>
                         <p class="fw-bold">Asiento: </p>
                         <div class="d-flex justify-content-center align-items-center">
-                        <img class="listadoBilletes__asiento img-fluid" src="../../assets/media/asiento2.png">
+                        <img class="listadoBilletes__asiento img-fluid" src="../../../build/assets/media/asiento2.png">
                         <p>${dataBilletes[i].billete_Asiento}</p>
                       </div>
                     </div>

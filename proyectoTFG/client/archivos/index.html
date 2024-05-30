@@ -116,7 +116,14 @@
       </div>
 
       <!-- BUSQUEDA VUELOS -->
-      <section class="d-flex justify-content-center align-items-center mt-5">
+      <section
+        class="d-flex flex-column justify-content-center align-items-center mt-5"
+      >
+        <div
+          id="mensaje_error_formulario"
+          class="mensaje_error_formulario"
+        ></div>
+        <!-- Mensaje error formulario -->
         <div
           class="buscaVuelos d-flex flex-column flex-lg-row bg-white align-items-center justify-content-evenly p-4"
         >
@@ -188,17 +195,12 @@
           <div
             class="buscaVuelos__fechas d-flex flex-column flex-md-row align-items-center mx-4 mb-lg-0 mb-5"
           >
-            <input
-              class="form-control buscaVuelos__input me-md-4 me-0 mb-5 mb-md-0 fs-4 p-2"
-              type="date"
-              name="fechaIda"
-              id="fechaIda"
-            />
+            <label for=""></label>
             <input
               class="form-control buscaVuelos__input fs-4 p-2"
               type="date"
-              name="fechaVuelta"
-              id="fechaVuelta"
+              name="fecha"
+              id="fecha"
             />
           </div>
           <div
@@ -219,7 +221,7 @@
           >
             <input
               class="buscaVuelos__btn text-center fs-4 fw-bold me-0 me-lg-4 px-3 py-4 rounded-4 border-0"
-              id="buscarVuelos__btn"
+              id="buscaVuelos_btn"
               type="button"
               value="Buscar"
             />
@@ -694,7 +696,7 @@
             <div>
               <img
                 class="d-none mx-2"
-                src="../../assets/media/icons8-hilandero.gif"
+                src="../../../build/assets/media/icons8-hilandero.gif"
                 alt="Cargando"
                 id="gif_cargando"
                 style="width: 40px"
@@ -702,7 +704,7 @@
             </div>
           </div>
           <div id="mensaje_error"></div>
-
+          <div id="mensaje_aviso"></div>
           <div class="modal-body">
             <div>
               <div>

@@ -32,7 +32,7 @@ class ClienteController extends Controller
             $cliente->cliente_Telefono = $request->telefono;
             $cliente->save();
             return response()->json([
-                'correcto' => 'Usuario ' . $request->usuario . ' registrado correctamente. Espere para ser redirigido.'
+                'correcto' => 'Usuario ' . $request->usuario . ' registrado correctamente. Espere para ser redirigido.', 'cliente' => $cliente
             ]);
         }
     }
@@ -150,10 +150,10 @@ class ClienteController extends Controller
                 <p>Hola ' . $comprobarCliente->cliente_Nombre . ',</p>
                 <div class="recordatorio">
                       <p>
-                      Recibes este correo '. utf8_decode("electrónico") .' porque solicitaste un recordatorio
-                      de tu '. utf8_decode("contraseña") .'.
+                      Recibes este correo ' . utf8_decode("electrónico") . ' porque solicitaste un recordatorio
+                      de tu ' . utf8_decode("contraseña") . '.
                       </p>
-                      <p>Aqui '. utf8_decode("está") .' la '. utf8_decode("información") .' de tu cuenta:</p>
+                      <p>Aqui ' . utf8_decode("está") . ' la ' . utf8_decode("información") . ' de tu cuenta:</p>
                       <ul>
                       <li>
                       <strong>Usuario: </strong>' . $comprobarCliente->cliente_Usuario .

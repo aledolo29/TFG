@@ -2,7 +2,6 @@
 // Confirmación de reserva
 $(document).on("click", ".enlace_reservarVuelo", function (e) {
   e.preventDefault();
-  seguridad();
   var listado = $("#listadoVuelos__vuelos");
   var vueloSeleccionado = $("#vueloSeleccionado");
   listado.fadeOut("slow");
@@ -42,7 +41,7 @@ $(document).on("click", ".enlace_reservarVuelo", function (e) {
           } (${vuelo.vuelo_AeropuertoSalida})</p>
         </div>
         <div class="d-flex flex-column mb-4 align-items-center justify-content-center mx-5 mx-sm-0">
-          <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../assets/media/icons8-avion-32.png">
+          <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../../build/assets/media/icons8-avion-32.png">
           <p class="listadoVuelos__intervalo fs-5 fw-bold mb-5">${
             intervalo[0]
           }h ${intervalo[1]}min.</p>
@@ -73,11 +72,14 @@ $(document).on("click", ".enlace_reservarVuelo", function (e) {
 
 // ---------------------------------------
 // Guardar vuelo seleccionado
-$(document).on("click", ".vueloSeleccionado__btn", function () {
+$(document).on("click", ".vueloSeleccionado__btn", function (e) {
+  e.preventDefault();
+  seguridad();
   var enlace = $(this);
   var href = enlace.attr("href");
   var vuelo = href.split("=")[1];
   sessionStorage.setItem("vueloSeleccionado", vuelo);
+  window.location.href = href;
 });
 
 // ---------------------------------------
@@ -121,7 +123,7 @@ $(document).ready(function () {
         })</p>
                 </div>
                 <div class="d-flex flex-column mb-4 align-items-center justify-content-center mx-5 mx-sm-0">
-                  <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../assets/media/icons8-avion-32.png">
+                  <img class="listadoVuelos__imagen img-fluid mx-3 w-50 mb-2" src="../../../build/assets/media/icons8-avion-32.png">
                   <p class="listadoVuelos__intervalo fs-5 fw-bold mb-5">${
                     intervalo[0]
                   }h ${intervalo[1]}min.</p>
