@@ -109,6 +109,7 @@ function pintarAsientos() {
 
         var btnAsientos = $(".reservar_asiento__btn");
         btnAsientos.click(function (e) {
+          console.log("click");
           e.preventDefault();
           var asientos = $(".btn_asiento");
           var asientosSeleccionados = [];
@@ -128,6 +129,7 @@ function pintarAsientos() {
             "asientosSeleccionados",
             JSON.stringify(asientosSeleccionados)
           );
+          window.location.href = "http://localhost/TFG/proyectoTFG/client/archivos/pagarVuelo.html";
         });
       });
     }
@@ -139,11 +141,11 @@ function pintarAsientos() {
 $(document).ready(function () {
   var vuelo = sessionStorage.getItem("vueloSeleccionado");
   vuelo = JSON.parse(decodeURIComponent(vuelo));
-  seguridad();
   if (vuelo == null) {
     window.location.href =
       "http://localhost/TFG/proyectoTFG/client/archivos/error.html";
-  }
+    }
+    seguridad();
 
   pintarAsientos();
 

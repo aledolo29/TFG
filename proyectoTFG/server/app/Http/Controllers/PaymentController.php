@@ -180,7 +180,7 @@ class PaymentController extends Controller
           <p><strong>Origen: </strong>' . $origen . '</p>
           <p><strong>Destino: </strong> ' . $destino . '</p>
           <p><strong>Asiento: </strong> ' . $asientos . '</p>
-          <p><strong>Precio: </strong> ' . $precio . '' . utf8_decode("€") . '</p>
+          <p><strong>Precio: </strong> ' . $precio . '' . htmlentities("€") . '</p>
         </div>
         <p>
           Te recomendamos llegar al menos 30 minutos antes de la hora de salida.

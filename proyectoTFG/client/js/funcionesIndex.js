@@ -235,7 +235,7 @@ buscarVueloBtn.click(function (e) {
               });
               localStorage.setItem("vuelos", JSON.stringify(data));
               window.location.href =
-                "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
+                "http://localhost/TFG/proyectoTFG/client/archivos/cargandoVuelos.html";
             });
           } else {
             alert("Error en el servidor");
@@ -274,11 +274,11 @@ $("#fecha").change(function () {
 
 // ---------------------------------------
 // Validar numero de pasajeros
-$("#numPasajeros").change(function () {
-  if($("#numPasajeros").val() < 1){
-    $("#numPasajeros").val(1);
+$("#pasajeros").change(function () {
+  if ($("#pasajeros").val() < 1) {
+    $("#pasajeros").val(1);
   }
-  if($("#numPasajeros").val() > 9){
-    $("#numPasajeros").val(9);
+  if ($("#pasajeros").val() > 9) {
+    $("#pasajeros").val(9);
   }
 });

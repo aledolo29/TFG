@@ -165,8 +165,11 @@ function comprobarLogin() {
       var mensaje_correcto = $("#mensaje_correcto");
       var gif_cargando = $("#gif_cargando");
       var mensaje_error = $("#mensaje_error");
+      var mensaje_aviso = $("#mensaje_aviso");
       res.json().then((data) => {
         if (data.correcto) {
+          mensaje_aviso.text("");
+          mensaje_aviso.removeClass("alert alert-primary");
           mensaje_correcto.addClass("alert alert-success");
           mensaje_correcto.text(data.correcto.toString());
           gif_cargando.removeClass("d-none");
@@ -176,8 +179,16 @@ function comprobarLogin() {
 
           mensaje_error.text("");
           mensaje_error.removeClass("alert alert-danger");
+          let url = new URL(window.location.href);
+          let param = url.searchParams.get("avisoSesion");
+
           setTimeout(() => {
-            window.location.reload();
+            if (param == "true") {
+              window.location.href =
+                "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
+            } else {
+              window.location.reload();
+            }
           }, 3000);
         } else {
           mensaje_error.addClass("alert alert-danger");
@@ -340,7 +351,7 @@ function cargarCiudades() {
           resolve();
         });
       });
-    }else{
+    } else {
       resolve();
     }
   });

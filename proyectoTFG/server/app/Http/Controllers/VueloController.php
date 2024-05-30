@@ -98,29 +98,30 @@ class VueloController extends Controller
 
     public function guardarVueloBillete(Request $request)
     {
-        $vuelo = new Vuelo();
         $asientos = $request->asientos;
         $vueloSeleccionado = $request->vueloSeleccionado;
-        $vuelo->vuelo_Fecha_Hora_Salida = DateTime::createFromFormat('Y-m-d H:i:s', $vueloSeleccionado['vuelo_Fecha_Hora_Salida']);
-        $vuelo->vuelo_Fecha_Hora_Llegada = DateTime::createFromFormat('Y-m-d H:i:s', $vueloSeleccionado['vuelo_Fecha_Hora_Llegada']);
-        $vuelo->vuelo_AeropuertoSalida = $vueloSeleccionado['vuelo_AeropuertoSalida'];
-        $vuelo->vuelo_AeropuertoLlegada = $vueloSeleccionado['vuelo_AeropuertoLlegada'];
-        if ($vuelo->save()) {
-            foreach ($asientos as $asiento) {
-                $billete = new Billete();
-                $billete->billete_Vuelo_IdFK = $vuelo->vuelo_Id;
-                $billete->billete_Cliente_IdFK = $request->idCliente;
-                $billete->billete_Asiento = $asiento;
-                $precio = $vueloSeleccionado['precio'];
-                $asiento = substr($asiento, 1);
-                if ($asiento <= 6) {
-                    $precio = $precio * 1.5;
-                } else if ($asiento > 6 && $asiento <= 10) {
-                    $precio = $precio * 3;
-                }
-                $billete->billete_Precio = $precio;
-                $billete->save();
+        $atributos = [
+            'vuelo_Fecha_Hora_Salida' => DateTime::createFromFormat('Y-m-d H:i:s', $vueloSeleccionado['vuelo_Fecha_Hora_Salida']),
+            'vuelo_Fecha_Hora_Llegada' => DateTime::createFromFormat('Y-m-d H:i:s', $vueloSeleccionado['vuelo_Fecha_Hora_Llegada']),
+            'vuelo_AeropuertoSalida' => $vueloSeleccionado['vuelo_AeropuertoSalida'],
+            'vuelo_AeropuertoLlegada' => $vueloSeleccionado['vuelo_AeropuertoLlegada'],
+            // Agrega aquí cualquier otro atributo que quieras buscar
+        ];
+        $vuelo = Vuelo::firstOrCreate($atributos);
+        foreach ($asientos as $asiento) {
+            $billete = new Billete();
+            $billete->billete_Vuelo_IdFK = $vuelo->vuelo_Id;
+            $billete->billete_Cliente_IdFK = $request->idCliente;
+            $billete->billete_Asiento = $asiento;
+            $precio = $vueloSeleccionado['precio'];
+            $asiento = substr($asiento, 1);
+            if ($asiento <= 6) {
+                $precio = $precio * 1.5;
+            } else if ($asiento > 6 && $asiento <= 10) {
+                $precio = $precio * 3;
             }
+            $billete->billete_Precio = $precio;
+            $billete->save();
         }
     }
     public function obtenerVuelo(Request $request)

@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  seguridad();
   let params = new URLSearchParams(window.location.search);
   let eliminado = params.get("eliminado");
 

@@ -183,7 +183,7 @@ buscarVueloBtn.click(function (e) {
               });
               localStorage.setItem("vuelos", JSON.stringify(data));
               window.location.href =
-                "http://localhost/TFG/proyectoTFG/client/archivos/listadoVuelos.html";
+                "http://localhost/TFG/proyectoTFG/client/archivos/cargandoVuelos.html";
             });
           } else {
             alert("Error en el servidor");

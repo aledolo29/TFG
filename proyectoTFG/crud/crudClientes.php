@@ -127,7 +127,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
     <nav class="crud__header navbar navbar-expand-md bg-primary p-0">
       <div class="container-fluid">
         <a class="navbar-brand" href="crudEmpleados.php">
-          <img src="../assets/media/logo.png" alt="logo" class="crud__header__logo img-fluid" />
+        <img src="../../build/assets/media/logo.png" alt="logo" class="crud__header__logo img-fluid" />
         </a>
         <div class="offcanvas offcanvas-end bg-primary" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
           <div class="offcanvas-header">
@@ -153,7 +153,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
         <div class="d-flex">
           <div class="dropdown">
             <a href="" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="../assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
+              <img src="../../build/assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
             </a>
             <ul class="dropdown-menu dropdown_avatar p-4 rounded-4">
               <li><a class="dropdown-item fs-4 mb-2" href="crudDatosPersonales.php"><i class="bi bi-pencil-square fs-2 me-3"></i>Datos personales</a></li>
@@ -289,8 +289,8 @@ if (isset($_POST['aux_eliminar_cliente'])) {
                 <input type="text" class="crud__input fs-4 p-3 text-light-emphasis rounded-4" id="apellidos" name="cliente_Apellidos" placeholder="González" required />
               </div>
               <div class="mb-3 col-md-4 d-flex flex-column">
-                <label for="telefono" class="form-label fs-4">Telfono:</label>
-                <input type="text" class="crud__input fs-4 p-3 text-light-emphasis rounded-4" id="telefono" name="cliente_Telefono" placeholder="654654654" required />
+                <label for="telefono" class="form-label fs-4">Teléfono:</label>
+                <input type="text" class="crud__input fs-4 p-3 text-light-emphasis rounded-4" id="telefono" name="cliente_Telefono" maxlength="9" placeholder="654654654" required />
               </div>
             </div>
 
@@ -317,7 +317,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
             <div class="row">
               <div class=" mb-3 col-md-6 d-flex flex-column">
                 <label for="dni" class="form-label fs-4">DNI:</label>
-                <input type="text" class="crud__input fs-4 p-3 text-light-emphasis rounded-4" id="dni" name="cliente_DNI" placeholder="00000000A" required />
+                <input type="text" class="crud__input fs-4 p-3 text-light-emphasis rounded-4" id="dni" name="cliente_DNI" maxlength="9" placeholder="00000000A" required />
               </div>
               <div class="mb-3 col-md-6 d-flex flex-column">
                 <label for="correo" class="form-label fs-4">Correo:</label>
