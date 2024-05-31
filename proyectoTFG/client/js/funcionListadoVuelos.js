@@ -30,7 +30,7 @@ $(document).on("click", ".enlace_reservarVuelo", function (e) {
   );
   cargarCiudades().then(() => {
     var contenido_vueloSeleccionado = $(`
-  <div class="vueloSeleccionado__item d-flex flex-column align-items-center justify-content-between m-auto p-4 mb-3">
+  <div class="vueloSeleccionado__item d-flex flex-column align-items-center justify-content-between p-4">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-center w-100">
       <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex flex-column justify-content-center">
