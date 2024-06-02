@@ -142,7 +142,7 @@ if (isset($_GET["nominaExcel"])) {
         <nav class="crud__header navbar navbar-expand-md bg-primary p-0">
             <div class="container-fluid">
                 <a class="navbar-brand" href="crudEmpleados.php">
-                <img src="../../build/assets/media/logo.png" alt="logo" class="crud__header__logo img-fluid" />
+                    <img src="../../build/assets/media/logo.png" alt="logo" class="crud__header__logo img-fluid" />
                 </a>
                 <div class="offcanvas offcanvas-end bg-primary" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
@@ -160,6 +160,9 @@ if (isset($_GET["nominaExcel"])) {
                                 <a class="crud__header__link nav-link text-warning" aria-current="page" href="crudNominas.php">Nóminas</a>
                             </li>
                             <li class="nav-item mx-3">
+                                <a class="crud__header__link nav-link" aria-current="page" href="crudVuelos.php">Vuelos Registrados</a>
+                            </li>
+                            <li class="nav-item mx-3">
                                 <a class="crud__header__link nav-link" aria-current="page" href="crudUsuariosMaestros.php">Usuarios maestros</a>
                             </li>
                         </ul>
@@ -168,7 +171,7 @@ if (isset($_GET["nominaExcel"])) {
                 <div class="d-flex">
                     <div class="dropdown">
                         <a href="" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../../build/assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
+                            <img src="../../build/assets/media/avatar.png" alt="avatar" class="crud__header__avatar img-fluid me-3" />
                         </a>
                         <ul class="dropdown-menu dropdown_avatar p-4 rounded-4">
                             <li><a class="dropdown-item fs-4 mb-2" href="crudDatosPersonales.php"><i class="bi bi-pencil-square fs-2 me-3"></i>Datos personales</a></li>

@@ -50,6 +50,7 @@
                     sessionStorage.removeItem("vueloSeleccionado");
                     sessionStorage.removeItem("asientosSeleccionados");
                 } else {
+                    console.log(response);
                     console.log("Error al guardar el vuelo y billete");
                 }
             })

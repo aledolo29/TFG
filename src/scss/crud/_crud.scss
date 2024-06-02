@@ -108,3 +108,14 @@
 .dropdown-item:hover {
   color: var.$naranja;
 }
+
+.dropdown__aeropuertos__item {
+  color: var.$gris;
+  &:hover {
+    cursor: pointer;
+    color: var.$negro;
+  }
+  &:nth-child(1) {
+    color: var.$negro;
+  }
+}

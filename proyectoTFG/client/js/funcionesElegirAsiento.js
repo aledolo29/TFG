@@ -109,7 +109,6 @@ function pintarAsientos() {
 
         var btnAsientos = $(".reservar_asiento__btn");
         btnAsientos.click(function (e) {
-          console.log("click");
           e.preventDefault();
           var asientos = $(".btn_asiento");
           var asientosSeleccionados = [];
@@ -121,7 +120,12 @@ function pintarAsientos() {
               asientosSeleccionados.push($(this).attr("id"));
             }
           });
-          if (asientosSeleccionados.length == 0) {
+          if (asientosSeleccionados.length < vuelo.vuelo_Num_Pasajeros) {
+            alert(
+              `Debe seleccionar ${vuelo.vuelo_Num_Pasajeros} asientos para continuar`
+            );
+            return;
+          } else if (asientosSeleccionados.length == 0) {
             alert("No has seleccionado ningún asiento");
             return;
           }
@@ -129,7 +133,8 @@ function pintarAsientos() {
             "asientosSeleccionados",
             JSON.stringify(asientosSeleccionados)
           );
-          window.location.href = "http://localhost/TFG/proyectoTFG/client/archivos/pagarVuelo.html";
+          window.location.href =
+            "http://localhost/TFG/proyectoTFG/client/archivos/pagarVuelo.html";
         });
       });
     }
@@ -144,8 +149,8 @@ $(document).ready(function () {
   if (vuelo == null) {
     window.location.href =
       "http://localhost/TFG/proyectoTFG/client/archivos/error.html";
-    }
-    seguridad();
+  }
+  seguridad();
 
   pintarAsientos();
 

@@ -167,13 +167,13 @@ class PaymentController extends Controller
         <h1>Compra Confirmada</h1>
       </div>
       <div class="content">
-        <h2>' . \utf8_decode("¡Gracias por tu compra, " . $nombre . "!") . '</h2>
+        <h2>' . \htmlentities("¡Gracias por tu compra, " . $nombre . "!") . '</h2>
         <p>
-          Adjunto ' . utf8_decode("encontrarás") . ' tus billetes ' . utf8_decode("electrónicos") . '. Por favor, revisa los
-          detalles a ' . utf8_decode("continuación") . ':
+          Adjunto ' . htmlentities("encontrarás") . ' tus billetes ' . htmlentities("electrónicos") . '. Por favor, revisa los
+          detalles a ' . htmlentities("continuación") . ':
         </p>
         <div class="ticket">
-          <h3>Billete ' . utf8_decode("Electrónico") . '</h3>
+          <h3>Billete ' . htmlentities("Electrónico") . '</h3>
           <p><strong>Nombre: </strong> ' . $nombre . '</p>
           <p><strong>Fecha de Viaje: </strong> ' . $fecha . '</p>
           <p><strong>Hora de Salida: </strong>' . $hora . '</p>
@@ -189,7 +189,7 @@ class PaymentController extends Controller
       </div>
       <div class="footer">
         <p>
-          &copy; 2024 ' . utf8_decode("Compañia") . ' de Transportes. Todos los derechos reservados.
+          &copy; 2024 ' . htmlentities("Compañia") . ' de Transportes. Todos los derechos reservados.
         </p>
         <p><a href="mailto: @compania.com">interstellarairlines@compania.com</a></p>
       </div>

@@ -12053,4 +12053,17 @@ img {
   color: #ff8c5d;
 }
 
+.dropdown__aeropuertos__item {
+  color: #929292;
+}
+
+.dropdown__aeropuertos__item:hover {
+  cursor: pointer;
+  color: #0a0a0a;
+}
+
+.dropdown__aeropuertos__item:nth-child(1) {
+  color: #0a0a0a;
+}
+
 /*# sourceMappingURL=crudStyles.css.map */

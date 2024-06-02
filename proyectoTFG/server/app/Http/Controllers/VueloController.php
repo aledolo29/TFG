@@ -29,7 +29,15 @@ class VueloController extends Controller
 
         foreach ($vuelos as $v) {
             $billete = Billete::where('billete_Vuelo_IdFK', $v->vuelo_Id)->first();
-            $v->precio = $billete->billete_Precio;
+            $precio = $billete->billete_Precio;
+            $asiento = $billete->billete_Asiento;
+            if (intval(substr($asiento, 1)) <= 6) {
+                $v->precio = $billete->billete_Precio / 1.5;
+            } else if (intval(substr($asiento, 1)) > 6 && intval(substr($asiento, 1)) <= 10) {
+                $v->precio = $billete->billete_Precio / 3;
+            } else {
+                $v->precio = $billete->billete_Precio;
+            }
             $v->vuelo_Num_Pasajeros = $pasajeros;
         }
 

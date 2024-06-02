@@ -127,7 +127,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
     <nav class="crud__header navbar navbar-expand-md bg-primary p-0">
       <div class="container-fluid">
         <a class="navbar-brand" href="crudEmpleados.php">
-        <img src="../../build/assets/media/logo.png" alt="logo" class="crud__header__logo img-fluid" />
+          <img src="../../build/assets/media/logo.png" alt="logo" class="crud__header__logo img-fluid" />
         </a>
         <div class="offcanvas offcanvas-end bg-primary" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
           <div class="offcanvas-header">
@@ -143,6 +143,9 @@ if (isset($_POST['aux_eliminar_cliente'])) {
               </li>
               <li class="nav-item mx-3">
                 <a class="crud__header__link nav-link" aria-current="page" href="crudNominas.php">Nóminas</a>
+              </li>
+              <li class="nav-item mx-3">
+                <a class="crud__header__link nav-link" aria-current="page" href="crudVuelos.php">Vuelos Registrados</a>
               </li>
               <li class="nav-item mx-3">
                 <a class="crud__header__link nav-link" aria-current="page" href="crudUsuariosMaestros.php">Usuarios maestros</a>

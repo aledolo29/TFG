@@ -93,5 +93,24 @@ function inicializarEventos() {
         },
       },
     });
+
+    $("#TablaVuelos").DataTable({
+      order: [[0, "asc"]],
+      columnDefs: [{ orderable: false, targets: [5] }],
+      language: {
+        lengthMenu: "Mostrar _MENU_ registros por página",
+        info: "Mostrando pagina _PAGE_ de _PAGES_",
+        infoEmpty: "No hay registros disponibles",
+        infoFiltered: "(filtrada de _MAX_ registros)",
+        loadingRecords: "Cargando...",
+        processing: "Procesando...",
+        search: "Buscar:",
+        zeroRecords: "No se encontraron registros coincidentes",
+        paginate: {
+          next: "Siguiente",
+          previous: "Anterior",
+        },
+      },
+    });
   });
 }
