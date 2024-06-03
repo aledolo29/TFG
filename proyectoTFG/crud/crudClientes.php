@@ -427,7 +427,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
             Cancelar
           </button>
           <button type='submit' class='btn btn-primary fs-4 px-4 py-2 text-white rounded-3'>
-            Añadir
+            Guardar
           </button>
         </div>
       </form>
