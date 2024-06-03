@@ -25,8 +25,8 @@ if (isset($_GET['mensajeCorrecto'])) {
 
 // INSERTAR CLIENTE
 if (isset($_POST['aux_insertar_cliente'])) {
-  $cliente_Nombre = $_POST['cliente_Nombre'];
-  $cliente_Apellidos = $_POST['cliente_Apellidos'];
+  $cliente_Nombre = ucfirst($_POST['cliente_Nombre']);
+  $cliente_Apellidos = ucfirst($_POST['cliente_Apellidos']);
   $cliente_Usuario = $_POST['cliente_Usuario'];
   $cliente_Password = $_POST['cliente_Password'];
   $cliente_DNI = $_POST['cliente_DNI'];
@@ -60,8 +60,8 @@ if (isset($_POST['aux_insertar_cliente'])) {
 // MODIFICAR CLIENTE
 if (isset($_POST['aux_modificar_cliente'])) {
   $cliente_Id = $_POST['aux_modificar_cliente'];
-  $cliente_Nombre = $_POST['cliente_Nombre'];
-  $cliente_Apellidos = $_POST['cliente_Apellidos'];
+  $cliente_Nombre = ucfirst($_POST['cliente_Nombre']);
+  $cliente_Apellidos = ucfirst($_POST['cliente_Apellidos']);
   $cliente_Usuario = $_POST['cliente_Usuario'];
   $cliente_Password = $_POST['cliente_Password'];
   $cliente_Telefono = $_POST['cliente_Telefono'];
@@ -212,6 +212,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
           <th class="text-start">Correo</th>
           <th class="text-start">DNI</th>
           <th class="text-start">Teléfono</th>
+          <th class="text-start">Cod. Vuelos Reservados</th>
           <th></th>
         </tr>
       </thead>
@@ -223,6 +224,17 @@ if (isset($_POST['aux_eliminar_cliente'])) {
           $tupla_Cliente = $conexion->BD_GetTupla($resClientes);
 
           while ($tupla_Cliente !== null) {
+            $billetes = [];
+            $consulta = "SELECT * FROM billetes WHERE billete_cliente_IdFK = " . $tupla_Cliente['cliente_Id'];
+            $resBilletes = $conexion->BD_Consulta($consulta);
+            if ($resBilletes !== null) {
+              $tupla_Billete = $conexion->BD_GetTupla($resBilletes);
+              while ($tupla_Billete !== null) {
+                $billetes[] = $tupla_Billete['billete_vuelo_IdFK'];
+                $tupla_Billete = $conexion->BD_GetTupla($resBilletes);
+              }
+              $billetesCadena = implode(", ", $billetes);
+            }
             echo "<tr>";
             echo "<td>
                     <svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none'>
@@ -236,6 +248,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
             echo "<td class='text-start'>" . $tupla_Cliente['cliente_Correo'] . "</td>";
             echo "<td class='text-start'>" . $tupla_Cliente['cliente_DNI'] . "</td>";
             echo "<td class='text-start'>" . $tupla_Cliente['cliente_Telefono'] . "</td>";
+            echo "<td class='text-start'>" . ($billetesCadena == "" ? "NULL" : $billetesCadena) . "</td>";
             echo "<td class='text-end'>
                     <a href='#'class='text-decoration-none' data-bs-toggle='modal' data-bs-target='#modal_modificar_cliente_" . $tupla_Cliente['cliente_Id'] . "'>
                       <svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='22px' height='22px' viewBox='0 0 24 24' version='1.1'>

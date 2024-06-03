@@ -172,7 +172,7 @@ buscarVueloBtn.click(function (e) {
         ).then((res) => {
           if (res.status == 200) {
             res.json().then((data) => {
-              data.forEach((vuelo) => {
+              Object.values(data).forEach((vuelo) => {
                 if (!("precio" in vuelo)) {
                   var intervalo = calcularIntervaloFechas(
                     vuelo.vuelo_Fecha_Hora_Salida,
@@ -249,7 +249,6 @@ $("#fecha").change(function () {
   }
 });
 
-// Validar numero de pasajeros
 // ---------------------------------------
 // Validar numero de pasajeros
 $("#pasajeros").change(function () {

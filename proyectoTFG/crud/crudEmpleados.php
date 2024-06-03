@@ -25,8 +25,8 @@ if (isset($_GET['mensajeCorrecto'])) {
 
 // INSERTAR EMPLEADO
 if (isset($_POST['aux_insertar_empleado'])) {
-  $empl_Nombre = $_POST['empl_Nombre'];
-  $empl_Apellidos = $_POST['empl_Apellidos'];
+  $empl_Nombre = ucfirst($_POST['empl_Nombre']);
+  $empl_Apellidos = ucfirst($_POST['empl_Apellidos']);
   $empl_DNI = $_POST['empl_DNI'];
   $empl_Correo = $_POST['empl_Correo'];
   $empl_Estado = $_POST['empl_Estado'];
@@ -59,8 +59,8 @@ if (isset($_POST['aux_insertar_empleado'])) {
 // MODIFICAR EMPLEADO
 if (isset($_POST['aux_modificar_empleado'])) {
   $empl_Id = $_POST['aux_modificar_empleado'];
-  $empl_Nombre = $_POST['empl_Nombre'];
-  $empl_Apellidos = $_POST['empl_Apellidos'];
+  $empl_Nombre = ucfirst($_POST['empl_Nombre']);
+  $empl_Apellidos = ucfirst($_POST['empl_Apellidos']);
   $empl_DNI = $_POST['empl_DNI'];
   $empl_Correo = $_POST['empl_Correo'];
   $empl_Estado = $_POST['empl_Estado'];

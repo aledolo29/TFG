@@ -100,7 +100,7 @@ $(document).ready(function () {
   cargarCiudades().then(() => {
     // Mostrar los vuelos de IDA
     if (dataVuelo !== null) {
-      dataVuelo.forEach((vuelo) => {
+      Object.values(dataVuelo).forEach((vuelo) => {
         var vueloJson = JSON.stringify(vuelo);
         var fechaHoraSalida = vuelo.vuelo_Fecha_Hora_Salida.split(" ");
         var fechaHoraLlegada = vuelo.vuelo_Fecha_Hora_Llegada.split(" ");

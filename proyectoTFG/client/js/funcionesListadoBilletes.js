@@ -72,8 +72,8 @@ $(document).ready(function () {
                       .split(" ")[1]
                       .substr(0, 5);
 
-                    $(".listadoBilletes__lista").append(
-                      `<div class="listadoBilletes__item ">
+                    var billete = "";
+                    billete += `<div class="listadoBilletes__item ">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                           <cite class="fs-5 text-primary">Vuelo Num.: ${
                             dataVuelo.vuelo_Id
@@ -83,8 +83,8 @@ $(document).ready(function () {
                             <button class="btn listadoBilletes__botonEliminar fs-5 text-primary fw-bold p-0" data-bs-toggle="modal" data-bs-target="#modalEliminarBillete_${
                               dataBilletes[i].billete_Id
                             }" data-idBillete="${
-                        dataBilletes[i].billete_Id
-                      }">Cancelar billete</button>
+                      dataBilletes[i].billete_Id
+                    }">Cancelar billete</button>
                           </div>
                         </div>
                       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
@@ -116,14 +116,25 @@ $(document).ready(function () {
                       </div>
                       <div>
                         <p class="fw-bold">Asiento: </p>
-                        <div class="d-flex justify-content-center align-items-center">
-                        <img class="listadoBilletes__asiento img-fluid" src="../../../build/assets/media/asiento2.png">
-                        <p>${dataBilletes[i].billete_Asiento}</p>
+                        <div class="d-flex justify-content-center align-items-center">`;
+                    if (dataBilletes[i].billete_Asiento.substr(1) <= 6) {
+                      billete += `<img class="listadoBilletes__asiento img-fluid" src="../../../build/assets/media/asiento.png">`;
+                    } else if (
+                      dataBilletes[i].billete_Asiento.substr(1) >= 7 &&
+                      dataBilletes[i].billete_Asiento.substr(1) <= 10
+                    ) {
+                      billete += `<img class="listadoBilletes__asiento img-fluid" src="../../../build/assets/media/asiento2.png">`;
+                    } else {
+                      billete += `<img class="listadoBilletes__asiento img-fluid" src="../../../build/assets/media/asiento3.png">`;
+                    }
+
+                    billete += `<p>${dataBilletes[i].billete_Asiento}</p>
                       </div>
                     </div>
                   </div>
-              </div>`
-                    );
+              </div>`;
+                    // Añadimos el billete al listado
+                    $(".listadoBilletes__lista").append(billete);
 
                     $("#modalEliminarBillete").append(
                       `<div class="modal fade" id="modalEliminarBillete_${

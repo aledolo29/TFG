@@ -31,17 +31,23 @@ $datosAeropuertos = json_decode($response, true);
 
 // INSERTAR VUELO
 if (isset($_POST['aux_insertar_vuelo'])) {
-    $vuelo_Fecha_Hora_Llegada = $_POST['vuelo_Fecha_Hora_Llegada'];
     $vuelo_Fecha_Hora_Salida = $_POST['vuelo_Fecha_Hora_Salida'];
-    $vuelo_AeropuertoSalida =  $_POST['vuelo_AeropuertoSalida'];
-    $posParentesis = strpos($vuelo_AeropuertoSalida, "(");
-    $vuelo_AeropuertoSalida = substr($vuelo_AeropuertoSalida, $posParentesis + 1, -1);
-    $vuelo_AeropuertoLlegada =  $_POST['vuelo_AeropuertoLlegada'];
-    $posParentesis = strpos($vuelo_AeropuertoLlegada, "(");
-    $vuelo_AeropuertoLlegada = substr($vuelo_AeropuertoLlegada, $posParentesis + 1, -1);
+    $id_aeropuerto_origen_mod =  $_POST['id_aeropuerto_origen'];
+    $id_aeropuerto_destino_mod =  $_POST['id_aeropuerto_destino'];
+    $vuelo_AeropuertoSalida =  "";
+    $vuelo_AeropuertoLlegada =  "";
+
+    foreach ($datosAeropuertos as $d) {
+        if ($d['id'] == $id_aeropuerto_origen_mod) {
+            $vuelo_AeropuertoSalida = $d['iata'];
+        }
+        if ($d['id'] == $id_aeropuerto_destino_mod) {
+            $vuelo_AeropuertoLlegada = $d['iata'];
+        }
+    }
 
     // Comprobar si ya existe un vuelo con esos parametros
-    $consulta = "WHERE vuelo_Fecha_Hora_Llegada = '$vuelo_Fecha_Hora_Llegada' AND vuelo_Fecha_Hora_Salida = '$vuelo_Fecha_Hora_Salida' AND vuelo_AeropuertoSalida = '$vuelo_AeropuertoSalida' AND vuelo_AeropuertoLlegada = '$vuelo_AeropuertoLlegada'";
+    $consulta = "WHERE vuelo_Fecha_Hora_Salida = '$vuelo_Fecha_Hora_Salida' AND vuelo_AeropuertoSalida = '$vuelo_AeropuertoSalida' AND vuelo_AeropuertoLlegada = '$vuelo_AeropuertoLlegada'";
     $res = $vuelo->obtenerConFiltro($consulta, "");
     $tuplaComprobarInserccion = $conexion->BD_GetTupla($res);
     if ($tuplaComprobarInserccion !== null) {
@@ -51,12 +57,43 @@ if (isset($_POST['aux_insertar_vuelo'])) {
     }
 
 
-    $resInserccion = $vuelo->insertar($vuelo_Fecha_Hora_Llegada, $vuelo_Fecha_Hora_Salida, $vuelo_AeropuertoSalida, $vuelo_AeropuertoLlegada);
+    $resInserccion = $vuelo->insertar($vuelo_Fecha_Hora_Salida, $vuelo_AeropuertoSalida, $vuelo_AeropuertoLlegada);
     if ($resInserccion) {
         $mensajeCorrecto = "Vuelo insertado correctamente";
         header('Location: crudVuelos.php?mensajeCorrecto=' . $mensajeCorrecto);
     } else {
         $mensajeError = "Error al insertar el vuelo";
+        header('Location: crudVuelos.php?mensajeError=' . $mensajeError);
+    }
+}
+
+// MODIFICAR VUELO
+if (isset($_POST['aux_modificar_vuelo'])) {
+    $vuelo_Id = $_POST['aux_modificar_vuelo'];
+    $vuelo_Fecha_Hora_Salida = $_POST['vuelo_Fecha_Hora_Salida'];
+    $vuelo_AeropuertoSalida =  $_POST['vuelo_AeropuertoSalida'];
+    $posParentesis = strpos($vuelo_AeropuertoSalida, "(");
+    $vuelo_AeropuertoSalida = substr($vuelo_AeropuertoSalida, $posParentesis + 1, -1);
+    $vuelo_AeropuertoLlegada =  $_POST['vuelo_AeropuertoLlegada'];
+    $posParentesis = strpos($vuelo_AeropuertoLlegada, "(");
+    $vuelo_AeropuertoLlegada = substr($vuelo_AeropuertoLlegada, $posParentesis + 1, -1);
+
+
+    // Comprobar si ya existe un vuelo con esos parametros
+    $consulta = "WHERE vuelo_Fecha_Hora_Salida = '$vuelo_Fecha_Hora_Salida' AND vuelo_AeropuertoSalida = '$vuelo_AeropuertoSalida' AND vuelo_AeropuertoLlegada = '$vuelo_AeropuertoLlegada'";
+    $res = $vuelo->obtenerConFiltro($consulta, "");
+    $tuplaComprobarInserccion = $conexion->BD_GetTupla($res);
+    if ($tuplaComprobarInserccion !== null) {
+        $mensajeError = "Error al insertar el vuelo. Ya existe un vuelo con esos parámetros";
+        header('Location: crudVuelos.php?mensajeError=' . $mensajeError);
+        exit();
+    }
+    $resModificacion = $vuelo->modificar($vuelo_Id, $vuelo_Fecha_Hora_Salida, $vuelo_AeropuertoSalida, $vuelo_AeropuertoLlegada);
+    if ($resModificacion) {
+        $mensajeCorrecto = "Vuelol $vuelo_Id modificado correctamente";
+        header('Location: crudVuelos.php?mensajeCorrecto=' . $mensajeCorrecto);
+    } else {
+        $mensajeError = "Error al modificar el vuelo $vuelo_Id";
         header('Location: crudVuelos.php?mensajeError=' . $mensajeError);
     }
 }
@@ -177,6 +214,8 @@ if (isset($_POST['aux_insertar_vuelo'])) {
 
 
                     while ($tupla_Vuelo !== null) {
+                        $fechaSalida = date("d/m/Y H:i", strtotime($tupla_Vuelo['vuelo_Fecha_Hora_Salida']));
+                        $fechaLlegada = date("d/m/Y H:i", strtotime($tupla_Vuelo['vuelo_Fecha_Hora_Llegada']));
                         $ciudadSalida = "";
                         $ciudadLlegada = "";
                         foreach ($datosAeropuertos as $d) {
@@ -196,8 +235,8 @@ if (isset($_POST['aux_insertar_vuelo'])) {
                         </svg>
                         <span class='text-start'>" . $tupla_Vuelo['vuelo_Id'] . "</span>
                     </td>";
-                        echo "<td class='text-start'>" . $tupla_Vuelo['vuelo_Fecha_Hora_Salida'] . "</td>";
-                        echo "<td class='text-start'>" . $tupla_Vuelo['vuelo_Fecha_Hora_Llegada'] . "</td>";
+                        echo "<td class='text-start'>" . $fechaSalida . "</td>";
+                        echo "<td class='text-start'>" . $fechaLlegada . "</td>";
                         echo "<td class='text-start'>" . $ciudadSalida . " (" . $tupla_Vuelo['vuelo_AeropuertoSalida'] . ")</td>";
                         echo "<td class='text-start'>" . $ciudadLlegada . " (" . $tupla_Vuelo['vuelo_AeropuertoLlegada'] . ")</td>";
                         echo "<td class='text-end'>
@@ -247,20 +286,16 @@ if (isset($_POST['aux_insertar_vuelo'])) {
 
                         <!-- FILA 1 -->
                         <div class='row d-flex justify-content-center align-items-center'>
-                            <div class='mb-3 col-md-6 d-flex flex-column'>
+                            <div class='mb-3 col d-flex flex-column'>
                                 <label for='fechaHoraSalida' class='form-label fs-4'>Fecha y hora de Salida:</label>
-                                <input type='datetime-local' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='fechaHoraSalida' name='vuelo_Fecha_Hora_Salida' required />
-                            </div>
-                            <div class='mb-3 col-md-6 d-flex flex-column'>
-                                <label for='fechaHoraLlegada' class='form-label fs-4'>Fecha y hora de llegada:</label>
-                                <input type='datetime-local' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='fechaHoraLlegada' name='vuelo_Fecha_Hora_Llegada' required />
+                                <input type='datetime-local' class='fecha crud__input fs-4 p-3 text-light-emphasis rounded-4' id='fechaHoraSalida' name='vuelo_Fecha_Hora_Salida' required />
                             </div>
                         </div>
                         <!-- FILA 2 -->
                         <div class='row'>
                             <div class='mb-3 col-md-6 d-flex flex-column'>
                                 <label for='aeropuertoSalida' class='form-label fs-4'>Aeropuerto Salida:</label>
-                                <input id="aeropuerto_origen" type='text' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='dni' name='vuelo_AeropuertoSalida' required />
+                                <input id="aeropuerto_origen" type='text' class='aeropuerto_origen crud__input fs-4 p-3 text-light-emphasis rounded-4' id='dni' name='vuelo_AeropuertoSalida' required />
                                 <div class="w-50">
                                     <ul id="lista_aeropuertos_origen" class="lista_aeropuertos_origen dropdown-menu dropdown__aeropuertos"></ul>
                                 </div>
@@ -269,7 +304,7 @@ if (isset($_POST['aux_insertar_vuelo'])) {
                             </div>
                             <div class='mb-3 col-md-6 d-flex flex-column'>
                                 <label for='aeropuertoLlegada' class='form-label fs-4'>Aeropuerto Llegada:</label>
-                                <input type='text' id="aeropuerto_destino" class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='dni' name='vuelo_AeropuertoLlegada' required />
+                                <input type='text' id="aeropuerto_destino" class='aeropuerto_destino crud__input fs-4 p-3 text-light-emphasis rounded-4' id='dni' name='vuelo_AeropuertoLlegada' required />
                                 <div class="w-50">
                                     <ul id="lista_aeropuertos_destino" class="lista_aeropuertos_destino dropdown-menu dropdown__aeropuertos"></ul>
                                 </div>
@@ -282,7 +317,7 @@ if (isset($_POST['aux_insertar_vuelo'])) {
                             Cancelar
                         </button>
                         <button type='submit' class='btn btn-primary fs-4 px-4 py-2 text-white rounded-3'>
-                            Modificar
+                            Añadir
                         </button>
                     </div>
                 </form>
@@ -324,24 +359,20 @@ if (isset($_POST['aux_insertar_vuelo'])) {
  
         <!-- FILA 1 -->
         <div class='row d-flex justify-content-center align-items-center'>
-            <div class='mb-3 col-md-6 d-flex flex-column'>
+            <div class='mb-3 col d-flex flex-column'>
                 <label for='fechaHoraSalida' class='form-label fs-4'>Fecha y hora de Salida:</label>
-                <input type='datetime-local' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='fechaHoraSalida' name='vuelo_Fecha_Hora_Salida' value='" . $tupla_Vuelo['vuelo_Fecha_Hora_Salida'] . "' required />
-            </div>
-            <div class='mb-3 col-md-6 d-flex flex-column'>
-                <label for='fechaHoraLlegada' class='form-label fs-4'>Fecha y hora de llegada:</label>
-                <input type='datetime-local' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='fechaHoraLlegada' name='vuelo_Fecha_Hora_Llegada' value='" . $tupla_Vuelo['vuelo_Fecha_Hora_Llegada'] . "' required />
+                <input type='datetime-local' class='fecha_mod crud__input fs-4 p-3 text-light-emphasis rounded-4' id='fechaHoraSalida' name='vuelo_Fecha_Hora_Salida' value='" . $tupla_Vuelo['vuelo_Fecha_Hora_Salida'] . "' required />
             </div>
         </div>
         <!-- FILA 2 -->
         <div class='row'>
             <div class='mb-3 col-md-6 d-flex flex-column'>
                 <label for='aeropuertoSalida' class='form-label fs-4'>Aeropuerto Salida:</label>
-                <input type='text' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='dni' name='vuelo_AeropuertoSalida' value='" . $ciudadSalida . " (" . $tupla_Vuelo['vuelo_AeropuertoSalida'] . ")' required />
+                <input type='text' class='aeropuerto_origen_mod crud__input fs-4 p-3 text-light-emphasis rounded-4' id='dni' name='vuelo_AeropuertoSalida' value='" . $ciudadSalida . " (" . $tupla_Vuelo['vuelo_AeropuertoSalida'] . ")' readonly />
             </div>
             <div class='mb-3 col-md-6 d-flex flex-column'>
                 <label for='aeropuertoLlegada' class='form-label fs-4'>Aeropuerto Llegada:</label>
-                <input type='text' class='crud__input fs-4 p-3 text-light-emphasis rounded-4' id='dni' name='vuelo_AeropuertoLlegada' value='" . $ciudadLlegada . " (" . $tupla_Vuelo['vuelo_AeropuertoLlegada'] . ")' required />
+                <input type='text' class='aeropuerto_destino_mod crud__input fs-4 p-3 text-light-emphasis rounded-4' id='dni' name='vuelo_AeropuertoLlegada' value='" . $ciudadLlegada . " (" . $tupla_Vuelo['vuelo_AeropuertoLlegada'] . ")' readonly />
             </div>
         </div>
         </div>

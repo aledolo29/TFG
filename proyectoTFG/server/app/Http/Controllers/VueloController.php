@@ -27,16 +27,25 @@ class VueloController extends Controller
             ->whereDate('vuelo_Fecha_Hora_Salida', $fecha)
             ->get();
 
+        // Comprobar si existen billetes para los vuelos encontrados
+        foreach ($vuelos as $key => $v) {
+            $numBilletes = Billete::where('billete_Vuelo_IdFK', $v->vuelo_Id)->count();
+            if ($numBilletes >= 90) {
+                $vuelos->forget($key);
+            }
+        }   
+
         foreach ($vuelos as $v) {
             $billete = Billete::where('billete_Vuelo_IdFK', $v->vuelo_Id)->first();
-            $precio = $billete->billete_Precio;
-            $asiento = $billete->billete_Asiento;
-            if (intval(substr($asiento, 1)) <= 6) {
-                $v->precio = $billete->billete_Precio / 1.5;
-            } else if (intval(substr($asiento, 1)) > 6 && intval(substr($asiento, 1)) <= 10) {
-                $v->precio = $billete->billete_Precio / 3;
-            } else {
-                $v->precio = $billete->billete_Precio;
+            if ($billete) {
+                $asiento = $billete->billete_Asiento;
+                if (intval(substr($asiento, 1)) <= 6) {
+                    $v->precio = $billete->billete_Precio / 1.5;
+                } else if (intval(substr($asiento, 1)) > 6 && intval(substr($asiento, 1)) <= 10) {
+                    $v->precio = $billete->billete_Precio / 3;
+                } else {
+                    $v->precio = $billete->billete_Precio;
+                }
             }
             $v->vuelo_Num_Pasajeros = $pasajeros;
         }

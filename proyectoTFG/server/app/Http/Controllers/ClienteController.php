@@ -23,16 +23,116 @@ class ClienteController extends Controller
             }
         } else {
             $cliente = new Cliente();
-            $cliente->cliente_Nombre = $request->nombre;
-            $cliente->cliente_Apellidos = $request->apellidos;
+            $cliente->cliente_Nombre = ucfirst($request->nombre);
+            $cliente->cliente_Apellidos = ucfirst($request->apellidos);
             $cliente->cliente_Usuario = $request->usuario;
             $cliente->cliente_Password = $request->password;
             $cliente->cliente_DNI = $request->dni;
             $cliente->cliente_Correo = $request->correo;
             $cliente->cliente_Telefono = $request->telefono;
             $cliente->save();
+
+
+
+            $mail = new PHPMailer(true);
+
+
+            // Envía un email de recuperación de contraseña al cliente
+
+            // Inicio
+            // Configuracion SMTP
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;  // Mostrar salida (Desactivar en producción)
+            $mail->isSMTP();   // Activar envio SMTP
+            $mail->Host  = 'smtp.gmail.com';                     // Servidor SMTP
+            $mail->SMTPAuth  = true;  // Identificacion SMTP
+            $mail->Username  = 'proyectotfgdaw@gmail.com';                  // Usuario SMTP
+            $mail->Password  = 'lozcugypnpjurnrd';   // Contraseña SMTP
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port  = 465;
+            $mail->setFrom('proyectotfgdaw@gmail.com', 'Interstellar Airlines');  // Remitente del correo
+
+            $mail->addAddress('proyectotfgdaw@gmail.com', $request->correo);  // Email y nombre del destinatario
+            $mail->isHTML(true);
+            $mail->Subject = 'Bienvenido a Interstellar Airlines, ' . ucfirst($request->nombre) . '!';
+            $mail->Body = '
+            <!DOCTYPE html>
+            <html lang="es">
+              <head>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>Bienvenido ' . ucfirst($request->nombre) . '</title>
+                <link
+                  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+                  rel="stylesheet"
+                  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+                  crossorigin="anonymous"
+                />
+                <style>
+                  body {
+                    color: #666;
+                    font-size: 0.8rem;
+                  }
+                  .container {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 20px;
+                  }
+                  .mensaje {
+                    border: 1px solid #325162;
+                    border-radius: 15px;
+                    padding: 20px;
+                    width: 90%;
+                    margin: auto;
+                  }
+                  h3 {
+                    font-weight: bold;
+                    color: #325162;
+                    font-size: 1rem;
+                    text-align: center;
+                  }
+                  .footer {
+                    text-align: center;
+                    color: #8a8a8a;
+                  }
+                  @media (min-width: 576px) {
+                    .mensaje {
+                      width: 40%;
+                    }
+                  }
+                </style>
+              </head>
+              <body>
+                <div class="container">
+                  <div class="mensaje">
+                    <div class="header">
+                      <h3>Bienvenido ' . ucfirst($request->nombre) . '</h3>
+                    </div>
+                    <div class="content">
+                      <p>Estamos encantados de que te hayas unido a nosotros.</p>
+                      <div class="contenido">
+                        <p>Si no te registraste en nuestra web, por favor ignora este mensaje.</p>
+                        <p class="footer">Gracias,<br />Equipo de Soporte</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <script
+                  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                  crossorigin="anonymous"
+                ></script>
+              </body>
+            </html>
+            ';
+
+            $mail->send();
+            // Fin
+
+
             return response()->json([
-                'correcto' => 'Usuario ' . $request->usuario . ' registrado correctamente. Espere para ser redirigido.', 'cliente' => $cliente
+                'correcto' => 'Usuario ' . $request->usuario . ' registrado correctamente. En breves recibirás un email de bienvenida. Espere para ser redirigido.', 'cliente' => $cliente
             ]);
         }
     }
@@ -181,7 +281,7 @@ class ClienteController extends Controller
                       </html>
                       ';
             $mail->send();
-
+            // Fin
 
             return response()->json([
                 'correcto' => true

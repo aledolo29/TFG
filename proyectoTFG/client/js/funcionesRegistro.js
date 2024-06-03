@@ -59,7 +59,7 @@ $("#btnRegistro").click(function () {
               setTimeout(() => {
                 window.location.href =
                   "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
-              }, 3000);
+              }, 4000);
             } else {
               mensaje_error.addClass("alert alert-danger");
               mensaje_error.text(data.error, toString());

@@ -39,7 +39,7 @@ function inicializarEventos() {
 
     $("#TablaClientes").DataTable({
       order: [[0, "asc"]],
-      columnDefs: [{ orderable: false, targets: [6] }],
+      columnDefs: [{ orderable: false, targets: [7] }],
       language: {
         lengthMenu: "Mostrar _MENU_ registros por página",
         info: "Mostrando pagina _PAGE_ de _PAGES_",
