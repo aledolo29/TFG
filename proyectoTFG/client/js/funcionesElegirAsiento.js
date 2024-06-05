@@ -121,12 +121,14 @@ function pintarAsientos() {
             }
           });
           if (asientosSeleccionados.length < vuelo.vuelo_Num_Pasajeros) {
-            alert(
-              `Debe seleccionar ${vuelo.vuelo_Num_Pasajeros} asientos para continuar`
+            $("#mensaje_error").text(
+              `Debes seleccionar ${vuelo.vuelo_Num_Pasajeros} asiento/s para continuar.`
             );
+            $("#mensaje_error").addClass("alert alert-danger text-center");
             return;
           } else if (asientosSeleccionados.length == 0) {
-            alert("No has seleccionado ningún asiento");
+            $("#mensaje_error").text(`No has seleccionado ningún asiento.`);
+            $("#mensaje_error").addClass("alert alert-danger text-center");
             return;
           }
           sessionStorage.setItem(
