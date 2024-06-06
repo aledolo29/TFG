@@ -208,8 +208,6 @@ $(document).ready(function () {
     );
     $(".aeropuerto_destino").val(aeropuertoRecomendado);
     $(".id_aeropuerto_destino").val(id_aeropuertoRecomendado);
-    sessionStorage.removeItem("aeropuertoRecomendado");
-    sessionStorage.removeItem("id_aeropuertoRecomendado");
   }
 
   // Validar fecha minima

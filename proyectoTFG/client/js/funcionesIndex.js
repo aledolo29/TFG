@@ -12,6 +12,7 @@ $(".enlace_vueloRecomendado").click(function (e) {
     res.json().then((datos) => {
       datos.forEach((c) => {
         if (c.city == ciudad) {
+          console.log(c);
           aeropuertos.push({ nombre: ciudad + " (" + c.iata + ")", id: c.id });
         }
       });
