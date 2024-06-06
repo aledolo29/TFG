@@ -114,3 +114,13 @@ function inicializarEventos() {
     });
   });
 }
+
+// ------------------------------------------------------------- //
+// Function buscar en la tabla
+function buscadorDataTable(tabla, input) {
+  $(document).ready(function () {
+    $(input).on("keyup", function () {
+      tabla.search(this.value).draw();
+    });
+  });
+}

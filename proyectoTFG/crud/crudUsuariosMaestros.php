@@ -186,16 +186,24 @@ if (isset($_POST['aux_eliminar_usuario'])) {
     ?>
     <!-- TABLA -->
     <section class="crud__tabla container-fluid bg-white mt-5 rounded-4 p-5">
-        <div class="mb-5">
-            <a class="text-decoration-none text-white" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_cliente">
-                <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
-                        <rect opacity="1" x="11.364" y="20.364" width="16" height="2.5" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
-                        <rect x="4.36396" y="11.364" width="16" height="2.5" rx="1" fill="currentColor"></rect>
-                    </svg>
-                    <span class="fs-4">Añadir usuario</span>
+        <div class="mb-5 d-flex justify-content-between align-items-center">
+            <div>
+                <a class="text-decoration-none text-white" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_cliente">
+                    <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="1" x="11.364" y="20.364" width="16" height="2.5" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
+                            <rect x="4.36396" y="11.364" width="16" height="2.5" rx="1" fill="currentColor"></rect>
+                        </svg>
+                        <span class="fs-4">Añadir usuario</span>
+                    </div>
+                </a>
+            </div>
+            <div>
+                <div class="input-group search rounded-3">
+                    <span class="search__icon input-group-text border-0 py-2 px-3 rounded-start-3"><i class="bi bi-search fs-4"></i></span>
+                    <input type="text" class="search__input border-0 fs-4 p-2 rounded-end-3" id="search__input" placeholder="Buscar usuario">
                 </div>
-            </a>
+            </div>
         </div>
         <table id="TablaUsuarios" class="table table-striped table-hover align-middle gs-0 gy-4">
             <thead>
@@ -414,6 +422,12 @@ if (isset($_POST['aux_eliminar_usuario'])) {
     <script src="js/plugins/datatables/datatables.bundle.js"></script>
     <script src="js/datatableCrud.js"></script>
     <script src="js/funciones.js"></script>
+    <script>
+        $("#search__input").on("keyup", function() {
+            let tabla = $("#TablaUsuarios").DataTable();
+            tabla.search(this.value).draw();
+        });
+    </script>
 </body>
 
 </html>

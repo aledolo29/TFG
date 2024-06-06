@@ -119,3 +119,20 @@
     color: var.$negro;
   }
 }
+
+.search {
+  box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.25);
+  &__input {
+    background-color: var.$azul_claro;
+    &::placeholder {
+      color: darken(var.$gris, 20%);
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  &__icon {
+    background-color: var.$azul_claro;
+    color: var.$gris;
+  }
+}

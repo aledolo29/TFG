@@ -208,36 +208,45 @@ if (isset($_GET["nominaExcel"])) {
     ?>
     <!-- TABLA -->
     <section class="crud__tabla container-fluid bg-white mt-5 rounded-4 p-5">
-        <div class="d-flex flex-sm-row flex-column align-items-sm-center mb-5">
-            <a class="text-decoration-none text-white mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_nomina">
-                <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
-                        <rect opacity="1" x="11.364" y="20.364" width="16" height="2.5" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
-                        <rect x="4.36396" y="11.364" width="16" height="2.5" rx="1" fill="currentColor"></rect>
-                    </svg>
-                    <span class="fs-4">Añadir nómina</span>
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div class="d-flex flex-sm-row flex-column align-items-sm-center mb-5">
+                <a class="text-decoration-none text-white mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_nomina">
+                    <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="1" x="11.364" y="20.364" width="16" height="2.5" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
+                            <rect x="4.36396" y="11.364" width="16" height="2.5" rx="1" fill="currentColor"></rect>
+                        </svg>
+                        <span class="fs-4">Añadir nómina</span>
+                    </div>
+                </a>
+                <a class="text-decoration-none text-white mx-sm-3  mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_nomina_masiva">
+                    <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
+                            <rect opacity="1" x="11.364" y="20.364" width="16" height="2.5" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
+                            <rect x="4.36396" y="11.364" width="16" height="2.5" rx="1" fill="currentColor"></rect>
+                        </svg>
+                        <span class="fs-4">Añadir nóminas masiva</span>
+                    </div>
+                </a>
+                <a class="text-decoration-none text-white mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_mandar_nominas">
+                    <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
+                        <i class="bi bi-send-fill mx-2"></i> <span class="fs-4">Mandar nóminas</spa>
+                    </div>
+                </a>
+                <a class="text-decoration-none text-white mx-sm-3 " href="clases/crearExcel.php?crearExcel=true">
+                    <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
+                        <i class="bi bi-file-earmark-excel-fill mx-2"></i>
+                        <span class="fs-4">Crear excel</span>
+                    </div>
+                </a>
+            </div>
+            <div>
+                <div class="input-group search rounded-3">
+                    <span class="search__icon input-group-text border-0 py-2 px-3 rounded-start-3"><i class="bi bi-search fs-4"></i></span>
+                    <input type="text" class="search__input border-0 fs-4 p-2 rounded-end-3" id="search__input" placeholder="Buscar nómina">
                 </div>
-            </a>
-            <a class="text-decoration-none text-white mx-sm-3  mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_nomina_masiva">
-                <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
-                        <rect opacity="1" x="11.364" y="20.364" width="16" height="2.5" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
-                        <rect x="4.36396" y="11.364" width="16" height="2.5" rx="1" fill="currentColor"></rect>
-                    </svg>
-                    <span class="fs-4">Añadir nóminas masiva</span>
-                </div>
-            </a>
-            <a class="text-decoration-none text-white mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_mandar_nominas">
-                <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
-                    <i class="bi bi-send-fill mx-2"></i> <span class="fs-4">Mandar nóminas</spa>
-                </div>
-            </a>
-            <a class="text-decoration-none text-white mx-sm-3 " href="clases/crearExcel.php?crearExcel=true">
-                <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
-                    <i class="bi bi-file-earmark-excel-fill mx-2"></i>
-                    <span class="fs-4">Crear excel</span>
-                </div>
-            </a>
+            </div>
         </div>
         <table id="TablaNominas" class="table table-striped table-hover align-middle gs-0 gy-4">
             <thead>
@@ -571,6 +580,10 @@ if (isset($_GET["nominaExcel"])) {
     <script>
         $(document).ready(function() {
             $('#destinatario').selectpicker();
+        });
+        $("#search__input").on("keyup", function() {
+            let tabla = $("#TablaNominas").DataTable();
+            tabla.search(this.value).draw();
         });
     </script>
 </body>

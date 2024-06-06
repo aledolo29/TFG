@@ -25,6 +25,7 @@
 
   &__btn {
     @include m.btn(var.$naranja, var.$blanco);
+    border: 0;
   }
   &__btn:hover {
     background-color: rgb(227, 86, 29);
