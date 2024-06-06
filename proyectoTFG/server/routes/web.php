@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,8 @@ Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout'
 // Para dar por correcto el pago
 Route::get('/success', [PaymentController::class, 'sendEmail'])->name('success');
 
+// Para generar pdf
+Route::get('/pdf', [PDFController::class, 'generatePDF'])->name('pdf');
 
 
 require __DIR__ . '/auth.php';
