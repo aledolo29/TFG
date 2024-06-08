@@ -23,13 +23,7 @@ if (isset($_GET['billete_Id'])) {
         if ($resultadoBillete !== null) {
             $asiento = $resultadoBillete->billete_Asiento;
             $asiento = intval(substr($asiento, 1));
-            if ($asiento <= 6) {
-                $precio = $resultadoBillete->billete_Precio / 1.5;
-            } else if ($asiento > 6 && $asiento <= 10) {
-                $precio = $resultadoBillete->billete_Precio / 3;
-            } else {
-                $precio = $resultadoBillete->billete_Precio;
-            }
+            $precio = $resultadoBillete->billete_Precio;
             $precioSinIVA =  $precio * 0.1;
 
             $seleccionCliente = "SELECT * FROM clientes WHERE cliente_Id = '$resultadoBillete->billete_cliente_IdFK'";
@@ -95,7 +89,7 @@ if (isset($_GET['billete_Id'])) {
                 $pdf->Cell(25, 5, $precio, 1, 1, "C", 1);  // Total
 
 
-                $pdf->Output('D', 'Factura-' . generarNumeroFactura() . '.pdf');
+                $pdf->Output('D', 'Factura-' . $numeroFactura . '.pdf');
                 //    header('Location')
             }
         }
