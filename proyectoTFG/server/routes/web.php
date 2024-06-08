@@ -4,6 +4,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use PhpParser\Builder\Function_;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,8 +26,13 @@ Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout'
 // Para dar por correcto el pago
 Route::get('/success', [PaymentController::class, 'sendEmail'])->name('success');
 
+// Para obtener token
+Route::post('/token', function () {
+    return response()->json(['token' => csrf_token()]);
+})->name('token');
+
 // Para generar pdf
-Route::get('/pdf', [PDFController::class, 'generatePDF'])->name('pdf');
+Route::post('/descargarFactura', [PDFController::class, 'generatePDF'])->name('descargarFactura');
 
 
 require __DIR__ . '/auth.php';

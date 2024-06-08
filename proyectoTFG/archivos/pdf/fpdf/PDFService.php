@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Services;
 
-use Codedge\Fpdf\Fpdf\Fpdf;
+require_once '../pdf/fpdf/fpdf.php';
 
 define("EURO", chr(128));
 class PDFService extends FPDF
 {
     function Header()
     {
-
-        $logo = public_path('storage/logo_azul.png');
+        $marca_agua = 'img/marca_agua.png';
+        $logo = 'img/logo_azul.png';
+        $this->Image($marca_agua, -35, 220, 120);
         $this->Image($logo, 5, 0, 30, 30);
         $this->SetTextColor(50, 81, 98);
         $this->SetFont("Times", "B", 24);
         $this->Cell(20);
-        $this->Cell(0, 10, "INTERSTELLAR ARILINES", 0, 1, "L");
+        $this->Cell($this->GetPageWidth() / 2, 10, "INTERSTELLAR ARILINES", 0, 0, "L");
     }
 
     function FactureTable($data, $row)

@@ -12043,7 +12043,7 @@ img {
 
 @media screen and (min-width: 1024px) {
   .listadoBilletes__item {
-    width: 55%;
+    width: 65%;
   }
 }
 .listadoBilletes__guiones {
@@ -12055,6 +12055,10 @@ img {
     display: inline-block;
   }
 }
+.listadoBilletes__botonFactura:hover, .listadoBilletes__botonEliminar:hover {
+  text-decoration: underline;
+}
+
 @font-face {
   font-family: "Inter";
   src: url(../assets/fonts/Inter-Regular.ttf);

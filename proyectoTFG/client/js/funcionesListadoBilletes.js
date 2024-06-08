@@ -74,10 +74,17 @@ $(document).ready(function () {
 
                     var billete = "";
                     billete += `<div class="listadoBilletes__item ">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex flex-md-row flex-column justify-content-between align-items-center mb-3">
                           <cite class="fs-5 text-primary">Vuelo Num.: ${
                             dataVuelo.vuelo_Id
                           }</cite>
+                        <div class="d-flex justify-content-center align-items-center mt-md-0 mt-3">
+                          <div class="d-flex justify-content-center align-items-center me-4">
+                            <i class="bi bi-download text-primary"></i>
+                            <button class="btn listadoBilletes__botonFactura fs-5 text-primary fw-bold p-0 ms-2" value="${
+                              dataBilletes[i].billete_Id
+                            }">Descargar factura</button>
+                          </div>
                           <div class="d-flex justify-content-center align-items-center">
                             <i class="bi bi-x fw-bold fs-3 text-primary"></i>
                             <button class="btn listadoBilletes__botonEliminar fs-5 text-primary fw-bold p-0" data-bs-toggle="modal" data-bs-target="#modalEliminarBillete_${
@@ -86,6 +93,7 @@ $(document).ready(function () {
                       dataBilletes[i].billete_Id
                     }">Cancelar billete</button>
                           </div>
+                         </div>
                         </div>
                       <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
                           <div class="d-flex justify-content-between align-items-center">
@@ -198,6 +206,15 @@ $(document).ready(function () {
                       }
                     });
                   });
+                  $(document).on(
+                    "click",
+                    ".listadoBilletes__botonFactura",
+                    function () {
+                      let billete_Id = $(this).val();
+
+                      window.location.href = `http://localhost/TFG/proyectoTFG/archivos/pdf/generatePDF.php?billete_Id=${billete_Id}`;
+                    }
+                  );
                 } else {
                   window.location.href =
                     "http://localhost/TFG/proyectoTFG/client/archivos/error.html";

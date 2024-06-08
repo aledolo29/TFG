@@ -194,14 +194,23 @@ class PaymentController extends Controller
         <p><a href="mailto: @compania.com">interstellarairlines@compania.com</a></p>
       </div>
     </div>
-    <div>
-      <h3>Te dejamos algunas recomendaciones de posibles lugares donde hospedarse en ' . $ciudad . '</h3  >
+    <div>';
+    if ($dataPlaces['status'] == 'OK') {
+      $cuerpoEmail .= '<h3>Te dejamos algunas recomendaciones de posibles lugares donde hospedarse en ' . $ciudad . '</h3  >
       <ul>';
-    for ($i = 0; $i < 5; $i++) {
-      $cuerpoEmail .= '<li><strong>' . $dataPlaces['results'][$i]['name'] . '</strong><br>Echar un vistazo: . ' . $dataPlaces['results'][$i]['photos'][0]['html_attributions'][0] . '</li>';
+      $num = 0;
+      if (count($dataPlaces['results']) < 5) {
+        $num = count($dataPlaces['results']);
+      } else {
+        $num = 5;
+      }
+      for ($i = 0; $i < $num; $i++) {
+        $cuerpoEmail .= '<li><strong>' . $dataPlaces['results'][$i]['name'] . '</strong><br>Echar un vistazo: . ' . $dataPlaces['results'][$i]['photos'][0]['html_attributions'][0] . '</li>';
+      }
+      $cuerpoEmail .= '</ul>';
     }
-    $cuerpoEmail .= '</ul>
-    </div>
+
+    $cuerpoEmail .= ' </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
