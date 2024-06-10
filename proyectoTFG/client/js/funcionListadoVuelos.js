@@ -93,7 +93,7 @@ $(document).ready(function () {
   // Si no hay vuelos
   if (dataVuelo == null || dataVuelo.length == 0) {
     window.location.href =
-      "http://localhost/TFG/proyectoTFG/client/archivos/error.html";
+      "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/error.html";
   }
 
   // Mostrar los vuelos

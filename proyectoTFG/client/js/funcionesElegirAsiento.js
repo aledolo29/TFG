@@ -12,7 +12,7 @@ function pintarAsientos() {
   vuelo = JSON.parse(decodeURIComponent(vuelo));
 
   fetch(
-    "http://localhost/TFG/proyectoTFG/server/public/api/comprobarAsientos",
+    "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/api/comprobarAsientos",
     {
       method: "POST",
       headers: {
@@ -136,7 +136,7 @@ function pintarAsientos() {
             JSON.stringify(asientosSeleccionados)
           );
           window.location.href =
-            "http://localhost/TFG/proyectoTFG/client/archivos/pagarVuelo.html";
+            "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/pagarVuelo.html";
         });
       });
     }
@@ -150,7 +150,7 @@ $(document).ready(function () {
   vuelo = JSON.parse(decodeURIComponent(vuelo));
   if (vuelo == null) {
     window.location.href =
-      "http://localhost/TFG/proyectoTFG/client/archivos/error.html";
+      "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/error.html";
   }
   seguridad();
 

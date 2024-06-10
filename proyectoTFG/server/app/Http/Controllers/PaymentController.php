@@ -49,7 +49,7 @@ class PaymentController extends Controller
         'quantity' => 1,
       ]],
       'mode' => 'payment',
-      'success_url' => 'http://localhost/TFG/proyectoTFG/server/public/success',
+      'success_url' => 'https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/success',
       'cancel_url' => 'https://example.com/cancel',
     ]);
 

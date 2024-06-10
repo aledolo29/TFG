@@ -18,7 +18,7 @@ $(document).ready(function () {
     window.location.href = "index.html";
   }
   cargarCiudades().then(() => {
-    fetch("http://localhost/TFG/proyectoTFG/server/public/api/obtenerCliente", {
+    fetch("https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/api/obtenerCliente", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -102,7 +102,7 @@ $(document).ready(function () {
 
         $(".pagarVuelo__btn").click(function () {
           var url =
-            "http://localhost/TFG/proyectoTFG/server/public/checkout?idCliente=" +
+            "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/checkout?idCliente=" +
             idCliente +
             "&cliente=" +
             nombre +

@@ -23,7 +23,7 @@
         </div>
         <p class="text-center"> ¡Gracias por tu compra! En breve recibirás un correo con los detalles de
             tu pedido.</p>
-        <a id="guardarVueloBillete" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="http://localhost/TFG/proyectoTFG/client/archivos/index.html">Volver al inicio</a>
+        <a id="guardarVueloBillete" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/index.html">Volver al inicio</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
@@ -34,7 +34,7 @@
             var asientos = JSON.parse(sessionStorage.getItem("asientosSeleccionados"));
             var idCliente = localStorage.getItem("idCliente");
             console.log(idCliente);
-            fetch('http://localhost/TFG/proyectoTFG/server/public/api/guardarVueloBillete', {
+            fetch('https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/api/guardarVueloBillete', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

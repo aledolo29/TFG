@@ -21,7 +21,7 @@ $(document).ready(function () {
   // Cargamos las ciudades
   cargarCiudades().then(() => {
     fetch(
-      "http://localhost/TFG/proyectoTFG/server/public/api/obtenerBilletes",
+      "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/api/obtenerBilletes",
       {
         method: "POST",
         headers: {
@@ -43,7 +43,7 @@ $(document).ready(function () {
           } else {
             for (let i = 0; i < dataBilletes.length; i++) {
               fetch(
-                "http://localhost/TFG/proyectoTFG/server/public/api/obtenerVuelo",
+                "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/api/obtenerVuelo",
                 {
                   method: "POST",
                   headers: {
@@ -188,7 +188,7 @@ $(document).ready(function () {
                   $(document).on("click", ".cancelar_billete", function () {
                     let billete_Id = $(this).val();
                     fetch(
-                      "http://localhost/TFG/proyectoTFG/server/public/api/eliminarBillete",
+                      "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/api/eliminarBillete",
                       {
                         method: "POST",
                         headers: {
@@ -199,10 +199,10 @@ $(document).ready(function () {
                     ).then((response) => {
                       if (response.ok) {
                         window.location.href =
-                          "http://localhost/TFG/proyectoTFG/client/archivos/listadoBilletes.html?eliminado=true";
+                          "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/listadoBilletes.html?eliminado=true";
                       } else {
                         window.location.href =
-                          "http://localhost/TFG/proyectoTFG/client/archivos/error.html";
+                          "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/error.html";
                       }
                     });
                   });
@@ -212,12 +212,12 @@ $(document).ready(function () {
                     function () {
                       let billete_Id = $(this).val();
 
-                      window.location.href = `http://localhost/TFG/proyectoTFG/archivos/pdf/generatePDF.php?billete_Id=${billete_Id}`;
+                      window.location.href = `https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/archivos/pdf/generatePDF.php?billete_Id=${billete_Id}`;
                     }
                   );
                 } else {
                   window.location.href =
-                    "http://localhost/TFG/proyectoTFG/client/archivos/error.html";
+                    "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/error.html";
                 }
               });
             }

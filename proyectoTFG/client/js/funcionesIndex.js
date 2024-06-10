@@ -208,7 +208,7 @@ buscarVueloBtn.click(function (e) {
           coordenadasAeropuerto_Destino
         );
         fetch(
-          "http://localhost/TFG/proyectoTFG/server/public/api/buscarVuelo",
+          "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/api/buscarVuelo",
           {
             method: "POST",
             headers: {
@@ -236,7 +236,7 @@ buscarVueloBtn.click(function (e) {
               });
               localStorage.setItem("vuelos", JSON.stringify(data));
               window.location.href =
-                "http://localhost/TFG/proyectoTFG/client/archivos/cargandoVuelos.html";
+                "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/cargandoVuelos.html";
             });
           } else {
             alert("Error en el servidor");

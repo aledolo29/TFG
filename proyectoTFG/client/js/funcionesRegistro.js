@@ -25,7 +25,7 @@ $("#btnRegistro").click(function () {
   } else {
     if (password == password2) {
       fetch(
-        "http://localhost/TFG/proyectoTFG/server/public/api/registroCliente",
+        "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/api/registroCliente",
         {
           method: "POST",
           headers: {
@@ -58,7 +58,7 @@ $("#btnRegistro").click(function () {
               mensaje_error.removeClass("alert alert-danger");
               setTimeout(() => {
                 window.location.href =
-                  "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
+                  "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/index.html";
               }, 4000);
             } else {
               mensaje_error.addClass("alert alert-danger");
