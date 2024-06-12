@@ -200,7 +200,7 @@ $(document).ready(function () {
   // Validar si se ha seleccionado un aeropuerto recomendado
   if (
     sessionStorage.getItem("aeropuertoRecomendado") != null &&
-    sessionStorage.getItem("id_aeropuertoRecomendado") != "null"
+    sessionStorage.getItem("id_aeropuertoRecomendado") != null
   ) {
     var aeropuertoRecomendado = sessionStorage.getItem("aeropuertoRecomendado");
     var id_aeropuertoRecomendado = sessionStorage.getItem(

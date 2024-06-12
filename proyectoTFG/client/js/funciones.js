@@ -33,6 +33,16 @@ $(document).ready(function () {
       ></a>`
       );
     }
+    var enlaceFormularioVuelos = $("#enlace_formulario_vuelos");
+    enlaceFormularioVuelos.click(function (e) {
+      e.preventDefault();
+      if (sessionStorage.getItem("aeropuertoRecomendado") != null) {
+        sessionStorage.removeItem("aeropuertoRecomendado");
+        sessionStorage.removeItem("id_aeropuertoRecomendado");
+      }
+      window.location.href =
+        "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/formularioBuscarVuelo.html";
+    });
   });
   cargarComponente("footer");
 });
@@ -151,19 +161,16 @@ function comprobarLogin() {
   var user = $("#login_Cliente").val();
   var password = $("#login_Password").val();
 
-  fetch(
-    "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/api/loginCliente",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        user: user,
-        password: password,
-      }),
-    }
-  ).then((res) => {
+  fetch("https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/server/public/api/loginCliente", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user: user,
+      password: password,
+    }),
+  }).then((res) => {
     if (res.status == 200) {
       var mensaje_correcto = $("#mensaje_correcto");
       var gif_cargando = $("#gif_cargando");
@@ -188,7 +195,7 @@ function comprobarLogin() {
           setTimeout(() => {
             if (param == "true") {
               window.location.href =
-                "http://localhost/TFG/proyectoTFG/client/archivos/index.html";
+                "https://ruizgijon.ddns.net/domingueza/TFG/proyectoTFG/client/archivos/index.html";
             } else {
               window.location.reload();
             }
