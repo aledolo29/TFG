@@ -1,7 +1,7 @@
 <?php
 abstract class ConexionBD
 {
-    private static $server = 'ruix';
+    private static $server = 'localhost';
     private static $db = 'domingueza_general';
     private static $user = 'domingueza';
     private static $password = 'dOmingueza10';
