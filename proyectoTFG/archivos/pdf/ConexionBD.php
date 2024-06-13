@@ -1,7 +1,7 @@
 <?php
 abstract class ConexionBD
 {
-    private static $server = 'ruizgijon.ddns.net';
+    private static $server = 'domingueza@ruizgijon.ddns.net';
     private static $db = 'domingueza_general';
     private static $user = 'domingueza';
     private static $password = 'dOmingueza10';
