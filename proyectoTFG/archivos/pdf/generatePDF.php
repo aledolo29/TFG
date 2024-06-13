@@ -5,6 +5,9 @@ use Symfony\Component\VarDumper\VarDumper;
 require_once 'conexionBD.php';
 require_once 'fpdf/PDFService.php';
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 if (isset($_GET['billete_Id'])) {
     $id = $_GET['billete_Id'];
 
