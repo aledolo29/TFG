@@ -2,9 +2,9 @@
 abstract class ConexionBD
 {
     private static $server = 'localhost';
-    private static $db = 'tfg';
-    private static $user = 'root';
-    private static $password = '';
+    private static $db = 'domingueza_general';
+    private static $user = 'domingueza';
+    private static $password = 'dOmingueza10';
     public static function connectDB()
     {
         try {
