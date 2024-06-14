@@ -2,7 +2,7 @@
 
 use Symfony\Component\VarDumper\VarDumper;
 
-require_once 'conexionBD.php';
+require_once 'ConexionBD.php';
 require_once 'fpdf/PDFService.php';
 
 ini_set('display_errors', 1);
