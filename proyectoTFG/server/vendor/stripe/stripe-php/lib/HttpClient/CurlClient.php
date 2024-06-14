@@ -82,7 +82,7 @@ class CurlClient implements ClientInterface, StreamingClientInterface
 
     public function initUserAgentInfo()
     {
-        $curlVersion = curl_version();
+        $curlVersion = \curl_version();
         $this->userAgentInfo = [
             'httplib' => 'curl ' . $curlVersion['version'],
             'ssllib' => $curlVersion['ssl_version'],
