@@ -14,12 +14,12 @@
 <body>
     <div class="m-auto w-50 d-flex flex-column justify-content-center align-items-center mt-5">
         <div class="logo">
-            <img src="../../storage/app/public/logo_azul.png" class="img-fluid" alt="logo">
+            <img src="../storage/app/public/logo_azul.png" class="img-fluid" alt="logo">
         </div>
         <div class="d-flex justify-content-center align-items-center">
             <h2 class="text-center me-2">Pago completado exitosamente</h2>
             <div class="checked">
-                <img src="../../storage/app/public/checked.png" class="img-fluid w-75" alt="checked">
+                <img src="../storage/app/public/checked.png" class="img-fluid w-75" alt="checked">
             </div>
         </div>
         <p class="text-center"> ¡Gracias por tu compra! En breve recibirás un correo con los detalles de
