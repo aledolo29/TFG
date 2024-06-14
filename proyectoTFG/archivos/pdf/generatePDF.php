@@ -47,18 +47,18 @@ if (isset($_GET['billete_Id'])) {
                 $pdf->SetFont("Courier", "B", 10);
                 $y = 40;
                 $pdf->SetXY($pdf->GetX(), $y);
-                $pdf->Cell(0, 10, "" . utf8_decode("¡") . "Gracias por confiar en nosotros!", 0, 2, "L");
+                $pdf->Cell(0, 10, "" . htmlentities("¡") . "Gracias por confiar en nosotros!", 0, 2, "L");
                 $pdf->Cell(0, 6, "Nombre: " . $resultadoCliente->cliente_Nombre . "", 0, 2, "L");
                 $pdf->Cell(0, 6, "Apellidos: " . $resultadoCliente->cliente_Apellidos . "", 0, 2, "L");
                 $pdf->Cell(0, 6, "NIF: " . $resultadoCliente->cliente_DNI . "", 0, 2, "L");
 
                 $pdf->Ln(20);
 
-                $pdf->Cell(0, 6, "INTERSTELLAR AIRLINES, " . utf8_decode("LÍNEAS AÉREAS DE ESPAÑA") . ", S.A, OPERADORA, SOCIEDAD UNIPERSONAL", 0, 2, "L");
+                $pdf->Cell(0, 6, "INTERSTELLAR AIRLINES, " . htmlentities("LÍNEAS AÉREAS DE ESPAÑA") . ", S.A, OPERADORA, SOCIEDAD UNIPERSONAL", 0, 2, "L");
                 $pdf->Cell(0, 6, "C/ Real, 1, 28001 Sevilla", 0, 2, "L");
                 $pdf->Cell(0, 6, "CIF: A-12345678", 0, 2, "L");
-                $pdf->Cell(0, 6, "41710 SEVILLA - " . utf8_decode("ESPAÑA") . "", 0, 2, "L");
-                $pdf->Cell(0, 6, "" . utf8_decode("Teléfono") . ": 954 123 456", 0, 2, "L");
+                $pdf->Cell(0, 6, "41710 SEVILLA - " . htmlentities("ESPAÑA") . "", 0, 2, "L");
+                $pdf->Cell(0, 6, "" . htmlentities("Teléfono") . ": 954 123 456", 0, 2, "L");
                 $pdf->Cell(0, 6, "Fax: 954 123 456", 0, 2, "L");
 
                 $pdf->Ln(20);
