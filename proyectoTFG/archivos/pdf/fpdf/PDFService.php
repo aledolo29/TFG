@@ -27,9 +27,9 @@ class PDFService extends FPDF
         $i = 0;
         foreach ($data as $col) {
             if ($i == count($data) - 1) {
-                $this->Cell($row[$i], 5, utf8_decode($col), 1, 1, "L", 1);
+                $this->Cell($row[$i], 5, htmlentities($col), 1, 1, "L", 1);
             } else {
-                $this->Cell($row[$i], 5, utf8_decode($col), 1, 0, "L", 1);
+                $this->Cell($row[$i], 5, htmlentities($col), 1, 0, "L", 1);
             }
             $i++;
         }
@@ -53,9 +53,9 @@ class PDFService extends FPDF
         $i = 0;
         foreach ($data as $col) {
             if ($i == count($data) - 1) {
-                $this->Cell($row[$i], 5, utf8_decode($col), 1, 2, "C", 1);
+                $this->Cell($row[$i], 5, htmlentities($col), 1, 2, "C", 1);
             } else {
-                $this->Cell($row[$i], 5, utf8_decode($col), 1, 0, "C", 1);
+                $this->Cell($row[$i], 5, htmlentities($col), 1, 0, "C", 1);
             }
             $i++;
         }
@@ -79,9 +79,9 @@ class PDFService extends FPDF
         $i = 0;
         foreach ($data as $col) {
             if ($i == count($data) - 1) {
-                $this->Cell($row[$i], 5, utf8_decode($col), 1, 1, "L");
+                $this->Cell($row[$i], 5, htmlentities($col), 1, 1, "L");
             } else {
-                $this->Cell($row[$i], 5, utf8_decode($col), 1, 0, "L");
+                $this->Cell($row[$i], 5, htmlentities($col), 1, 0, "L");
             }
             $i++;
         }
@@ -93,6 +93,6 @@ class PDFService extends FPDF
         // Arial italic 8
         $this->SetFont('Arial', 'I', 8);
         // Número de página
-        $this->Cell(0, 10, utf8_decode('Página ') . $this->PageNo() . '/{nb}', 0, 0, 'C');
+        $this->Cell(0, 10, htmlentities('Página ') . $this->PageNo() . '/{nb}', 0, 0, 'C');
     }
 }
