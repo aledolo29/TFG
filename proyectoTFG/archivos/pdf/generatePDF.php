@@ -98,7 +98,7 @@ if (isset($_GET['billete_Id'])) {
         }
     }
 } else {
-    header("Location: ../../../client/index.html");
+    header("Location: ../client/index.html");
 }
 function generarNumeroFactura()
 {
