@@ -192,7 +192,7 @@ if (isset($_POST['aux_eliminar_cliente'])) {
   ?>
   <!-- TABLA -->
   <section class="crud__tabla container-fluid bg-white mt-5 rounded-4 p-5">
-    <div class="mb-5 d-flex justify-content-between align-items-center">
+    <div class="mb-5 d-flex flex-column flex-sm-row justify-content-between align-items-center">
       <div>
         <a class="text-decoration-none text-white" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_cliente">
           <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">

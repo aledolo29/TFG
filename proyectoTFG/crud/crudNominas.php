@@ -208,7 +208,7 @@ if (isset($_GET["nominaExcel"])) {
     ?>
     <!-- TABLA -->
     <section class="crud__tabla container-fluid bg-white mt-5 rounded-4 p-5">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center">
 
             <div class="d-flex flex-sm-row flex-column align-items-sm-center mb-5">
                 <a class="text-decoration-none text-white mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_nomina">
