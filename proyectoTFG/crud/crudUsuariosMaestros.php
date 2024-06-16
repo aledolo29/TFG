@@ -122,7 +122,7 @@ if (isset($_POST['aux_eliminar_usuario'])) {
                 <a class="navbar-brand" href="crudEmpleados.php">
                     <img src="../../build/assets/media/logo.png" alt="logo" class="crud__header__logo img-fluid" />
                 </a>
-                <div class="offcanvas offcanvas-end bg-primary" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas offcanvas-end bg-primary offcanvas_div" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div class="offcanvas-header">
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
