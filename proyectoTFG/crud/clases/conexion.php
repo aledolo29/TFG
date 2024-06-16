@@ -9,11 +9,11 @@ date_default_timezone_set('Europe/Madrid');
 class conexion
 {
 
-    var $host = "localhost";
-    var $bd_nombre_global = "tfg";
-    var $bd_usuario_global = "root";
-    var $bd_password_global = "";
-    var $bd_ubicacion_global = "localhost";
+    var $host = "ruix";
+    var $bd_nombre_global = "domingueza_general";
+    var $bd_usuario_global = "domingueza";
+    var $bd_password_global = "dOmingueza10";
+    var $bd_ubicacion_global = "ruix";
 
 
 
