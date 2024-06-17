@@ -49,7 +49,7 @@ class ClienteController extends Controller
       $mail->Password  = 'lozcugypnpjurnrd';   // Contraseña SMTP
       $mail->SMTPSecure = 'ssl';
       $mail->Port  = 465;
-      $mail->setFrom('proyectotfgdaw@gmail.com', 'Interstellar Airlines');  // Remitente del correo
+      $mail->setFrom('interstellarairlines@gmail.com', 'Interstellar Airlines');  // Remitente del correo
 
       $mail->addAddress($request->correo, $request->correo);  // Email y nombre del destinatario
       $mail->isHTML(true);
@@ -186,7 +186,7 @@ class ClienteController extends Controller
       $mail->Password  = 'lozcugypnpjurnrd';   // Contraseña SMTP
       $mail->SMTPSecure = 'ssl';
       $mail->Port  = 465;
-      $mail->setFrom('proyectotfgdaw@gmail.com', 'Interstellar Airlines');  // Remitente del correo
+      $mail->setFrom('interstellarairlines@gmail.com', 'Interstellar Airlines');  // Remitente del correo
 
       $mail->addAddress($comprobarCliente->cliente_Correo, $comprobarCliente->cliente_Correo);  // Email y nombre del destinatario
       $mail->isHTML(true);

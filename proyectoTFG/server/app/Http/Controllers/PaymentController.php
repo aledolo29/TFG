@@ -94,7 +94,7 @@ class PaymentController extends Controller
     $mail->Password  = 'lozcugypnpjurnrd';   // Contraseña SMTP
     $mail->SMTPSecure = 'ssl';
     $mail->Port  = 465;
-    $mail->setFrom('proyectotfgdaw@gmail.com', 'Interstellar Airlines');  // Remitente del correo
+    $mail->setFrom('interstellarairlines@gmail.com', 'Interstellar Airlines');  // Remitente del correo
 
 
     // Destinatario
