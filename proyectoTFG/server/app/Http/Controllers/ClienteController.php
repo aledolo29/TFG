@@ -8,53 +8,53 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class ClienteController extends Controller
 {
-    public function guardarCliente(Request $request)
-    {
-        $comprobarCliente = Cliente::where('cliente_Usuario', $request->usuario)->orWhere('cliente_Correo', $request->correo)->first();
-        $arrayValores = ["cliente_Usuario" => $request->usuario, "cliente_Correo" => $request->correo];
-        if ($comprobarCliente != null) {
-            foreach ($arrayValores as $key => $value) {
-                if ($comprobarCliente->$key == $value) {
-                    $campoRepetido =  explode('_', $key);
-                    return response()->json([
-                        'error' => 'El ' . strtolower($campoRepetido[1]) . ' ya esta registrado.'
-                    ]);
-                }
-            }
-        } else {
-            $cliente = new Cliente();
-            $cliente->cliente_Nombre = ucfirst($request->nombre);
-            $cliente->cliente_Apellidos = ucfirst($request->apellidos);
-            $cliente->cliente_Usuario = $request->usuario;
-            $cliente->cliente_Password = $request->password;
-            $cliente->cliente_DNI = $request->dni;
-            $cliente->cliente_Correo = $request->correo;
-            $cliente->cliente_Telefono = $request->telefono;
-            $cliente->save();
+  public function guardarCliente(Request $request)
+  {
+    $comprobarCliente = Cliente::where('cliente_Usuario', $request->usuario)->orWhere('cliente_Correo', $request->correo)->first();
+    $arrayValores = ["cliente_Usuario" => $request->usuario, "cliente_Correo" => $request->correo];
+    if ($comprobarCliente != null) {
+      foreach ($arrayValores as $key => $value) {
+        if ($comprobarCliente->$key == $value) {
+          $campoRepetido =  explode('_', $key);
+          return response()->json([
+            'error' => 'El ' . strtolower($campoRepetido[1]) . ' ya esta registrado.'
+          ]);
+        }
+      }
+    } else {
+      $cliente = new Cliente();
+      $cliente->cliente_Nombre = ucfirst($request->nombre);
+      $cliente->cliente_Apellidos = ucfirst($request->apellidos);
+      $cliente->cliente_Usuario = $request->usuario;
+      $cliente->cliente_Password = $request->password;
+      $cliente->cliente_DNI = $request->dni;
+      $cliente->cliente_Correo = $request->correo;
+      $cliente->cliente_Telefono = $request->telefono;
+      $cliente->save();
 
 
 
-            $mail = new PHPMailer(true);
+      $mail = new PHPMailer(true);
 
 
-            // Envía un email de recuperación de contraseña al cliente
+      // Envía un email de recuperación de contraseña al cliente
 
-            // Inicio
-            // Configuracion SMTP
-            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;  // Mostrar salida (Desactivar en producción)
-            $mail->isSMTP();   // Activar envio SMTP
-            $mail->Host  = 'smtp.gmail.com';                     // Servidor SMTP
-            $mail->SMTPAuth  = true;  // Identificacion SMTP
-            $mail->Username  = 'proyectotfgdaw@gmail.com';                  // Usuario SMTP
-            $mail->Password  = 'lozcugypnpjurnrd';   // Contraseña SMTP
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port  = 465;
-            $mail->setFrom('proyectotfgdaw@gmail.com', 'Interstellar Airlines');  // Remitente del correo
+      // Inicio
+      // Configuracion SMTP
+      // $mail->SMTPDebug = SMTP::DEBUG_SERVER;  // Mostrar salida (Desactivar en producción)
+      $mail->isSMTP();   // Activar envio SMTP
+      $mail->Host  = 'smtp.gmail.com';                     // Servidor SMTP
+      $mail->SMTPAuth  = true;  // Identificacion SMTP
+      $mail->Username  = 'proyectotfgdaw@gmail.com';                  // Usuario SMTP
+      $mail->Password  = 'lozcugypnpjurnrd';   // Contraseña SMTP
+      $mail->SMTPSecure = 'ssl';
+      $mail->Port  = 465;
+      $mail->setFrom('proyectotfgdaw@gmail.com', 'Interstellar Airlines');  // Remitente del correo
 
-            $mail->addAddress('proyectotfgdaw@gmail.com', $request->correo);  // Email y nombre del destinatario
-            $mail->isHTML(true);
-            $mail->Subject = 'Bienvenido a Interstellar Airlines, ' . ucfirst($request->nombre) . '!';
-            $mail->Body = '
+      $mail->addAddress($request->correo, $request->correo);  // Email y nombre del destinatario
+      $mail->isHTML(true);
+      $mail->Subject = 'Bienvenido a Interstellar Airlines, ' . ucfirst($request->nombre) . '!';
+      $mail->Body = '
             <!DOCTYPE html>
             <html lang="es">
               <head>
@@ -127,71 +127,71 @@ class ClienteController extends Controller
             </html>
             ';
 
-            $mail->send();
-            // Fin
+      $mail->send();
+      // Fin
 
 
-            return response()->json([
-                'correcto' => 'Usuario ' . $request->usuario . ' registrado correctamente. En breves recibirás un email de bienvenida. Espere para ser redirigido.', 'cliente' => $cliente
-            ]);
-        }
+      return response()->json([
+        'correcto' => 'Usuario ' . $request->usuario . ' registrado correctamente. En breves recibirás un email de bienvenida. Espere para ser redirigido.', 'cliente' => $cliente
+      ]);
     }
+  }
 
-    public function comprobarLogin(Request $request)
-    {
-        $comprobarCliente = Cliente::where('cliente_Correo', $request->user)->orWhere('cliente_Usuario', $request->user)->first();
-        if ($comprobarCliente != null) {
-            if ($comprobarCliente->cliente_Password == $request->password) {
-                return response()->json([
-                    'correcto' => 'Usuario ' . $request->usuario . ' logueado correctamente. Espere para ser redirigido.', 'nombre' =>  $comprobarCliente->cliente_Nombre, 'idCliente' => $comprobarCliente->cliente_Id
-                ]);
-            } else {
-                return response()->json([
-                    'error' => 'Contraseña incorrecta.'
-                ]);
-            }
-        } else {
-            return response()->json([
-                'error' => 'Usuario no registrado.'
-            ]);
-        }
-    }
-
-    public function obtenerCliente(Request $request)
-    {
-        $cliente = Cliente::where('cliente_Id', $request->idCliente)->first();
+  public function comprobarLogin(Request $request)
+  {
+    $comprobarCliente = Cliente::where('cliente_Correo', $request->user)->orWhere('cliente_Usuario', $request->user)->first();
+    if ($comprobarCliente != null) {
+      if ($comprobarCliente->cliente_Password == $request->password) {
         return response()->json([
-            'cliente' => $cliente
+          'correcto' => 'Usuario ' . $request->usuario . ' logueado correctamente. Espere para ser redirigido.', 'nombre' =>  $comprobarCliente->cliente_Nombre, 'idCliente' => $comprobarCliente->cliente_Id
         ]);
+      } else {
+        return response()->json([
+          'error' => 'Contraseña incorrecta.'
+        ]);
+      }
+    } else {
+      return response()->json([
+        'error' => 'Usuario no registrado.'
+      ]);
     }
+  }
 
-    public function recuperarContrasena(Request $request)
-    {
-        $comprobarCliente = Cliente::where('cliente_Correo', $request->email)->first();
-        if ($comprobarCliente != null) {
+  public function obtenerCliente(Request $request)
+  {
+    $cliente = Cliente::where('cliente_Id', $request->idCliente)->first();
+    return response()->json([
+      'cliente' => $cliente
+    ]);
+  }
+
+  public function recuperarContrasena(Request $request)
+  {
+    $comprobarCliente = Cliente::where('cliente_Correo', $request->email)->first();
+    if ($comprobarCliente != null) {
 
 
-            $mail = new PHPMailer(true);
+      $mail = new PHPMailer(true);
 
 
-            // Envía un email de recuperación de contraseña al cliente
+      // Envía un email de recuperación de contraseña al cliente
 
-            // Inicio
-            // Configuracion SMTP
-            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;  // Mostrar salida (Desactivar en producción)
-            $mail->isSMTP();   // Activar envio SMTP
-            $mail->Host  = 'smtp.gmail.com';                     // Servidor SMTP
-            $mail->SMTPAuth  = true;  // Identificacion SMTP
-            $mail->Username  = 'proyectotfgdaw@gmail.com';                  // Usuario SMTP
-            $mail->Password  = 'lozcugypnpjurnrd';   // Contraseña SMTP
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port  = 465;
-            $mail->setFrom('proyectotfgdaw@gmail.com', 'Interstellar Airlines');  // Remitente del correo
+      // Inicio
+      // Configuracion SMTP
+      // $mail->SMTPDebug = SMTP::DEBUG_SERVER;  // Mostrar salida (Desactivar en producción)
+      $mail->isSMTP();   // Activar envio SMTP
+      $mail->Host  = 'smtp.gmail.com';                     // Servidor SMTP
+      $mail->SMTPAuth  = true;  // Identificacion SMTP
+      $mail->Username  = 'proyectotfgdaw@gmail.com';                  // Usuario SMTP
+      $mail->Password  = 'lozcugypnpjurnrd';   // Contraseña SMTP
+      $mail->SMTPSecure = 'ssl';
+      $mail->Port  = 465;
+      $mail->setFrom('proyectotfgdaw@gmail.com', 'Interstellar Airlines');  // Remitente del correo
 
-            $mail->addAddress('proyectotfgdaw@gmail.com', $comprobarCliente->cliente_Correo);  // Email y nombre del destinatario
-            $mail->isHTML(true);
-            $mail->Subject = 'Recordatorio de ' . utf8_decode("contraseña") . ' del usuario ' . $comprobarCliente->cliente_Usuario;
-            $mail->Body = '
+      $mail->addAddress($comprobarCliente->cliente_Correo, $comprobarCliente->cliente_Correo);  // Email y nombre del destinatario
+      $mail->isHTML(true);
+      $mail->Subject = 'Recordatorio de ' . utf8_decode("contraseña") . ' del usuario ' . $comprobarCliente->cliente_Usuario;
+      $mail->Body = '
             <!DOCTYPE html>
             <html lang="es">
               <head>
@@ -257,11 +257,11 @@ class ClienteController extends Controller
                       <ul>
                       <li>
                       <strong>Usuario: </strong>' . $comprobarCliente->cliente_Usuario .
-                '
+        '
                       </li>
                       <li>
                       <strong> ' . utf8_decode("Contraseña") . ': </strong>' .
-                $comprobarCliente->cliente_Password . '
+        $comprobarCliente->cliente_Password . '
                       </li>
                       </ul>
                       <p>
@@ -280,16 +280,16 @@ class ClienteController extends Controller
                       </body>
                       </html>
                       ';
-            $mail->send();
-            // Fin
+      $mail->send();
+      // Fin
 
-            return response()->json([
-                'correcto' => true
-            ]);
-        } else {
-            return response()->json([
-                'error' => true
-            ]);
-        }
+      return response()->json([
+        'correcto' => true
+      ]);
+    } else {
+      return response()->json([
+        'error' => true
+      ]);
     }
+  }
 }
