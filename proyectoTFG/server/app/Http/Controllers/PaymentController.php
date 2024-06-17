@@ -100,7 +100,7 @@ class PaymentController extends Controller
     // Destinatario
     $cliente = Cliente::where('cliente_Id', $idCliente)->first();
 
-    $mail->addAddress('proyectotfgdaw@gmail.com', $cliente->cliente_Correo);  // Email y nombre del destinatario
+    $mail->addAddress($cliente->cliente_Correo, $cliente->cliente_Correo);  // Email y nombre del destinatario
     $mail->isHTML(true);
     $mail->Subject = 'Reserva de vuelo con Interstellar Airlines';
     $cuerpoEmail .= '
