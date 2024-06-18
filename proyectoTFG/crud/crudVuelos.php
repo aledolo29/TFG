@@ -98,6 +98,19 @@ if (isset($_POST['aux_modificar_vuelo'])) {
     }
 }
 
+// ELIMINAR VUELO
+if (isset($_POST['aux_eliminar_vuelo'])) {
+    $vuelo_Id = $_POST['aux_eliminar_vuelo'];
+    $resEliminacion = $vuelo->eliminar($vuelo_Id);
+    if ($resEliminacion) {
+        $mensajeCorrecto = "Vuelo $vuelo_Id eliminado correctamente";
+        header('Location: crudVuelos.php?mensajeCorrecto=' . $mensajeCorrecto);
+    } else {
+        $mensajeError = "Error al eliminar el vuelo $vuelo_Id";
+        header('Location: crudVuelos.php?mensajeError=' . $mensajeError);
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -333,7 +346,7 @@ if (isset($_POST['aux_modificar_vuelo'])) {
         </div>
     </div>
 
-    <!-- MODALS MODIFICAR Y ELIMINAR USUARIO -->
+    <!-- MODALS MODIFICAR Y ELIMINAR VUELOS -->
     <?php
     $resVuelos = $vuelo->obtener();
     if ($resVuelos !== null) {
