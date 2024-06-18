@@ -101,7 +101,8 @@ if (isset($_POST['aux_modificar_vuelo'])) {
 // ELIMINAR VUELO
 if (isset($_POST['aux_eliminar_vuelo'])) {
     $vuelo_Id = $_POST['aux_eliminar_vuelo'];
-    $resEliminacion = $vuelo->eliminar($vuelo_Id);
+    $condicionEliminar = "WHERE vuelo_Id = '$vuelo_Id'";
+    $resEliminacion = $vuelo->eliminar($condicionEliminar);
     if ($resEliminacion) {
         $mensajeCorrecto = "Vuelo $vuelo_Id eliminado correctamente";
         header('Location: crudVuelos.php?mensajeCorrecto=' . $mensajeCorrecto);
