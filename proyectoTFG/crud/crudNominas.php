@@ -229,7 +229,7 @@ if (isset($_GET["nominaExcel"])) {
                         <span class="fs-4">Añadir nóminas masiva</span>
                     </div>
                 </a> -->
-                <a class="text-decoration-none text-white mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_mandar_nominas">
+                <a class="text-decoration-none text-white  mx-sm-3 mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_mandar_nominas">
                     <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
                         <i class="bi bi-send-fill mx-2"></i> <span class="fs-4">Mandar nóminas</spa>
                     </div>
