@@ -234,7 +234,7 @@ if (isset($_GET["nominaExcel"])) {
                         <i class="bi bi-send-fill mx-2"></i> <span class="fs-4">Mandar nóminas</spa>
                     </div>
                 </a>
-                <a class="text-decoration-none text-white mx-sm-3 " href="clases/crearExcel.php?crearExcel=true">
+                <a class="text-decoration-none text-white" href="clases/crearExcel.php?crearExcel=true">
                     <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
                         <i class="bi bi-file-earmark-excel-fill mx-2"></i>
                         <span class="fs-4">Crear excel</span>
