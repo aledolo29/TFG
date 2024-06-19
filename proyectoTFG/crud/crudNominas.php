@@ -220,7 +220,7 @@ if (isset($_GET["nominaExcel"])) {
                         <span class="fs-4">Añadir nómina</span>
                     </div>
                 </a>
-                <a class="text-decoration-none text-white mx-sm-3  mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_nomina_masiva">
+                <!-- <a class="text-decoration-none text-white mx-sm-3  mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_anadir_nomina_masiva">
                     <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none">
                             <rect opacity="1" x="11.364" y="20.364" width="16" height="2.5" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
@@ -228,7 +228,7 @@ if (isset($_GET["nominaExcel"])) {
                         </svg>
                         <span class="fs-4">Añadir nóminas masiva</span>
                     </div>
-                </a>
+                </a> -->
                 <a class="text-decoration-none text-white mb-2 mb-sm-0" href="#" data-bs-toggle="modal" data-bs-target="#modal_mandar_nominas">
                     <div class="crud__tabla__btn btn btn-warning text-white p-3 rounded-3">
                         <i class="bi bi-send-fill mx-2"></i> <span class="fs-4">Mandar nóminas</spa>
